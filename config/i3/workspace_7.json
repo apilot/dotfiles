@@ -1,0 +1,51 @@
+// vim:ts=4:sw=4:et
+{
+    "border": "pixel",
+    "current_border_width": 3,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1064,
+       "width": 1904,
+       "x": 1928,
+       "y": 8
+    },
+    "marks": [],
+    "name": "А с какими опциями у тебя запущен compton/picom, $USER? — Talks — Форум - Google Chrome",
+    "percent": 0.5,
+    "swallows": [
+       {
+       // "class": "^Google\\-chrome$",
+       // "instance": "^google\\-chrome$",
+       // "machine": "^katanagf6612ue$",
+       // "title": "^А\\ с\\ какими\\ опциями\\ у\\ тебя\\ запущен\\ compton\\/picom\\,\\ \\$USER\\?\\ \\—\\ Talks\\ \\—\\ Форум\\ \\-\\ Google\\ Chrome$",
+       // "window_role": "^browser$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    "border": "pixel",
+    "current_border_width": 3,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1054,
+       "width": 1894,
+       "x": 1943,
+       "y": 23
+    },
+    "marks": [],
+    "name": "i3 - ArchWiki - Google Chrome",
+    "percent": 0.5,
+    "swallows": [
+       {
+       // "class": "^Google\\-chrome$",
+       // "instance": "^google\\-chrome$",
+       // "machine": "^katanagf6612ue$",
+       // "title": "^i3\\ \\-\\ ArchWiki\\ \\-\\ Google\\ Chrome$",
+       // "window_role": "^browser$"
+       }
+    ],
+    "type": "con"
+}
+

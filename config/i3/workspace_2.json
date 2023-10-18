@@ -1,0 +1,26 @@
+// vim:ts=4:sw=4:et
+{
+    "border": "pixel",
+    "current_border_width": 3,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1022,
+       "width": 630,
+       "x": 2242,
+       "y": 1130
+    },
+    "marks": [],
+    "name": "ARENZA PRO - Разработка @ Трекер - Vivaldi",
+    "percent": 1,
+    "swallows": [
+       {
+       // "class": "^Vivaldi\\-stable$",
+       // "instance": "^vivaldi\\-stable$",
+       // "machine": "^katanagf6612ue$",
+       // "title": "^ARENZA\\ PRO\\ \\-\\ Разработка\\ \\@\\ Трекер\\ \\-\\ Vivaldi$",
+       // "window_role": "^browser$"
+       }
+    ],
+    "type": "con"
+}
+

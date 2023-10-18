@@ -1,0 +1,50 @@
+// vim:ts=4:sw=4:et
+{
+    "border": "pixel",
+    "current_border_width": 3,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1064,
+       "width": 949,
+       "x": 485,
+       "y": 8
+    },
+    "marks": [],
+    "name": "Insomnia",
+    "percent": 0.5,
+    "swallows": [
+       {
+       // "class": "^Insomnia$",
+       // "instance": "^insomnia$",
+       // "machine": "^katanagf6612ue$",
+       // "title": "^Insomnia$",
+       // "window_role": "^browser\\-window$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    "border": "pixel",
+    "current_border_width": 3,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 752,
+       "width": 1428,
+       "x": 0,
+       "y": 31
+    },
+    "marks": [],
+    "name": "DBeaver 23.2.1 - public ",
+    "percent": 0.5,
+    "swallows": [
+       {
+       // "class": "^DBeaver$",
+       // "instance": "^DBeaver$",
+       // "machine": "^katanagf6612ue$",
+       // "title": "^DBeaver\\ 23\\.2\\.1\\ \\-\\ public\\ $"
+       }
+    ],
+    "type": "con"
+}
+
