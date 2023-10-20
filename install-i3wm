@@ -1,0 +1,181 @@
+#!/bin/bash
+# 
+# NOTE: SUGGEST YOU USE UPDATED SCRIPTS (EITHER yay-hyprland or paru-hyprland) These new scripts gives more flexible in choosing which hyprland to install.
+# Either hyprland-nvidia or hyprland only. Its included in this dots
+#
+# The following will be installed to run Hyprland on Asus G15 with RTX GPU
+# 
+# NOTE! IF YOU ADD OR REMOVE PACKAGES, make sure proper spelling as per AUR and official Arch Repo and that are present.
+# Adding packages not in AUR or official Arch Repo, script will fail.
+#
+#
+# Below is a list of the packages that would be installed
+# hyprland-nvidia-git: This is the Hyprland compositor
+# foot: This is the default terminal
+# waybar-hyprland: This is a fork of waybar with Hyprland workspace support
+# swaybg: This is used to set a desktop background image
+# swaylock-effects: This allows for the locking of the desktop its a fork that adds some editional visual effects
+# wofi: This is an application launcher menu
+# wlogout: This is a logout menu that allows for shutdown, reboot and sleep
+# mako: This is a graphical notification daemon
+# thunar with necessary plugins: This is a graphical file manager
+# ttf-jetbrains-mono-nerd : some nerd fonts needed for proper icons in waybar
+# otf-font-awesome-4 and otf-font-awesome # necessary for symbols / weather
+# ttf-droid - suggested for international fonts to display properly
+# polkit-gnome: needed to get superuser access on some graphical appliaction
+# python-requests: needed for the weather module script to execute
+# grim: This is a screenshot tool it grabs images from a Wayland compositor
+# slurp: This helps with screenshots, it selects a region in a Wayland compositor
+# viewnior: for photo viewing
+# pamixer: This helps with audio settings such as volume
+# brightnessctl: used to control monitor bright level
+# bluez: the bluetooth service
+# bluez-utils: command line utilities to interact with bluetooth devices
+# blueman - Bluetooth manager
+# lxappearance: used to set GTK theme
+# dracula-gtk-theme: the Dracula theme, it fits the overall look and feel
+# dracula-icons-git" set of icons to go with the Dracula theme
+# bibata-cursor-theme-bin - cursor theme
+# xdg-desktop-portal-hyprland-git: xdg-desktop-portal backend for hyprland
+# mpv: for wofi-beats to work
+# qt5ct: for visual settings for qt-apps
+# mousepad: simple text editor
+
+# ADDED!
+YELLOW="$(tput setaf 3)[NOTE]$(tput sgr0)"
+
+printf "$YELLOW WARNING! WARNING! WARNING! WARNING! WARNING!
+PLEASE USE paru-hyprland or yay-hyprland script!
+This script is OUTDATED and will be removed soon!"
+
+sleep 10
+exit 1
+
+# Check if yay is installed
+ISYAY=/sbin/yay
+if [ -f "$ISYAY" ]; then 
+    echo "yay was located, updating system packages..."
+    yay -Syu --noconfirm || { echo "Error: failed to update system packages using yay. Exiting script."; exit 1; }
+else 
+    echo "Error: yay was not located, please install yay first. Exiting script."
+    exit 1
+fi
+
+### Disable wifi powersave mode ###
+read -n1 -rep "${CAT} Would you like to disable wifi powersave? (y,n)" WIFI
+if [[ $WIFI == "Y" || $WIFI == "y" ]]; then
+    LOC="/etc/NetworkManager/conf.d/wifi-powersave.conf"
+    echo -e "The following has been added to $LOC.\n"
+    echo -e "[connection]\nwifi.powersave = 2" | sudo tee -a $LOC
+    echo -e "\n"
+    echo -e "Restarting NetworkManager service...\n"
+    sudo systemctl restart NetworkManager
+    sleep 3
+fi
+
+
+# Prompt user to install packages
+# Function to check if a command executed successfully
+function check_command_status {
+    if [ $? -ne 0 ]; then
+        echo -e "\nError executing command: $1"
+        exit 1
+    fi
+}
+read -n1 -rep 'Would you like to install the packages? (y/n)' INST
+echo
+
+if [[ $INST == "Y" || $INST == "y" ]]; then
+    # Install packages
+    yay -S --noconfirm linux-zen linux-zen-headers
+    check_command_status "yay -S linux-zen linux-zen-headers"
+    
+    yay -S --noconfirm nvidia-dkms nvidia-prime nvidia-settings nvidia-utils 
+    check_command_status "yay -S nvidia-dkms nvidia-prime nvidia-settings nvidia-utils"
+    
+    yay -S --noconfirm evdi-compat-git displaylink
+    check_command_status "yay -S evdi-compat-git displaylink"
+
+    yay -S --noconfirm i3-wm i3status
+    check_command_status "yay -S i3-wm i3status"
+
+    yay -S --noconfirm --needed swaylock-effects wofi wlogout thunar gvfs thunar-volman tumbler cava \
+        ffmpegthumbs otf-font-awesome ttf-jetbrains-mono-nerd otf-font-awesome-4 ttf-fantasque-sans-mono qt5ct \
+        polkit-gnome python-requests pamixer brightnessctl viewnior pavucontrol playerctl \
+        bluez bluez-utils blueman nwg-look-bin mousepad mpv network-manager-applet \
+    adobe-source-code-pro-fonts adwaita-cursors adwaita-icon-theme \
+    audacious audacious-plugins audacity bitwarden btrfs-assistant btrfsmaintenance \ btrfs-progs dkms docker docker-compose easytag evolution ffmpeg firefox \ firefox-i18n-en-us firefox-i18n-ru gimp gimp-help-en gimp-help-ru git gparted \ gsfonts gzip handbrake hdparm helix htop hunspell hunspell-en_us hunspell-ru \ hwinfo hwloc imagemagick inetutils iniparser inkscape input-devices-support \ insomnia-bin intel-gmmlib intel-media-driver intel-ucode intltool \
+    java-environment-common java-runtime-common jdk-openjdk kbd kernel-modules-hook \ lame lazygit linuxconsole lokalize lshw mc meld mesa mesa-demos mesa-utils \ mesa-vdpau modemmanager modem-manager-gui molequeue mousetweaks mpg123 \
+    mpv mtdev mtools nano ncurses net-snmp net-tools networkmanager \
+    network-manager-applet networkmanager-l2tp networkmanager-openconnect \
+    networkmanager-openvpn networkmanager-pptp network-manager-sstp \
+    networkmanager-support networkmanager-vpnc nfs-utils ninja nitrogen nmap \
+    node-gyp noto-color-emoji-fontconfig noto-fonts noto-fonts-cjk noto-fonts-emoji \
+    ntfs-3g parted partitionmanager paru perl picom pipewire pipewire-alsa \
+    pipewire-audio pipewire-jack pipewire-pulse pipewire-support pipewire-v4l2 \
+    pipewire-x11-bell pipewire-zeroconf pixman polkit polybar portaudio portmidi \
+    portsmf postgresql-libs potrace powerdevil powertop poxml ppp pptpclient \
+    printer-support print-manager python rocketchat-desktop rocs rofi rofi-greenclip \
+    rpcbind rp-pppoe rsync rtkit rtmpdump rubberband samba samba-support sane \
+    sane-airscan scanner-support simple-scan skypeforlinux-stable-bin slang \ smartmontools smbclient snap-pac snapper snapper-tools startup-notification \
+    sudo sxhkd systemd systemd-libs systemd-oomd-defaults systemd-sysvcompat \systemsettings tar tcl telegram-desktop terminus-font timeshift timezonemap \
+    tinycompress ttf-dejavu ttf-droid ttf-fantasque-nerd ttf-fantasque-sans-mono \
+    ttf-firacode-nerd ttf-font-icons ttf-hack ttf-ionicons ttf-jetbrains-mono-nerd \
+    ttf-liberation ttf-ms-fonts ttf-nerd-fonts-symbols-common \
+    ttf-nerd-fonts-symbols-mono ttf-opensans ttf-roboto ttf-weather-icons \
+    ttf-wps-fonts tzdata 2023c-2 ufw unace unarchiver unarj unrar unzip update-grub \
+    upower usb_modeswitch usbmuxd usbutils util-linux util-linux-libs v4l-utils \
+    vi vim vim-runtime vim-spell-en vim-spell-ru vivaldi vivaldi-ffmpeg-codecs \
+    vlc volume_key vpnc vulkan-headers vulkan-icd-loader vulkan-intel \
+    vulkan-mesa-layers vulkan-radeon vulkan-swrast vulkan-tools \
+    vulkan-validation-layers webkit2gtk wezterm wget whatsie-git which whois \
+    wildmidi wireless-regdb wireless_tools wireplumber wlogout wmctrl \
+    wpa_supplicant wps-office x264 x265 xf86-input-elographics xf86-input-evdev \
+    xf86-input-libinput xf86-input-void xf86-input-wacom xf86-video-amdgpu \
+    xf86-video-ati xfconf xfsprogs xkeyboard-config xreader xsel xss-lock \
+    xvidcore xviewer xviewer-plugins zip zlib zoom zsh
+
+    check_command_status "yay -S (packages)"
+    
+    # Start the bluetooth service
+    echo -e "\nStarting the Bluetooth service..."
+    sudo systemctl enable --now bluetooth.service
+    check_command_status "sudo systemctl enable --now bluetooth.service"
+    sleep 2
+    # Start the displaylink service
+    echo -e "\nStarting the DisplayLink service..."
+    sudo systemctl enable --now displaylink.service
+    check_command_status "sudo systemctl enable --now displaylink.service"
+    sleep 2
+    
+    # Clean out other portals
+    echo -e "\nCleaning out conflicting xdg portals..."
+    sudo pacman -R --noconfirm xdg-desktop-portal-gnome 
+    sudo pacman -R --noconfirm xdg-desktop-portal-gtk   
+    sudo pacman -R --noconfirm xdg-desktop-portal-kde   
+    sudo pacman -R --noconfirm xdg-desktop-portal-wlr   
+    sudo pacman -R --noconfirm xdg-desktop-portal-lxqt
+      
+    echo -e "\nPackages installed successfully."
+fi
+
+### Copy Config Files ###
+set -e # Exit immediately if a command exits with a non-zero status.
+
+### Script is done ###
+echo -e "Installation Completed.\n"
+echo -e "You can start Hyprland by typing Hyprland (note the capital H!).\n"
+echo -e "NOTE! No Login Manager installed. You can start Hyprland by typing Hyprland (note the capital H!).\n"
+echo -e "NOTE! It is highly recommended to reboot your computer first.\n"
+read -n1 -rep 'Would you like to start Hyprland now? (y,n)' HYP
+if [[ $HYP == "Y" || $HYP == "y" ]]; then
+    if command -v Hyprland >/dev/null; then
+        exec Hyprland
+    else
+        echo -e "Hyprland not found. Please make sure it is installed and try again.\n"
+        exit 1
+    fi
+else
+    exit
+fi
+
