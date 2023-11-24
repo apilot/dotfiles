@@ -7,8 +7,8 @@
 [[language]]
 name = "ruby"
 formatter = { command = "bundle", args = ["exec", "standardrb", "--stdin", "foo.rb", "--fix", "--stderr"] }
-language-server = { command = "solargraph", args=["stdio"]}
-config = { solargraph = { diagnostics = true, formatting = false} }
+# language-id = { command = "solargraph", args=["stdio"]}
+#config = { solargraph = { diagnostics = true, formatting = false} }
 
 [[language]]
 name = "html"

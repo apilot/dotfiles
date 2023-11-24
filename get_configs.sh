@@ -1,5 +1,5 @@
 #! /bin/bash
-dirs=("i3" "polybar" "helix" "wezterm" "picom")
+dirs=("i3" "polybar" "helix" "wezterm" "picom" "nvim")
 mkdir -p config
 for dir in "${dirs[@]}"
 do

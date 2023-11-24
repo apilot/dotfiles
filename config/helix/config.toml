@@ -48,4 +48,3 @@ enable = true
 
 [editor.lsp]
 snippets = true
-

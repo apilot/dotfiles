@@ -18,19 +18,40 @@ config.color_scheme = 'Sonokai (Gogh)'
 config.colors = {
   split = '#aaaaaa'
 }
-config.font = wezterm.font_with_fallback {'Fira Code Nerd Font'}
+config.font = wezterm.font_with_fallback {'FiraCode Nerd Font Ret'}
 config.window_background_opacity = 0.99
 config.text_background_opacity = 0.7
 config.inactive_pane_hsb = {
   saturation = 0.5,
   brightness = 0.5,
 }
+
 config.mouse_bindings = {
   {
     event = { Drag = { streak = 1, button = 'Left' } },
     mods = 'CTRL|SHIFT',
     action = wezterm.action.StartWindowDrag,
   },
+}
+
+config.keys = {
+  -- This will create a new split and run the `top` program inside it
+  {
+    key = '\\',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.SplitVertical {
+      args = { 'top' },
+    },
+  },
+  {
+    key = '/',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.SplitPane {
+      direction = 'Left',
+      command = { args = { 'top' } },
+      size = { Percent = 50 },
+    },
+  }
 }
 
 config.window_background_gradient = {
