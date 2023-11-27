@@ -28,7 +28,9 @@ let g:which_key_map['q'] = [ ':BufferClose', 'Close buffer' ]
 let g:which_key_map['f'] = {
   \ 'name' : '+telescope',
   \ 'f' : [':Telescope find_files'     , 'Find files'],
+  \ 'F' : [':Telescope find_files, under cursor'     , 'Find files under cursor'],
   \ 'g' : [':Telescope live_grep'     , 'Global text search'],
+  \ 'G' : [':Telescope live_grep under cursor'     , 'Global text search under cursor'],
   \ 'b' : [':Telescope buffers'     , 'Buffers list'],
   \ 'h' : [':Telescope help_tags'     , 'Find help tags'],
   \ 'c' : [':Telescope current_buffer_fuzzy_find'     , 'Buffer text search'],
