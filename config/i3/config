@@ -17,20 +17,20 @@ set $TERMINAL wezterm
 ### Wallpaper: ###
 # - You need to specify homescreen wallpaper using azote
 
-exec xrandr --output eDP-1 --auto --pos 960x1080 --primary -o 0 --output HDMI-1-0 --auto --pos 1920x0 --output DVI-I-2-1 --auto --left-of HDMI-1-0 
+exec xrandr --output eDP-1-1 --auto --pos 960x1080 --primary -o 0 --output HDMI-0 --auto --pos 1920x0 --output DVI-I-2-1 --auto --left-of HDMI-0 
 set $lockScreenWallpaper ~/backgrounds/god-lord-krishna.png
 
 
 #assign workspaces to displays
-workspace 1 output primary # eDP-1-1
-workspace 2 output primary # eDP-1-1
-workspace 3 output primary # eDP-1-1
+workspace 1 output eDP-1-1
+workspace 2 output eDP-1-1
+workspace 3 output eDP-1-1
 workspace 4 output DVI-I-2-1
 workspace 5 output DVI-I-2-1
 workspace 6 output DVI-I-2-1
-workspace 7 output HDMI-1-0
-workspace 8 output HDMI-1-0
-workspace 9 output HDMI-1-0
+workspace 7 output HDMI-0
+workspace 8 output HDMI-0
+workspace 9 output HDMI-0
 
 exec --no-startup-id nitrogen --restore 
 bindsym $super+Tab exec --no-startup-id rofi -modi combi -combi-modi window -show combi
@@ -252,7 +252,7 @@ bindsym $super+n border normal
 # Start i3bar to display a workspace bar
 
 bar {
-    output eDP-1
+    output eDP-1-1
     position top
 	status_command exec /usr/bin/net-speed.sh
 	#strip_workspace_numbers yes|no
@@ -273,7 +273,7 @@ bar {
 }
 
 bar {
-    output HDMI-1-0
+    output HDMI-0
     position top
 	strip_workspace_numbers yes|no
 }
