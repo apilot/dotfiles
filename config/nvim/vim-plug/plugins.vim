@@ -37,6 +37,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'kchmck/vim-coffee-script'
   Plug 'kchmck/vim-coffee-script', { 'for': ['coffee', 'haml', 'eruby'] }
   Plug 'majutsushi/tagbar'              " Class/module browser
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
   Plug 'mfussenegger/nvim-lint'
   Plug 'morhetz/gruvbox'
   Plug 'lifepillar/vim-gruvbox8'
@@ -77,12 +78,15 @@ call plug#begin('~/.config/nvim/plugged')
   " tabs for vim
   Plug 'romgrk/barbar.nvim'
   Plug 'nvim-lua/plenary.nvim'
+  " Plug 'nvim-tree/nvim-tree.lua'
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'https://github.com/ryanoasis/vim-devicons'
   Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
+  Plug 'nvim-telescope/telescope-live-grep-args.nvim'
   Plug 'liuchengxu/vim-which-key'
   Plug 'luochen1990/rainbow'
   Plug 'codota/tabnine-nvim', { 'do': './dl_binaries.sh' }
   Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+  Plug 'ThePrimeagen/git-worktree.nvim'
   set encoding=UTF-8
 call plug#end()

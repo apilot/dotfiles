@@ -18,7 +18,7 @@ config.color_scheme = 'Sonokai (Gogh)'
 config.colors = {
   split = '#aaaaaa'
 }
-config.font = wezterm.font_with_fallback {'FiraCode Nerd Font Ret'}
+config.font = wezterm.font_with_fallback {'FiraCode Nerd Font'}
 config.window_background_opacity = 0.99
 config.text_background_opacity = 0.7
 config.inactive_pane_hsb = {
@@ -51,7 +51,12 @@ config.keys = {
       command = { args = { 'top' } },
       size = { Percent = 50 },
     },
-  }
+  },
+  {
+    key = 'F',
+    mods = 'ALT|CTRL|SHIFT',
+    action = wezterm.action.Search {CaseSensitiveString=""},
+  },
 }
 
 config.window_background_gradient = {

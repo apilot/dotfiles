@@ -2,13 +2,14 @@ call which_key#register('<Space>', "g:which_key_map", 'n')
 call which_key#register('<Space>', "g:which_key_map_visual", 'v')
 
 "telescope find binds
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fc <cmd>Telescope current_buffer_fuzzy_find <cr>
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+nnoremap <leader>fF :execute 'Telescope find_files default_text=' . expand('<cword>')<cr>
+nnoremap <leader>fG :execute 'Telescope live_grep default_text=' . expand('<cword>')<cr>
 
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 nnoremap <silent> <leader>gg :LazyGit<CR>
 nnoremap <silent> <leader>gb :Gitsigns blame_line<CR>
 nnoremap <silent> <leader>gr :Gitsigns reset_hunk<CR>
@@ -25,16 +26,6 @@ let g:which_key_map['d'] = {
 \}
 
 let g:which_key_map['q'] = [ ':BufferClose', 'Close buffer' ]
-let g:which_key_map['f'] = {
-  \ 'name' : '+telescope',
-  \ 'f' : [':Telescope find_files'     , 'Find files'],
-  \ 'F' : [':Telescope find_files, under cursor'     , 'Find files under cursor'],
-  \ 'g' : [':Telescope live_grep'     , 'Global text search'],
-  \ 'G' : [':Telescope live_grep under cursor'     , 'Global text search under cursor'],
-  \ 'b' : [':Telescope buffers'     , 'Buffers list'],
-  \ 'h' : [':Telescope help_tags'     , 'Find help tags'],
-  \ 'c' : [':Telescope current_buffer_fuzzy_find'     , 'Buffer text search'],
-\}
 
 let g:which_key_map['p'] = {
       \ 'name' : '+plug' ,
@@ -110,4 +101,16 @@ let g:which_key_map['r'] = {
   \ 'p' : [':Neotest jump prev', 'Jump prev']                      ,
   \},
 \}
-
+let g:which_key_map['f'] = {
+  \ 'name' : '+telescope',
+  \ 'f' : [':Telescope find_files '     , 'Find files'],
+  \ 'F' : [':Telescope find_files default_text=' + expand("<cword>")     , 'Find files under cursor'],
+  \ 'g' : [':Telescope live_grep'     , 'Global text search'],
+  \ 'G' : [':Telescope grep_string'     , 'Global text search under cursor'],
+  \ 'b' : [':Telescope buffers'     , 'Buffers list'],
+  \ 'h' : [':Telescope help_tags'     , 'Find help tags'],
+  \ 'c' : [':Telescope current_buffer_fuzzy_find'     , 'Buffer text search'],
+  \ 't' : [':Telescope git_worktree git_worktrees', 'List worktrees'],
+  \ 'T' : [':Telescope git_worktree create_git_worktree', 'Create worktree'],
+  \ 'B' : [':Telescope file_browser', 'File browser'],
+\}
