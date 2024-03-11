@@ -68,3 +68,6 @@ require("neotest").setup({
 require("git-worktree").setup()
 require("telescope").load_extension("git_worktree")
 require("telescope").load_extension("live_grep_args")
+
+vim.opt.signcolumn = "yes" -- otherwise it bounces in and out, not strictly needed though
+

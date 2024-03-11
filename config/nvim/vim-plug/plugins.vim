@@ -35,7 +35,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'juliosueiras/vim-terraform-completion'
   Plug 'kana/vim-textobj-user', { 'for': ['ruby'] }
   Plug 'kchmck/vim-coffee-script'
-  Plug 'kchmck/vim-coffee-script', { 'for': ['coffee', 'haml', 'eruby'] }
+  Plug 'kchmck/vim-coffee-script', { 'for': ['coffee', 'haml'] }
   Plug 'majutsushi/tagbar'              " Class/module browser
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
   Plug 'mfussenegger/nvim-lint'
