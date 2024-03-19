@@ -2,14 +2,16 @@ let g:ale_linters = {
       \   'ruby': ['standardrb', 'rubocop'],
       \   'python': ['flake8', 'pylint'],
       \   'javascript': ['eslint'],
-      \   'html': ['prettier'],
       \   'eruby': ['standardrb'],
+      \   'yaml': ['yaml-language-server'],
       \}
 
 let g:ale_fixers = {
-      \    'ruby': ['standardrb', 'solargraph'],
+      \    '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \    'ruby': ['standardrb'],
       \    'javascript': ['prettier', 'eslint'],
-      \    'html': ['prettier'],
+      \    'yaml': ['yamlfmt'],
+      \    'html-beautify': ['html-beautify'],
       \    'eruby': ['erb-formatter'],
       \}
 let g:ale_fix_on_save = 1

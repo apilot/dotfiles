@@ -74,16 +74,16 @@ let g:which_key_map['w'] = {
 
 let g:which_key_map.l = {
       \ 'name' : '+lsp',
-      \ 'f' : ['spacevim#lang#util#Format()'          , 'formatting']       ,
-      \ 'r' : ['spacevim#lang#util#FindReferences()'  , 'references']       ,
-      \ 'R' : ['spacevim#lang#util#Rename()'          , 'rename']           ,
-      \ 's' : ['spacevim#lang#util#DocumentSymbol()'  , 'document-symbol']  ,
-      \ 'S' : ['spacevim#lang#util#WorkspaceSymbol()' , 'workspace-symbol'] ,
+      \ 'f' : [':ALEFix'          , 'formatting']       ,
+      \ 'r' : [':ALEFindReferences'  , 'references']       ,
+      \ 'R' : [':ALEFileRename'          , 'rename']           ,
+      \ 'x' : [':let g:ale_fix_on_save = 0'          , 'FixOnSave OFF']           ,
+      \ 'X' : [':let g:ale_fix_on_save = 1'          , 'FixOnSave ON']           ,
       \ 'g' : {
         \ 'name': '+goto',
-        \ 'd' : ['spacevim#lang#util#Definition()'     , 'definition']      ,
-        \ 't' : ['spacevim#lang#util#TypeDefinition()' , 'type-definition'] ,
-        \ 'i' : ['spacevim#lang#util#Implementation()' , 'implementation']  ,
+        \ 'd' : [':ALEGoToDefinition -tab'     , 'definition']      ,
+        \ 't' : [':ALEGoToTypeDefinition -tab' , 'type-definition'] ,
+        \ 'i' : [':ALEGoToImplementation -tab' , 'implementation']  ,
         \ },
       \ }
 let g:which_key_map['r'] = {
