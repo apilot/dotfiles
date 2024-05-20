@@ -50,6 +50,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'othree/html5.vim'
   Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
   Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
+  Plug 'linrongbin16/gentags.nvim'
   Plug 'pseewald/vim-anyfold'
   Plug 'rhysd/vim-grammarous'
   Plug 'rking/ag.vim'
@@ -60,6 +61,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'thinca/vim-localrc'
   Plug 'antoinemadec/FixCursorHold.nvim'
   Plug 'nvim-neotest/neotest'
+  Plug 'nvim-neotest/nvim-nio'
   Plug 'olimorris/neotest-rspec'
   Plug 'tpope/vim-commentary'
   Plug 'nvim-treesitter/nvim-treesitter'
@@ -74,6 +76,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'vim-syntastic/syntastic'
   Plug 'xolox/vim-misc'
   Plug 'xolox/vim-notes'
+  Plug 'gregorias/coerce.nvim'
   Plug 'declancm/cinnamon.nvim'
   " tabs for vim
   Plug 'romgrk/barbar.nvim'

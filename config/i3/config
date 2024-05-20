@@ -17,7 +17,9 @@ set $TERMINAL wezterm
 ### Wallpaper: ###
 # - You need to specify homescreen wallpaper using azote
 
-exec xrandr --output eDP-1-1 --auto --pos 960x1080 --primary -o 0 --output HDMI-0 --auto --pos 1920x0 --output DVI-I-2-1 --auto --left-of HDMI-0 
+exec xrandr --output eDP-1-1 --auto --pos 960x1080 --primary -o 0 --output HDMI-0 --auto --pos 1920x0 --output DVI-I-2-1 --auto --left-of HDMI-0
+# exec xrandr --output eDP-1-1 --auto
+# exec xrandr --output eDP-1-1 --auto --primary --output HDMI-0 --auto --left-of eDP-1-1
 set $lockScreenWallpaper ~/backgrounds/god-lord-krishna.png
 
 
@@ -32,7 +34,21 @@ workspace 7 output HDMI-0
 workspace 8 output HDMI-0
 workspace 9 output HDMI-0
 
-exec --no-startup-id nitrogen --restore 
+# workspace 1 output eDP-1-1
+# workspace 2 output eDP-1-1
+# workspace 3 output eDP-1-1
+# workspace 4 output eDP-1-1
+# workspace 5 output eDP-1-1
+# workspace 6 output eDP-1-1
+# workspace 7 output eDP-1-1
+# workspace 8 output eDP-1-1
+# workspace 9 output edp-1-1
+# workspace 5 output HDMI-0
+# workspace 6 output HDMI-0
+# workspace 7 output HDMI-0
+# workspace 8 output HDMI-0
+# workspace 9 output HDMI-0
+exec --no-startup-id nitrogen --restore
 bindsym $super+Tab exec --no-startup-id rofi -modi combi -combi-modi window -show combi
 
 
@@ -75,7 +91,7 @@ floating_modifier $super
 #autostart
 # exec --no-startup-id ~/.fehbg
 # exec --no-startup-id xsettingsd &
-#exec --no-startup-id pasystray
+# exec --no-startup-id pasystray
 # exec --no-startup-id conky # information on desktop
 # exec --no-startup-id conky -c ~/.config/conky/conky-shcts
 exec --no-startup-id copyq
@@ -254,6 +270,7 @@ bindsym $super+n border normal
 bar {
     output eDP-1-1
     position top
+    tray_output eDP-1-1
 	status_command exec /usr/bin/net-speed.sh
 	#strip_workspace_numbers yes|no
 	#strip_workspace_name yes|no
@@ -261,7 +278,7 @@ bar {
     background #2f343f
     statusline #FFFFFF
     separator  #666666
-    
+
     focused_workspace  #4C7899 #285577 #FFFFFF
     active_workspace   #333333 #222222 #FFFFFF
     inactive_workspace #333333 #222222 #888888
@@ -353,7 +370,6 @@ smart_gaps on
 # Smart borders (draw borders around container only if it is not the only container on this workspace)
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
 smart_borders on
-
 # Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
 set $mode_gaps Gaps: (o) outer, (i) inner
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)

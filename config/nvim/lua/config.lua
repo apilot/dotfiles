@@ -68,6 +68,17 @@ require("neotest").setup({
 require("git-worktree").setup()
 require("telescope").load_extension("git_worktree")
 require("telescope").load_extension("live_grep_args")
-
+require('telescope').setup({
+  pickers = {
+    buffers = {
+      show_all_buffers = true,
+      sort_mru = true,
+      mappings = {
+        i = {
+          ["<c-d>"] = "delete_buffer",
+        },
+      },
+    },
+  },
+})
 vim.opt.signcolumn = "yes" -- otherwise it bounces in and out, not strictly needed though
-

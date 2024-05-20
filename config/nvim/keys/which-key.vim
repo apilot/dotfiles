@@ -3,6 +3,7 @@ call which_key#register('<Space>', "g:which_key_map_visual", 'v')
 
 "telescope find binds
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fga <cmd>Telescope live_grep_args<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fc <cmd>Telescope current_buffer_fuzzy_find <cr>
@@ -106,11 +107,12 @@ let g:which_key_map['f'] = {
   \ 'f' : [':Telescope find_files '     , 'Find files'],
   \ 'F' : [':Telescope find_files default_text=' + expand("<cword>")     , 'Find files under cursor'],
   \ 'g' : [':Telescope live_grep'     , 'Global text search'],
+  \ 'ga' : [':Telescope live_grep_args'     , 'Global text search w args'],
   \ 'G' : [':Telescope grep_string'     , 'Global text search under cursor'],
   \ 'b' : [':Telescope buffers'     , 'Buffers list'],
+  \ 'B' : [':Telescope builtin'     , 'Builtin list'],
   \ 'h' : [':Telescope help_tags'     , 'Find help tags'],
   \ 'c' : [':Telescope current_buffer_fuzzy_find'     , 'Buffer text search'],
   \ 't' : [':Telescope git_worktree git_worktrees', 'List worktrees'],
   \ 'T' : [':Telescope git_worktree create_git_worktree', 'Create worktree'],
-  \ 'B' : [':Telescope file_browser', 'File browser'],
 \}
