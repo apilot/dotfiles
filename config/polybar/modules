@@ -236,12 +236,12 @@ type = internal/date
 
 interval = 1.0
 
-time = %H:%M
+time = %H:%M  %d %B %Y
 time-alt = %A, %d %B %Y
 
 format = <label>
-format-prefix = " "
-format-prefix-font = 3
+format-prefix = "  "
+format-prefix-font = 0
 format-prefix-foreground = ${color.RED}
 
 label = %time%

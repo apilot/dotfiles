@@ -17,13 +17,14 @@ set $TERMINAL wezterm
 ### Wallpaper: ###
 # - You need to specify homescreen wallpaper using azote
 
-exec xrandr --output eDP-1-1 --auto --pos 960x1080 --primary -o 0 --output HDMI-0 --auto --pos 1920x0 --output DVI-I-2-1 --auto --left-of HDMI-0
+ exec xrandr --output eDP-1-1 --auto --pos 960x1080 --primary -o 0 --output HDMI-0 --auto --pos 1920x0 --output DVI-I-2-1 --auto --left-of HDMI-0
 # exec xrandr --output eDP-1-1 --auto
 # exec xrandr --output eDP-1-1 --auto --primary --output HDMI-0 --auto --left-of eDP-1-1
 set $lockScreenWallpaper ~/backgrounds/god-lord-krishna.png
 
 
 #assign workspaces to displays
+
 workspace 1 output eDP-1-1
 workspace 2 output eDP-1-1
 workspace 3 output eDP-1-1
@@ -48,6 +49,7 @@ workspace 9 output HDMI-0
 # workspace 7 output HDMI-0
 # workspace 8 output HDMI-0
 # workspace 9 output HDMI-0
+# exec --no-startup-id xfce4-panel --disable-wm-check 
 exec --no-startup-id nitrogen --restore
 bindsym $super+Tab exec --no-startup-id rofi -modi combi -combi-modi window -show combi
 
@@ -104,17 +106,17 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id xfce4-power-manager
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id setcursor
-#exec_always --no-startup-id ${HOME}/.config/polybar/launch.sh
+exec_always --no-startup-id ${HOME}/.config/polybar/launch.sh
 exec_always --no-startup-id numlockx on
 exec blueberry-tray
 exec --no-startup-id java -Xmx1024m -jar "/opt/xdman/xdman.jar" -m
 exec --no-startup-id ~/.local/bin/fastfetch-garuda
 
 # hide/unhide i3status bar
-bindsym $super+m bar mode toggle
+# bindsym $super+m bar mode toggle
 
 # start dmenu (a program launcher)
-bindsym $super+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=20'"
+# bindsym $super+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=20'"
 
 # exec --no-startup-id picom --daemon -b --backend glx --vsync --xrender-sync-fence --glx-no-rebind-pixmap --use-damage --glx-no-stencil --use-ewmh-active-win --refresh-rate 24
 
@@ -267,39 +269,40 @@ bindsym $super+n border normal
 # panel
 # Start i3bar to display a workspace bar
 
-bar {
-    output eDP-1-1
-    position top
-    tray_output eDP-1-1
-	status_command exec /usr/bin/net-speed.sh
-	#strip_workspace_numbers yes|no
-	#strip_workspace_name yes|no
-	colors {
-    background #2f343f
-    statusline #FFFFFF
-    separator  #666666
-
-    focused_workspace  #4C7899 #285577 #FFFFFF
-    active_workspace   #333333 #222222 #FFFFFF
-    inactive_workspace #333333 #222222 #888888
-    urgent_workspace   #2F343A #900000 #FFFFFF
-    #binding_mode      #2F343A #900000 #FFFFFF
-    # colour of border, background, and text
-    }
-
-}
-
-bar {
-    output HDMI-0
-    position top
-	strip_workspace_numbers yes|no
-}
-
-bar {
-    output DVI-I-2-1
-    position top
-	strip_workspace_numbers yes|no
-}
+# hide all bars 
+# bar {
+#     output eDP-1-1
+#     position top
+#     tray_output eDP-1-1
+# 	status_command exec /usr/bin/net-speed.sh
+# 	#strip_workspace_numbers yes|no
+# 	#strip_workspace_name yes|no
+# 	colors {
+#     background #2f343f
+#     statusline #FFFFFF
+#     separator  #666666
+#
+#     focused_workspace  #4C7899 #285577 #FFFFFF
+#     active_workspace   #333333 #222222 #FFFFFF
+#     inactive_workspace #333333 #222222 #888888
+#     urgent_workspace   #2F343A #900000 #FFFFFF
+#     #binding_mode      #2F343A #900000 #FFFFFF
+#     # colour of border, background, and text
+#     }
+#
+# }
+#
+# bar {
+#     output HDMI-0
+#     position top
+# 	strip_workspace_numbers yes|no
+# }
+#
+# bar {
+#     output DVI-I-2-1
+#     position top
+# 	strip_workspace_numbers yes|no
+# }
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="calamares"] floating enable border normal
@@ -310,6 +313,7 @@ for_window [class="Galculator"] floating enable border pixel 1
 for_window [class="GParted"] floating enable border normal
 for_window [title="i3_help"] floating enable sticky enable border normal
 for_window [class="Lightdm-settings"] floating enable
+for_window [class="wlogout"] fullscreen enable
 for_window [class="Lxappearance"] floating enable border normal
 for_window [class="Garuda Settings Manager"] floating enable border normal
 for_window [title="MuseScore: Play Panel"] floating enable

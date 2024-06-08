@@ -1,0 +1,3 @@
+return {
+	{ "pseewald/vim-anyfold" },
+}
