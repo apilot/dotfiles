@@ -17,7 +17,7 @@ set $TERMINAL wezterm
 ### Wallpaper: ###
 # - You need to specify homescreen wallpaper using azote
 
- exec xrandr --output eDP-1-1 --auto --pos 960x1080 --primary -o 0 --output HDMI-0 --auto --pos 1920x0 --output DVI-I-2-1 --auto --left-of HDMI-0
+exec xrandr --output eDP-1-1 --auto --pos 960x1080 --primary -o 0 --output HDMI-0 --auto --pos 1920x0 --output DVI-I-2-1 --auto --left-of HDMI-0
 # exec xrandr --output eDP-1-1 --auto
 # exec xrandr --output eDP-1-1 --auto --primary --output HDMI-0 --auto --left-of eDP-1-1
 set $lockScreenWallpaper ~/backgrounds/god-lord-krishna.png
