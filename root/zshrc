@@ -107,6 +107,7 @@ source $HOME/.zshenv
 eval "$(ssh-agent)"
 eval "$(rbenv init - zsh)"
 export PATH="/usr/local/opt/curl/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
 export PATH="/usr/local/opt/icu4c/bin:$PATH"
 export PATH="/usr/local/opt/icu4c/sbin:$PATH"

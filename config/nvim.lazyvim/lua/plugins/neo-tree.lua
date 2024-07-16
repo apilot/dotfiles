@@ -16,9 +16,6 @@ return {
       vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
       require("neo-tree").setup({
         close_if_last_window = true,
-        window = {
-          width = 30,
-        },
         enable_git_status = true,
         auto_expend_width = false,
         enable_diagnostics = true,
