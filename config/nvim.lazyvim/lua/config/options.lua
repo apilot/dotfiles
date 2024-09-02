@@ -1,9 +1,12 @@
 vim.cmd("let g:netrw_liststyle = 3")
 vim.g.neovide_cursor_vfx_mode = "railgun"
+vim.g.neovide_window_blurred = true
 vim.g.neovide_floating_shadow = true
 vim.g.neovide_floating_z_height = 10
 vim.g.neovide_light_angle_degrees = 45
 vim.g.neovide_light_radius = 5
+vim.g.neovide_text_gamma = 0.0
+vim.g.neovide_text_contrast = 0.5
 
 if vim.g.neovide then
   vim.keymap.set("n", "<D-s>", ":w<CR>") -- Save
@@ -31,6 +34,8 @@ opt.tabstop = 2 -- 2 spaces for tabs (prettier default)
 opt.shiftwidth = 2 -- 2 spaces for indent width
 opt.expandtab = true -- expand tab to spaces
 opt.autoindent = true -- copy indent from current line when starting new one
+opt.spelllang = "en_us,ru_yo,ru_ru"
+opt.spell = true
 --
 -- -- line wrapping
 -- opt.wrap = false -- disable line wrapping

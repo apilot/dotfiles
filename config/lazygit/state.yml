@@ -1,0 +1,34 @@
+lastupdatecheck: 0
+recentrepos:
+    - /home/aboyarinov/develop/arenza/working/crm/current_work
+    - /home/aboyarinov/develop/arenza/working/crm/crm-main
+    - /home/aboyarinov/dotfiles
+    - /home/aboyarinov/Документы/docs/стройка/home projects/needed_for_home
+    - /home/aboyarinov/develop/progress/progress64
+    - /home/aboyarinov/develop/arenza/working/agent_office_backend
+    - /home/aboyarinov/develop/arenza/working/front_office_backend
+    - /home/aboyarinov/develop/arenza/working/arenza-notificator
+    - /home/aboyarinov/github/nvim.lua
+    - /home/aboyarinov/tmp/charlock_holmes
+    - /home/aboyarinov/develop/arenza/working/crm-frontend
+    - /home/aboyarinov/develop/arenza/working/crm/uix-redesign
+    - /home/aboyarinov/develop/site-bbgsmedia/site-bbgsmedia/bbgsm-rails
+    - /home/aboyarinov/develop/gems/devise-tailwindcssed
+    - /home/aboyarinov/develop/arenza/working/crm/penalty_notifications
+    - /home/aboyarinov/develop/arenza/working/crm/deals-1644
+    - /home/aboyarinov/develop/arenza/working/crm-old
+    - /home/aboyarinov/develop/arenza/working/crm-doubble/crm
+    - /home/aboyarinov/develop/arenza/working/crm_clean
+startuppopupversion: 5
+lastversion: 0.43.1
+customcommandshistory:
+    - q
+    - qa
+hidecommandlog: true
+ignorewhitespaceindiffview: false
+diffcontextsize: 3
+renamesimilaritythreshold: 50
+localbranchsortorder: recency
+remotebranchsortorder: alphabetical
+gitlogorder: topo-order
+gitlogshowgraph: always
