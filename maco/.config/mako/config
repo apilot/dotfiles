@@ -1,0 +1,21 @@
+anchor=bottom-right
+font=monospace 12
+background-color=#285577FF
+text-color=#FFFFFFFF
+width=500
+height=400
+max-history=10
+margin=0,20,20
+padding=5
+border-size=5
+border-color=#4C7899FF
+border-radius=3
+default-timeout=20000
+group-by=summary
+icons=1
+
+[grouped]
+format=<b>%s</b>\n%b
+
+# makoctl reload // Load last config
+# makoctl restore // Load last notify
