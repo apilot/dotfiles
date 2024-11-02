@@ -80,7 +80,6 @@ cursor {
     hide_on_key_press = false
     hide_on_touch = false
     no_hardware_cursors = true
-    sync_gsettings_theme = true
   }
 decoration {
     # See https://wiki.hyprland.org/Configuring/Variables/ for more
@@ -394,12 +393,3 @@ env = XDG_MENU_PREFIX,arch-
 exec-once = .config/hypr/exec-hyprland
 
 plugin = /usr/lib/libhy3.so
-
-group {
-
-    groupbar {
-        enabled = true
-    }
-
-    auto_group = true
-}
