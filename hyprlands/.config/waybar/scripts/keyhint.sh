@@ -33,4 +33,6 @@ yad --width=530 --height=620 \
 "+p" "Dwindle effect" "pseudo" \
 "+Shift+p" "Dwindle effect" "toggle split" \
 "+i" "Calamares" "Install Garuda Hyprland" \
+"+b" "BlueLight Filter" "Enable filter" \
+"+CTRL+b" "BlueLight Filter" "Disable filter" \
 "" "" "     Window closed in 60 sec."\
