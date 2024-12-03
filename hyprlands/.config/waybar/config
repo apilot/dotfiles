@@ -136,8 +136,8 @@
      "min-length": 3,
     "format-en": "EN",
     "format-ru": "RU",
-    "keyboard-name": "at-translated-set-2-keyboard",
-    "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next"
+    "keyboard-name": "ergohaven-k:03-pro-65mm",
+    "on-click": "hyprctl switchxkblayout ergohaven-k:03-pro-65mm next"
     },
    "custom/keyboard-layout": {
       	"format": " Cheat", // Icon: keyboard
