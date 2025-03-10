@@ -8,4 +8,7 @@ POSTGRES_PORT=5432
 REDIS_HOST=localhost
 MEMCACHED_HOST=localhost
 
-. "$HOME/.cargo/env"
+export LADSPA_PATH=/usr/lib64/ladspa
+export LV2_PATH=/usr/lib64/lv2
+
+# . "$HOME/.cargo/env"

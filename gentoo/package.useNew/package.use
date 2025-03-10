@@ -1,0 +1,66 @@
+acct-group/nullmail
+app-arch/xz-utils pgo
+app-crypt/gcr gtk
+app-misc/ca-certificates
+app-misc/mc -slang unicode sftp
+app-shells/oh-my-zsh
+app-shells/zsh-autosuggestions
+app-shells/zsh-syntax-highlighting
+app-text/poppler cairo
+app-text/xmlto text
+dev-cpp/gtkmm
+dev-lang/python pgo
+dev-lang/zig-bin
+dev-libs/libdbusmenu gtk3
+dev-libs/libpthread-stubs
+dev-libs/xmlsec nss
+dev-python/pillow tiff webp
+dev-qt/qtbase opengl
+dev-qt/qtcore icu
+dev-qt/qtgui egl X
+dev-util/rocm-smi
+dev-vcs/git
+dev-vcs/lazygit
+gui-apps/hyprpaper 
+gui-apps/hyprpicker 
+gui-apps/rofi-wayland drun windowmode
+gui-apps/waybar pulseaudio udev network tray upower wifi evdev
+gui-apps/wlogout zsh-completions
+gui-apps/wofi
+gui-libs/wlroots -tinywl -11-backend
+gui-libs/xdg-desktop-portal-hyprland 
+gui-wm/hyprland-contrib 
+media-fonts/terminus-font -ru-g
+media-libs/freetype
+media-libs/gegl cairo
+media-libs/harfbuzz icu
+media-libs/libepoxy
+media-libs/libglvnd
+media-libs/libvpx postproc
+media-libs/mesa X
+media-libs/vulkan-loader X
+media-plugins/audacious-plugins nls pipewire cdda cue ffmpeg flac http lame libnotify modplug mp3 opus sndfile wavpack
+media-video/ffmpeg modplug mp3 opus pulseaudio svg v4l openh264 libv4l webp x264 x265 xvid vpx
+media-video/mpv cdda dvd jpeg
+media-video/pipewire sound-server v4l
+media-video/wireplumber
+sys-apps/pciutils
+sys-boot/grub mount
+sys-devel/binutils pgo
+sys-devel/gcc graphite lto pgo
+sys-kernel/genkernel
+sys-kernel/gentoo-sources symlink
+sys-kernel/installkernel
+sys-kernel/installkernel openrc
+sys-kernel/linux-firmware initramfs
+sys-libs/zlib minizip
+www-client/firefox lto pgo pulseaudio
+www-client/vivaldi
+x11-base/xorg-server xvfb
+x11-drivers/nvidia-drivers dist-kernel modules-sign persistenced powerd wayland
+x11-libs/cairo 
+x11-libs/gtk+ X
+x11-libs/libfm gtk exif udisks
+x11-libs/libxkbcommon X
+x11-libs/pango
+x11-misc/ly

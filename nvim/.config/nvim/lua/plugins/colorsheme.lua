@@ -62,6 +62,11 @@ return {
         treesitter = true,
         treesitter_context = true,
         which_key = true,
+        transparent = true,
+        styles = {
+          sidebars = "transparent",
+          floats = "transparent",
+        },
       },
     },
   },

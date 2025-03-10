@@ -1,4 +1,5 @@
-vim.opt.guifont = { "FiraCode Nerd Font", ":h10" }
+vim.opt.guifont = { "MesloLGS Nerd Font:h10.:w-0.2:#h-slight" }
+vim.opt.linespace = -1
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -46,6 +47,9 @@ require("lazy").setup({
         "tohtml",
         "tutor",
         "zipPlugin",
+        "vim-dadbod",
+        "vim-dadbod-completetion",
+        "vim-dadbod-ui",
       },
     },
   },

@@ -1,0 +1,147 @@
+
+
+# media-sound/helvum
+acct-group/nullmail
+app-arch/xz-utils pgo
+app-containers/containerd btrfs
+app-containers/docker btrfs
+app-containers/docker-cli 
+app-containers/docker-compose
+app-crypt/gcr gtk
+app-editors/neovide
+app-emulation/fuse gpm joystick pulseaudio
+app-emulation/qemu opengl plugins spice udev virtfs usbredir
+app-emulation/qemu qemu_softmmu_targets_arm qemu_softmmu_targets_x86_64 qemu_softmmu_targets_sparc
+app-emulation/qemu qemu_user_targets_x86_64
+app-emulation/virt-manager gui policykit
+app-misc/ca-certificates
+app-misc/mc -slang unicode sftp
+app-office/libreoffice clang java pdfimport postgres qt5
+app-office/libreoffice-l10n
+app-office/obsidian
+app-portage/layman sync-plugin-portage git
+app-shells/oh-my-zsh
+app-shells/zsh-autosuggestions
+app-shells/zsh-syntax-highlighting
+app-text/ghostscript-gpl cups
+app-text/gnome-doc-utils python3_11
+app-text/poppler cairo
+app-text/xmlto text
+dev-cpp/gtkmm
+dev-db/postgresql kerberos
+dev-lang/python pgo
+dev-lang/zig-bin
+dev-libs/boost
+dev-libs/libdbusmenu gtk3
+dev-libs/libpthread-stubs
+dev-libs/libpthread-stubs
+dev-libs/libusb udev
+dev-libs/weston drm fullscreen gles2 jpeg pipewire suid kiosk wayland-compositor xwayland -X -desktop
+dev-libs/xerces icu
+dev-libs/xmlsec nss
+dev-python/pillow tiff webp
+dev-python/pip python3_13
+dev-python/pyside uitools
+dev-qt/qt5compat qml icu
+dev-qt/qtbase opengl egl eglfs gles2-only libproxy icu
+dev-qt/qtcore icu
+dev-qt/qtdeclarative opengl
+dev-qt/qtgui egl X
+dev-qt/qtshadertools 
+dev-qt/qttools opengl
+dev-qt/qtwayland compositor
+dev-ruby/rbenv
+dev-util/rocm-smi
+dev-vcs/git
+dev-vcs/lazygit
+gnome-base/gvfs elogind http udev afp archive bluray cdda fuse ios keyring mtp nfs policykit samba udisks zeroconf 
+gnome-extra/nm-applet modemmanager appindicator
+gui-apps/hyprpaper 
+gui-apps/hyprpicker 
+# gui-apps/nwg-bar
+gui-apps/waybar pulseaudio udev network tray upower wifi evdev
+gui-apps/wlogout zsh-completions
+gui-apps/wofi
+gui-libs/gtk-layer-shell vala introspection
+gui-libs/wlroots -tinywl -11-backend
+gui-libs/xdg-desktop-portal-hyprland 
+gui-wm/hyprland-contrib 
+kde-frameworks/kconfig qml
+mail-client/thunderbird -X 
+media-fonts/corefonts
+media-fonts/fontawesome otf ttf
+media-fonts/terminus-font -ru-g
+media-fonts/nerdfonts X firacode firamono jetbrainsmono meslo nerdfontssymbolsonly noto terminus ubuntu proggyclean hack
+media-gfx/imagemagick  bzip2 cxx jpeg openmp perl png svg xml zlib corefonts djvu fftw fontconfig fpx graphviz hardened hdri heif jbig jpeg2k jpegxl lcms lqr lzma opencl openexr pango postscript raw tiff truetype webp wmf zip
+media-gfx/swayimg jpeg png svg avif bash-completion exif exr gif heif jpegxl tiff webp
+media-libs/freetype harfbuzz
+media-libs/gd truetype fontconfig
+media-libs/gegl cairo
+media-libs/gst-plugins-base opengl
+media-libs/harfbuzz icu
+media-libs/imlib2 eps heif jpeg2k jpegxl lzma mp3 packing raw static-libs
+media-libs/libepoxy
+media-libs/libglvnd
+media-libs/libheif x265
+media-libs/libpulse
+media-libs/libvpx postproc
+media-libs/lsp-plugins X lv2 jack ladspa vst
+media-libs/mesa X
+media-libs/pulseaudio-qt
+media-libs/tg_owt screencast -X
+media-libs/vulkan-loader X
+media-plugins/audacious-plugins gtk nls pipewire cdda cue ffmpeg flac http lame libnotify modplug mp3 opus sndfile wavpack
+media-sound/alsamixer-app
+media-sound/ardour jack phonehome pulseaudio
+media-sound/audacious aac gtk jack libsamplerate -mms opengl pulseaudio scrobbler speedpitch streamtuner
+media-sound/deadbeef aac alsa cdda converter dts ffmpeg flac lastfm libretro libsamplerate mp3 musepack notify oss pulseaudio shellexec vorbis wavpack zip cover
+media-sound/pavucontrol
+media-sound/qpwgraph
+media-sound/reaper-bin jack ffmpeg mp3 pulseaudio
+media-video/ffmpeg modplug mp3 opus pulseaudio svg v4l openh264 libv4l webp x264 x265 xvid vpx
+media-video/mpv cdda dvd jpeg
+media-video/pipewire sound-server v4l bluetooth elogind jack-client pipewire-alsa 
+media-video/wireplumber
+net-dns/dnsmasq script
+net-fs/samba client
+net-im/telegram-desktop -X fonts enchant screencast wayland
+net-im/zoom wayland zoom-symlink opencl pulseaudio
+net-libs/gnutls tools pkcs11
+net-libs/libtorrent-rasterbar
+net-misc/spice-gtk usbredir
+net-p2p/deluge console gui libnotify
+net-wireless/bluez
+sci-libs/fftw threads
+sci-libs/hdf5 cxx
+sci-libs/opencascade json
+sri-libs/cgnslib hdf5
+sys-apps/pciutils
+sys-apps/xdg-desktop-portal screencast
+sys-auth/polkit-qt qt6
+sys-boot/grub mount
+sys-devel/binutils pgo
+sys-devel/gcc graphite lto pgo
+sys-kernel/genkernel
+sys-kernel/gentoo-sources symlink
+sys-kernel/installkernel openrc dracut
+sys-kernel/linux-firmware initramfs
+sys-libs/zlib minizip
+virtual/imagemagick-tools tiff
+virtual/libusb udev
+www-client/firefox lto pgo pulseaudio
+www-client/vivaldi gtk proprietary-codecs qt5 widevine
+x11-base/xorg-server xvfb
+x11-drivers/nvidia-drivers dist-kernel modules-sign persistenced powerd wayland
+x11-libs/cairo 
+x11-libs/gtk+ X colord cups xinerama
+x11-libs/libfm gtk exif udisks
+x11-libs/libxkbcommon X
+x11-libs/pango
+x11-libs/wxGTK curl gstreamer keyring libnotify opengl tiff webkit
+x11-misc/copyq amd64
+x11-misc/dunst completions dunstify wayland
+x11-misc/ly
+x11-misc/sddm -X
+x11-terms/kitty python3_13
+dev-libs/xerces-c icu
+>=dev-qt/qtbase-6.8.2-r2 -gles2-only

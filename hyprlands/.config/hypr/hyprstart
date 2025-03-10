@@ -25,10 +25,10 @@ export XCURSOR_SIZE=24
 export EDITOR=/usr/bin/nvim
 
 #browser
-export BROWSER=/usr/bin/google-chrome
+export BROWSER=/usr/bin/brave-bin
 
 #terminal
-export TERM=kitty
+export TERM=ghostty
 #mail
 export MAIL=thunderbird
 

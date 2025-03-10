@@ -6,7 +6,8 @@
 #: individual font faces and even specify special fonts for particular
 #: characters.
 
-font_family      monospace
+# font_family      monospace
+font_family    FiraCode Nerd Font Ret
 bold_font        auto
 italic_font      auto
 bold_italic_font auto
@@ -24,11 +25,11 @@ bold_italic_font auto
 #:     italic_font      Operator Mono Book Italic
 #:     bold_italic_font Operator Mono Medium Italic
 
-font_size 12.0
+font_size 10.0
 
 #: Font size (in pts)
 
-force_ltr no
+force_ltr yes
 
 #: kitty does not support BIDI (bidirectional text), however, for RTL
 #: scripts, words are automatically displayed in RTL. That is to say,
@@ -830,7 +831,7 @@ confirm_os_window_close -1
 
 #: Tab bar {{{
 
-tab_bar_edge bottom
+tab_bar_edge top
 
 #: The edge to show the tab bar on, top or bottom.
 
@@ -845,7 +846,7 @@ tab_bar_margin_height 0.0 0.0
 #: The second number is the margin between the tab bar and the
 #: contents of the current tab.
 
-tab_bar_style fade
+tab_bar_style powerline
 
 #: The tab bar style, can be one of:
 
@@ -903,13 +904,13 @@ tab_separator " ┇"
 #: The separator between tabs in the tab bar when using separator as
 #: the tab_bar_style.
 
-tab_powerline_style angled
+tab_powerline_style slanted
 
 #: The powerline separator style between tabs in the tab bar when
 #: using powerline as the tab_bar_style, can be one of: angled,
 #: slanted, round.
 
-tab_activity_symbol none
+tab_activity_symbol ""
 
 #: Some text or a Unicode symbol to show on the tab if a window in the
 #: tab that does not have focus has some activity. If you want to use
@@ -957,11 +958,11 @@ active_tab_title_template none
 
 #: Template to use for active tabs. If not specified falls back to
 #: tab_title_template.
- active_tab_foreground   #eee
- active_tab_background   #8b00d5
+# active_tab_foreground   #eee
+# active_tab_background   #8b00d5
 active_tab_font_style   bold-italic
- inactive_tab_foreground #bbb
- inactive_tab_background #7900b9
+# inactive_tab_foreground #bbb
+# inactive_tab_background #7900b9
 inactive_tab_font_style normal
 
 #: Tab bar colors and styles.
@@ -1569,6 +1570,7 @@ clear_all_shortcuts no
 #: instance, to remove the default shortcuts.
 
 # action_alias
+alias ssh = "kitty +kitten ssh"
 
 #: E.g. action_alias launch_tab launch --type=tab --cwd=current
 
@@ -1586,7 +1588,6 @@ clear_all_shortcuts no
 #:     action_alias hints kitten hints --hints-offset=0
 
 # kitten_alias
-
 #: E.g. kitten_alias hints hints --hints-offset=0
 
 #: Like action_alias above, but specifically for kittens. Generally,
@@ -2211,10 +2212,10 @@ map shift+cmd+/ open_url https://sw.kovidgoyal.net/kitty/
 #: }}}
 
 #: }}}
-
+map kitty_mod+/      launch --allow-remote-control kitty +kitten kitty_search/search.py @active-kitty-window-id
 
 
 # BEGIN_KITTY_THEME
-# Duotone Dark
-include monokai_pro_filter_octagon.conf
+# Monokai Pro (Filter Spectrum)
+include current-theme.conf
 # END_KITTY_THEME

@@ -1,0 +1,104 @@
+# RHMD
+# Realist Hyperland Minimal Desktop LTO & GPO version 2024
+# Only Wayland Hyperland Minimal Desktop no (Xwayland)
+# package.accept_keywords file -> /etc/portage/package.accept_keywords
+# (c) 2024
+
+# # APP-MISC
+# app-misc/ca-certificates
+#
+# # APP-SHELLS
+# app-shells/oh-my-zsh
+# app-shells/zsh-autosuggestions
+# app-shells/zsh-syntax-highlighting
+#
+# # DEV-UTIL
+# dev-util/rocm-smi
+#
+# # GUI-APPS
+# gui-apps/hyprpaper 
+# gui-apps/hyprpicker 
+# gui-apps/wofi
+# gui-apps/waybar 
+# gui-apps/wlogout 
+#
+# # GUI-LIBS
+# gui-libs/xdg-desktop-portal-hyprland 
+#
+# # GUI-WM
+# gui-wm/hyprland-contrib 
+#
+# # MEDIA-VIDEO
+# media-video/pipewire
+# media-video/wireplumber
+#
+# # SYS-KERNEL
+# sys-kernel/gentoo-kernel
+#
+# sys-boot/grub
+# dev-vcs/git
+# sys-kernel/installkernel
+# media-libs/freetype
+#
+# sys-apps/pciutils
+# acct-group/nullmail
+# www-client/vivaldi
+# dev-libs/libpthread-stubs
+# x11-drivers/nvidia-drivers
+# x11-misc/ly
+# dev-lang/zig-bin
+# dev-vcs/lazygit
+# required by sys-power/supergfxctl (argument)
+sys-power/supergfxctl ~amd64
+sci-libs/fftw ~amd64
+x11-misc/copyq
+# gui-apps/nwg-bar
+x11-drivers/displaylink-driver
+x11-drivers/evdi ~amd64
+dev-libs/libpthread-stubs ** 
+app-office/obsidian ~amd64
+net-im/telegram-desktop-bin ~amd64
+media-sound/qpwgraph ~amd64
+media-sound/alsamixer-app ~amd64
+x11-misc/ly ~amd64
+dev-lang/zig ~amd64
+app-misc/nwg-look ~amd64
+x11-apps/xcur2png ~amd64
+hypr-apps/hyprlock ~amd64
+gui-apps/nwg-drawer ~amd64
+# dev-libs/glib ~amd64
+gui-apps/nwg-shell ~amd64
+dev-db/dbeaver-bin ~amd64
+media-fonts/nerdfonts ~amd64 
+sys-apps/qemu-openrc ~amd64
+dev-ruby/rbenv **
+x11-terms/ghostty ~amd64
+app-eselect/eselect-zig  ~amd64
+net-im/rocketchat-desktop-bin ~amd64
+dev-util/insomnia-bin ~amd64
+app-admin/bitwarden-desktop-bin ~amd64
+gui-libs/xdg-desktop-portal-hyprland ~amd64
+dev-cpp/sdbus-c++ ~amd64
+net-im/zoom ~amd64
+hypr-apps/hypridle ~amd64
+app-admin/overmind ~amd64
+media-libs/libinsane ~amd64
+media-gfx/swayimg ~amd64
+www-client/zen-bin ~amd64
+app-emulation/fuse ~amd64
+app-emulation/libspectrum ~amd64
+dev-libs/nwjs ~amd64
+media-sound/deadbeef-mpris2-plugin ~amd64
+app-misc/yazi ~amd64
+sys-libs/ncurses ~amd64
+sys-fs/linux-apfs-rw ~amd64
+app-shells/fzf-tab ~amd64
+net-misc/anydesk ~amd64
+media-sound/reaper-bin ~amd64
+gui-apps/hyprlock ~amd64
+dev-libs/hyprgraphics ~amd64
+gui-apps/hypridle ~amd64
+gui-apps/hyprpicker ~amd64
+gui-wm/hyprland-contrib ~amd64
+app-editors/neovide ~amd64
+media-fonts/nerd-fonts-fira-code ~amd64
