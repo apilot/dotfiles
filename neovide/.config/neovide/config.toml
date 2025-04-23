@@ -12,8 +12,9 @@ vsync = false
 wsl = false
 
 [font]
-# normal= ["FiraCode Nerd Font"]
-normal= ["MesloLGS Nerd Font"]
+normal= ["FiraCode Nerd Font"]
+
+# normal= ["MesloLGS Nerd Font"]
 size =10.0
 hinting = "full"
 edging = "antialias"
