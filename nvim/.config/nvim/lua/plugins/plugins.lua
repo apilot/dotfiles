@@ -2,6 +2,7 @@ return {
   { "mg979/vim-visual-multi" },
   { "equalsraf/neovim-gui-shim" },
   { "ThePrimeagen/git-worktree.nvim" },
+  { "folke/todo-comments.nvim" },
   {
     "hat0uma/csvview.nvim",
     config = function()

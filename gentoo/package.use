@@ -8,7 +8,6 @@ app-containers/docker btrfs
 app-containers/docker-cli 
 app-containers/docker-compose
 app-crypt/gcr gtk
-app-editors/neovide
 app-emulation/fuse gpm joystick pulseaudio
 app-emulation/qemu opengl plugins spice udev virtfs usbredir
 app-emulation/qemu qemu_softmmu_targets_arm qemu_softmmu_targets_x86_64 qemu_softmmu_targets_sparc
@@ -144,4 +143,20 @@ x11-misc/ly
 x11-misc/sddm -X
 x11-terms/kitty python3_13
 dev-libs/xerces-c icu
+dev-libs/icu static-libs
+media-gfx/freecad X bim gui mesh smesh techdraw addonmgr cam fem idf inspection openscad pcl points reverse robot spacenav surface
 >=dev-qt/qtbase-6.8.2-r2 -gles2-only
+# required by media-gfx/freecad-1.0.0-r2::gentoo[gui]
+# required by freecad (argument)
+>=dev-qt/qttools-6.8.2 designer
+# required by media-gfx/freecad-1.0.0-r2::gentoo[netgen]
+# required by freecad (argument)
+>=media-gfx/netgen-6.2.2302 opencascade
+# required by sci-libs/vtk-9.3.1::gentoo[cgns]
+# required by media-gfx/freecad-1.0.0-r2::gentoo[fem,smesh]
+# required by freecad (argument)
+>=sci-libs/cgnslib-4.4.0-r2 hdf5
+media-video/simplescreenrecorder asm jack mp3 opengl theora v4l vorbis vpx x264
+# required by media-video/simplescreenrecorder-0.4.4-r4::gentoo
+# required by simplescreenrecorder (argument)
+>=media-video/ffmpeg-6.1.2 vorbis theora

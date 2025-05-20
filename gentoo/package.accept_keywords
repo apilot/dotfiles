@@ -102,3 +102,6 @@ gui-apps/hyprpicker ~amd64
 gui-wm/hyprland-contrib ~amd64
 app-editors/neovide ~amd64
 media-fonts/nerd-fonts-fira-code ~amd64
+app-editors/neovide ~amd64
+virtual/rust ~amd64
+gui-apps/wf-recorder ~amd64
