@@ -66,7 +66,10 @@
   },
   "tray": {
     "icon-size": 20,
-    "spacing": 5
+    "spacing": 5,
+    "icons": {
+      "TelegramDesktop": "$HOME/.icons/Infinity-Lavender-Dark-Icons/apps/48/telegram.svg"
+    }
   },
   "clock": {
     "tooltip-format": "<big>{:%A, %d.%B %Y }</big>\n<tt><small>{calendar}</small></tt>",

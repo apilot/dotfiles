@@ -49,6 +49,9 @@ window#waybar {
   padding-right: 10px;
 }
 
+#tray {
+  background: #ffcccc;
+}
 /* Base styling for modules */
 #workspaces,
 #mode,
