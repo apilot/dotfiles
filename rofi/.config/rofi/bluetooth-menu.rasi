@@ -1,9 +1,9 @@
-/* Power menu */
+/* Bluetooth menu */
 
 @theme "~/.config/rofi/theme.rasi"
 
 configuration {
-  font:                     "NumbusSans Font 14";
+  font:                     "Noto Nerd Font 12";
   hover-select:             true;
   me-select-entry:          "MousePrimary";
   me-accept-entry:          "!MousePrimary";
@@ -12,11 +12,10 @@ configuration {
 /* Window */
 
 window {
-  location:                 northeast;
-  anchor:                   north;
-  x-offset:                 -3px;
+  location:                 north;
+  anchor:                   south;
   y-offset:                 3px;
-  width:                    150px;
+  width:                    240px;
   border:                   3px;
   border-radius:            10px;
   border-color:             @main-br;
@@ -28,18 +27,41 @@ mainbox {
   spacing:                  0;
   background-color:         @main-br;
   text-color:               @main-fg;
-  children:                 [ textbox-custom, listview ];
+  children:                 [ textbox-custom, listview, inputbar ];
 }
 
 textbox-custom {
-  font:                     "NumbusSans Font 14";
+  font:                     "Noto Nerd Font 12";
   horizontal-align:         0.5;
-  padding:                  0;
+  padding:                  1px 0;
   expand:                   false;
   background-color:         @select-bg;
   text-color:               @select-fg;
   expand:                   false;
-  // content:                  "  Power";
+  content:                  "󰂱  Bluetooth";
+}
+
+/* Input */
+
+inputbar {
+  margin:                   -32px 6px 6px;
+  border-radius:            6px;
+  spacing:                  inherit;
+  background-color:         @input-bg;
+  text-color:               inherit;
+  children:                 [ prompt, entry ];
+}
+prompt {
+  padding:                  6px 6px 6px 12px;
+  background-color:         inherit;
+  text-color:               inherit;
+}
+entry {
+  placeholder:              "Search";
+  padding:                  6px 0;
+  cursor:                   text;
+  background-color:         inherit;
+  text-color:               inherit;
 }
 
 /* List */
@@ -49,7 +71,11 @@ listview {
   border-radius:            8px;
   border-color:             @main-br;
   lines:                    6;
-  padding:                  6px;
+  fixed-height:             false;
+  dynamic:                  false;
+  cycle:                    false;
+  margin:                   0 0 -2px;
+  padding:                  6px 6px 40px;
   background-color:         @main-bg;
 }
 
@@ -59,7 +85,8 @@ element {
   background-color:         inherit;
   text-color:               @main-fg;
 }
-element selected.normal {
+element selected active,
+element selected normal {
   border-radius:            6px;
   background-color:         @select-bg;
   text-color:               @select-fg;

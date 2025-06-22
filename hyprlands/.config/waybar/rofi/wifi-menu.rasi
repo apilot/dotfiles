@@ -3,7 +3,7 @@
 @theme "~/.config/rofi/theme.rasi"
 
 configuration {
-  font:                     "FiraCode Nerd Font 14";
+  font:                     "NimbusSans 14";
   hover-select:             true;
   me-select-entry:          "MousePrimary";
   me-accept-entry:          "!MousePrimary";
@@ -31,7 +31,7 @@ mainbox {
 }
 
 textbox-custom {
-  font:                     "JetBrainsMono Nerd Font Bold 8";
+  font:                     "NimbusSans 14";
   horizontal-align:         0.5;
   padding:                  1px 0;
   expand:                   false;
