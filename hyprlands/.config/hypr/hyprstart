@@ -18,7 +18,7 @@ export XDG_SESSION_DESKTOP=Hyprland
 # export GDK_BACKEND=wayland,x11
 #
 #cursor size
-export XCURSOR_SIZE=24
+# export XCURSOR_SIZE=24
 
 # text editor
 # export MICRO_TRUECOLOR=1

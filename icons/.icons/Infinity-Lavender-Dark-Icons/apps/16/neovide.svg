@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 16" version="1.1">
+<defs>
+<image id="image13" width="16" height="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAB/klEQVQ4jaWTQWobMRSGv5mR7GBnMIwhheBFSzc9Qbe9QBc9QlNyiG68yTlC6RkKvUTJAQqhNIvWIRNmxvZY1ow00nRRW3UgFEofCD140q/v/TzBf0a0259Op9OT8/Pzd2mazv52oa7rH5eXlx+KosiBmwhgOp2+vLi4+JRl2ROAzWZD0zRYawGQUnJ0dMTx8TEAVVXdzufzN0VRfEkAzs7O5rPZ7JXWmru7O/I8J89ziqKgqirW6zVKKbTWRFGEECLNsqy7urr6LAAGg8EzpRRlWbJcLlmtViilMMawqzMej5lMJmy3W7IsYzgcPgcQAE3TxPf395RlSVmWrFYr6rqmbVsAhsMhaZqGtpxzNE0TBwGtNWVZUlUVVVUFiu12C8BoNMJai/eeKPrtu9aaQwKcc9R1jVKKzWZDXdes12sAnHMkSYKUEiklQohgsABo25au62jbFmMMXdfhvafvewC893RdhzGGtm3RWuOce0iQJAnGmD8FIRiNRiHfkxhjAvEDASFEeDmOY6SUoV8hBHEcB5I98aGJfjAYBAGAJEnC9O3zQwFjjA8CSqnv1lr6vg8CAHEcPxhj7z3W2r0f3wCS3WjmaZq+NsakzrlAsjfycO0Ebq+vr99773+GzySlPDk9PX0LvIiiKOGR6PveAV8Xi8VHa20O3Dx27p/iF+BcaJAKUbHOAAAAAElFTkSuQmCC"/>
+<filter id="alpha" filterUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
+  <feColorMatrix type="matrix" in="SourceGraphic" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+</filter>
+<image id="image46" width="16" height="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAAnklEQVQ4je2TOxIBQRBAX++oLeVTm40DcAKJyE1cgHO5jIQL2FSwklU1lMJUCxgBSs3aROBFnbzXSTfURMKgGMFZixk0Pxp+faRTFILXR0AxwokhkmdRa7W/I2UpeE0AcNZGywCSZzhrAW4BM29Fy4G7k1QWn/gHfifgJ4fK5iXfw9enPC5JNyvB6+szNWZtWMh7c6Sce47udBueqTZXjFEusmTP1dEAAAAASUVORK5CYII="/>
+<mask id="mask0">
+  <g filter="url(#alpha)">
+<use xlink:href="#image46"/>
+  </g>
+</mask>
+<radialGradient id="radial0" gradientUnits="userSpaceOnUse" cx="0" cy="0" fx="0" fy="0" r="1" gradientTransform="matrix(0.000000000000000398,6.5,-6.5,0.000000000000000398,8,8)">
+<stop offset="0" style="stop-color:rgb(100%,100%,100%);stop-opacity:1;"/>
+<stop offset="1" style="stop-color:rgb(100%,100%,100%);stop-opacity:0;"/>
+</radialGradient>
+<radialGradient id="radial1" gradientUnits="userSpaceOnUse" cx="0" cy="0" fx="0" fy="0" r="1" gradientTransform="matrix(0.000000000000000642,10.484375,-10.484375,0.000000000000000642,10.78125,4.015625)">
+<stop offset="0" style="stop-color:rgb(53.333333%,77.647059%,28.627451%);stop-opacity:0.8;"/>
+<stop offset="0.338542" style="stop-color:rgb(53.333333%,77.647059%,28.627451%);stop-opacity:0.8;"/>
+<stop offset="0.755208" style="stop-color:rgb(26.27451%,57.254902%,25.098039%);stop-opacity:0.8;"/>
+<stop offset="1" style="stop-color:rgb(5.882353%,34.901961%,69.803922%);stop-opacity:0.8;"/>
+</radialGradient>
+<radialGradient id="radial2" gradientUnits="userSpaceOnUse" cx="0" cy="0" fx="0" fy="0" r="1" gradientTransform="matrix(0.000000000000000455,7.4375,-7.4375,0.000000000000000455,5.234375,11.265625)">
+<stop offset="0" style="stop-color:rgb(8.627451%,69.019608%,92.941176%);stop-opacity:0.8;"/>
+<stop offset="0.177083" style="stop-color:rgb(8.627451%,69.019608%,92.941176%);stop-opacity:0.8;"/>
+<stop offset="0.557292" style="stop-color:rgb(5.882353%,34.901961%,69.803922%);stop-opacity:0.8;"/>
+<stop offset="1" style="stop-color:rgb(53.333333%,77.647059%,28.627451%);stop-opacity:0;"/>
+</radialGradient>
+<radialGradient id="radial3" gradientUnits="userSpaceOnUse" cx="0" cy="0" fx="0" fy="0" r="1" gradientTransform="matrix(0.000000000000000417,6.8125,-6.8125,0.000000000000000417,12.375,8)">
+<stop offset="0.208333" style="stop-color:rgb(53.333333%,77.647059%,28.627451%);stop-opacity:0.401569;"/>
+<stop offset="0.671875" style="stop-color:rgb(8.627451%,69.019608%,92.941176%);stop-opacity:0.401569;"/>
+<stop offset="1" style="stop-color:rgb(8.627451%,69.019608%,92.941176%);stop-opacity:0;"/>
+</radialGradient>
+<image id="image42" width="16" height="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAABvklEQVQ4jcWTT4vaUBTFf2nyJknbiSVQ0JVDC6VddNV1wXE330BwIX4ycSHoym2X3Ui/gFDowhYlrVrxX4MxeUneLBJlJghddNELDx6Xd88759x74R9Du5B7Ajj5eZrnAmAHHIDob4Al4EZKqeI4VnEcKymlAt4Cbv7BRQYacA2UDofDFEDXdZRSSClJ05RSqfQe+AlsgbQIcA28WK/XU9d1PwBXgA48XywWn4IgQNM0qtXqO+BXLulMxwSeTSaTqeu6HwHH87wvgAD0zWbDfD5nNpsxHo+/5v48kmAB5dFo9H232yGEwDRNhBAopfB9n+12i5SSSqVCvV5/DUwAjAdAV8vlEs/ziKIIwzAQQgAQhiFRFCGEwLIscmY8BABgv9+zWq0IwzBD1TKCSqlMp2ni+z6AKgIoIFJKYRgGmqZhWRa2bQMQBAHH4/HcFS7MggmUh8OhAm6Bu8FgoIAaUMvvd8Bt/qZcNPHURrff7/8IgoB2u10D4hPTTqfz2bZtGo3GDbAG/hQBNLL2uN1ud5IkCY7jnL3RdZ1Wq/UqL96ffCjuwmkPXvZ6vW9JkgDZRDabzTfA77w4LXrw/+IeF/W4N7ZTipsAAAAASUVORK5CYII="/>
+<clipPath id="clip1">
+  <rect x="0" y="0" width="16" height="16"/>
+</clipPath>
+<g id="surface45" clip-path="url(#clip1)">
+<path style=" stroke:none;fill-rule:nonzero;fill:url(#radial0);" d="M 1.5 1.5 L 14.5 1.5 L 14.5 14.5 L 1.5 14.5 Z M 1.5 1.5 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:url(#radial1);" d="M 1.5 1.5 L 14.5 1.5 L 14.5 14.5 L 1.5 14.5 Z M 1.5 1.5 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:url(#radial2);" d="M 1.5 1.5 L 14.5 1.5 L 14.5 14.5 L 1.5 14.5 Z M 1.5 1.5 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:url(#radial3);" d="M 1.5 1.5 L 14.5 1.5 L 14.5 14.5 L 1.5 14.5 Z M 1.5 1.5 "/>
+<use xlink:href="#image42"/>
+</g>
+</defs>
+<g id="surface1">
+<use xlink:href="#image13"/>
+<use xlink:href="#surface45" mask="url(#mask0)"/>
+</g>
+</svg>

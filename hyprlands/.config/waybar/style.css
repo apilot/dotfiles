@@ -3,7 +3,7 @@
 /* ───────────────────────────────────────────────────────────────┤ global ├───
 */
 * {
-  min-height: 14px;
+  min-height: 16px;
   border: none;
   margin: 0;
   padding: 0;
@@ -204,7 +204,7 @@ tooltip label {
   background: @distro-bg;
   margin: 0 -1px -2px 0;
   padding: 0 0 0 3px;
-  text-shadow: 0 0 1.5px rgba(0, 0, 0, 1);
+ /* text-shadow: 0 0 1.5px rgba(0, 0, 0, 1); */
 }
 
 #custom-right2 {
@@ -426,7 +426,7 @@ tooltip label,
 #custom-right3,
 #custom-right4,
 #custom-right5 {
-  font-size: 14.68px;
+  font-size: 18px;
 }
 
 /* ─────────────────────────────────────────────────┤ left & right inverse ├───
@@ -434,18 +434,19 @@ tooltip label,
 #custom-leftin1,
 #custom-leftin2,
 #custom-rightin1 {
-  font-size: 15.5px;
+  font-size: 20px;
 }
 
 /* ──────────────────────────────────────────────────────────┤ distro icon ├───
 */
 #custom-distro {
-  font-size: 14.6px;
+  font-size: 18px;
+  color: #9f003d;
 }
 
 #custom-left5,
 #custom-right2 {
-  font-size: 15.68px;
+  font-size: 20px;
 }
 
 /*
