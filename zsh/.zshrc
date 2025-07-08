@@ -32,6 +32,7 @@ export PATH="/usr/local/opt/icu4c/sbin:$PATH"
 export PATH="/usr/local/opt/python@3.8/bin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - zsh)"
+export XDG_CONFIG_HOME="/home/aboyarinov/.config"
 
 export FZF_DEFAULT_OPTS="--preview 'fzf-preview.sh {}' --height 40% --tmux bottom,40% --layout reverse --border top --info=inline --border --margin=1 --padding=1 \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
