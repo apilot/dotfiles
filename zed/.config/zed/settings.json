@@ -1,4 +1,11 @@
 {
+  "agent": {
+    "always_allow_tool_actions": true,
+    "default_model": {
+      "provider": "ollama",
+      "model": "codellama:34b"
+    }
+  },
   "vim_mode": true,
   "ui_font_size": 16,
   "active_pane_magnification": 1.0,
@@ -13,7 +20,7 @@
   "theme": {
     "mode": "system",
     "light": "Catppuccin Mocha",
-    "dark": "One Dark"
+    "dark": "Catppuccin Mocha (Blue Blur+)"
   },
   "git": {
     "git_gutter": "tracked_files",
@@ -27,24 +34,42 @@
     "git_diff": true,
     "search_results": true,
     "selected_symbol": true,
-    "diagnostics": true
+    "diagnostics": "all"
   },
-  "lsp": {
-    "rust-analyzer": {
-      "initialization_options": {
-        "check": {
-          "command": "clippy"
+  "languages": {
+    "Ruby": {
+      "language_servers": ["ruby-lsp"]
+    }
+  },
+  "language_models": {
+    "ollama": {
+      "api_url": "http://localhost:11434",
+      "available_models": [
+        //       {
+        //         "name": "qwen3-coder",
+        //         "display_name": "qwen 3 coder",
+        //         "max_tokens": 16384,
+        //         "supports_tools": true,
+        //         "supports_thinking": true,
+        //         "supports_images": true
+        //       }
+        {
+          "name": "qwen3-coder",
+          "display_name": "Qwen3-Coder (Fast)",
+          "max_tokens": 16384, // <-- Оптимальное значение
+          "temperature": 0.3,
+          "supports_tools": true,
+          "supports_thinking": true,
+          "supports_images": true
+        },
+        {
+          "name": "codellama:34b",
+          "display_name": "CodeLlama-34B (Powerful)",
+          "url": "http://localhost:11434",
+          "max_tokens": 16384, // <-- Оптимальное значение
+          "temperature": 0.2
         }
-      }
-    },
-    "solargraph": {
-      "initialization_options": {
-        "diagnostics": true,
-        "formatting": true
-      },
-      "settings": {
-        "use_bundler": false
-      }
+      ]
     }
   }
 }

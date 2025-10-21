@@ -78,7 +78,9 @@ return {
   { "equalsraf/neovim-gui-shim" },
   { "ThePrimeagen/git-worktree.nvim" },
   { "folke/todo-comments.nvim" },
+  { "jpmcb/nvim-llama" },
   { "github/copilot.vim" },
+  { "nvim-mini/mini.nvim", version = "*" },
   {
     "hat0uma/csvview.nvim",
     config = function()

@@ -1,3 +1,5 @@
 [default]
 path = "/mnt/docs/backgrounds/"
 duration = "1h"
+[HEADLESS-3]
+path="/home/aboyarinov/Pictures/solid_bg/gray_bg.png"

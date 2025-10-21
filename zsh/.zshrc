@@ -23,6 +23,7 @@ source $HOME/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
 source <(fzf --zsh)
 
 eval "$(ssh-agent)"
+export EDITOR=nvim
 export PATH="/usr/local/opt/curl/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -67,3 +68,16 @@ alias rc="bundle exec rails c"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+export OLLAMA_MODELS="/mnt/docs/olama/models"
+export OLLAMA_NUM_THREADS=16
+export OLLAMA_CUDA=1
+export OLLAMA_MAX_LOADED=2
+export ANTHROPIC_BASE_URL=https://api.z.ai/api/anthropic
+export ANTHROPIC_AUTH_TOKEN=6879c7d6b50443948c4ae39f14018380.KkUKTZtnXTka9GUk
+
+export OPENAI_API_KEY="your_api_key_here"
+export OPENAI_BASE_URL="http://127.0.0.1:8080"
+export OPENAI_MODEL="qwen3-coder"
+
+# # opencode
+# export PATH=/home/aboyarinov/.opencode/bin:$PATH
