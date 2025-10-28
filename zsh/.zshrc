@@ -81,3 +81,14 @@ export OPENAI_MODEL="qwen3-coder"
 
 # # opencode
 # export PATH=/home/aboyarinov/.opencode/bin:$PATH
+
+# opencode
+export PATH=/home/aboyarinov/.opencode/bin:$PATH
+
+# pnpm
+export PNPM_HOME="/home/aboyarinov/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

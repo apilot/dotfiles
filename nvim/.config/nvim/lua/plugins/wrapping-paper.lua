@@ -1,3 +1,0 @@
-return {
-  { "andrewferrier/wrapping.nvim" },
-}

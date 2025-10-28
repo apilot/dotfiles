@@ -2,18 +2,71 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 local keymap = vim.keymap.set
-keymap("n", "<leader>cz", "<cmd>ZenMode<cr>", { desc = "ZenMode toggle" })
-keymap("n", "<leader>ct", "<cmd>Twilight<cr>", { desc = "Twiligt toggle" })
+
+-- UI & Appearance (<leader>u)
+keymap("n", "<leader>uz", "<cmd>ZenMode<cr>", { desc = "Zen Mode toggle" })
+keymap("n", "<leader>ut", "<cmd>Twilight<cr>", { desc = "Twilight toggle" })
+
+-- Code editing (<leader>c)
 keymap("n", "<leader>ce", "<c-e>", { desc = "Special edit opts", remap = true })
-keymap("n", "<leader>ceW", "<cmd>:e ++enc=cp1251<cr>", { desc = "CP1251 codepage" }) -- switc to cp1251 codepage
-keymap("n", "<leader>ceU", "<cmd>:e ++enc=utf-8<cr>", { desc = "UTF8 codepage" }) -- switch to cp1251 codepage
-keymap("n", "<leader>cec", "<cmd>:CsvViewToggle delimiter=, comment=#<cr>", { desc = "Edit CSV with , delimiter" }) -- switch CSV view with comma delimiter
-keymap("n", "<leader>ceC", "<cmd>:CsvViewToggle delimiter=; comment=#<cr>", { desc = "Edit CSV with ; delimiter" }) -- switch CSV view with ; delimiter
-keymap("n", "<leader>ceJ", "<cmd>:%!jq<cr>", { desc = "JSON ident" }) -- switch to cp1251 codepage
-keymap("n", "<leader>we", "<C-w>=", { desc = "Make windows equal size" }) -- make split windows equal width & height
 keymap(
   "n",
-  "<leader>c~",
+  "<leader>cc",
   '<cmd>lua require("scripts.switch_case").switch_case()<CR>',
-  { desc = "Switch to CamelCase/snake_case", noremap = true, silent = true }
-) -- switch camel to snake case
+  { desc = "Switch CamelCase/snake_case", noremap = true, silent = true }
+)
+keymap("n", "<leader>cf", "<cmd>lua vim.lsp.buf.format()<cr>", { desc = "Format current buffer" })
+
+keymap("n", "<leader>e", "<cmd>Neotree<cr>", { desc = "File Explorer" })
+-- File operations (<leader>f)
+keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
+keymap("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live grep" })
+keymap("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find buffers" })
+
+-- Git operations (<leader>g)
+keymap("n", "<leader>gg", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
+keymap("n", "<leader>gs", "<cmd>Git<cr>", { desc = "Git status" })
+keymap("n", "<leader>gc", "<cmd>Git commit<cr>", { desc = "Git commit" })
+keymap("n", "<leader>gp", "<cmd>Git push<cr>", { desc = "Git push" })
+
+-- Encoding & File format (<leader>E)
+keymap("n", "<leader>Ew", "<cmd>:e ++enc=cp1251<cr>", { desc = "Windows CP1251" })
+keymap("n", "<leader>Eu", "<cmd>:e ++enc=utf-8<cr>", { desc = "UTF-8" })
+keymap("n", "<leader>Ej", "<cmd>:%!jq<cr>", { desc = "JSON format with jq" })
+
+-- CSV operations (<leader>C)
+keymap("n", "<leader>Cc", "<cmd>:CsvViewToggle delimiter=, comment=#<cr>", { desc = "CSV with comma" })
+keymap("n", "<leader>Cs", "<cmd>:CsvViewToggle delimiter=; comment=#<cr>", { desc = "CSV with semicolon" })
+
+-- Window management (<leader>w)
+keymap("n", "<leader>we", "<C-w>=", { desc = "Make windows equal size" })
+keymap("n", "<leader>wv", "<C-w>v", { desc = "Split vertical" })
+keymap("n", "<leader>wh", "<C-w>s", { desc = "Split horizontal" })
+keymap("n", "<leader>wq", "<C-w>q", { desc = "Close window" })
+
+-- Session management (<leader>S)
+keymap("n", "<leader>Ss", "<cmd>SessionSave<cr>", { desc = "Save session" })
+keymap("n", "<leader>Sl", "<cmd>SessionLoad<cr>", { desc = "Load session" })
+
+-- Quick navigation
+keymap("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
+keymap("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
+keymap("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
+keymap("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
+
+-- Quick save/quit
+keymap("n", "<leader>w", "<cmd>w<cr>", { desc = "Save file" })
+keymap("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
+keymap("n", "<leader>Q", "<cmd>qa<cr>", { desc = "Quit all" })
+
+-- LSP operations (<leader>l)
+keymap("n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "LSP Info" })
+keymap("n", "<leader>lr", "<cmd>LspRestart<cr>", { desc = "LSP Restart" })
+keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format()<cr>", { desc = "Format buffer" })
+keymap("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", { desc = "Code actions" })
+keymap("n", "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<cr>", { desc = "Go to definition" })
+keymap("n", "<leader>lrn", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "Rename symbol" })
+
+-- Terminal
+keymap("n", "<leader>tt", "<cmd>terminal<cr>", { desc = "Open terminal" })
+keymap("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
