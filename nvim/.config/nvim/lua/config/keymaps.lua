@@ -19,9 +19,9 @@ keymap("n", "<leader>cf", "<cmd>lua vim.lsp.buf.format()<cr>", { desc = "Format 
 
 keymap("n", "<leader>e", "<cmd>Neotree<cr>", { desc = "File Explorer" })
 -- File operations (<leader>f)
-keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
-keymap("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live grep" })
-keymap("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find buffers" })
+keymap("n", "<leader>ff", "<cmd>FzfLua files<cr>", { desc = "Find files" })
+keymap("n", "<leader>fg", "<cmd>FzfLua live_grep<cr>", { desc = "Live grep" })
+keymap("n", "<leader>fb", "<cmd>FzfLua buffers<cr>", { desc = "Find buffers" })
 
 -- Git operations (<leader>g)
 keymap("n", "<leader>gg", "<cmd>LazyGit<cr>", { desc = "LazyGit" })

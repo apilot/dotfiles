@@ -35,7 +35,7 @@ return {
             enabled = true,
             indentscope_color = "",
           },
-          telescope = {
+          fzf = {
             enabled = true,
           },
           which_key = true,
@@ -86,7 +86,7 @@ return {
         noice = true,
         notify = true,
         semantic_tokens = true,
-        telescope = true,
+        fzf = true,
         treesitter = true,
         treesitter_context = true,
         which_key = true,
