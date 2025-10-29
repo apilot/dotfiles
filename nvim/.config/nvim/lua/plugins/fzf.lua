@@ -5,15 +5,12 @@ return {
     cmd = "FzfLua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
-      -- File operations
-      { "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Find files" },
-      { "<leader>fg", "<cmd>FzfLua live_grep<cr>", desc = "Live grep" },
-      { "<leader>fb", "<cmd>FzfLua buffers<cr>", desc = "Find buffers" },
-      -- Additional useful fzf commands
-      { "<leader>fh", "<cmd>FzfLua help_tags<cr>", desc = "Help tags" },
-      { "<leader>fc", "<cmd>FzfLua commands<cr>", desc = "Commands" },
-      { "<leader>fr", "<cmd>FzfLua oldfiles<cr>", desc = "Recent files" },
-      { "<leader>fk", "<cmd>FzfLua keymaps<cr>", desc = "Keymaps" },
+      -- Additional LSP operations (not in keymaps.lua)
+      { "<leader>lt", "<cmd>FzfLua lsp_typedefs<cr>", desc = "LSP Type Definitions" },
+      { "<leader>ls", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Document Symbols" },
+      { "<leader>lS", "<cmd>FzfLua lsp_workspace_symbols<cr>", desc = "Workspace Symbols" },
+      { "<leader>le", "<cmd>FzfLua diagnostics_document<cr>", desc = "Document Diagnostics" },
+      { "<leader>lE", "<cmd>FzfLua diagnostics_workspace<cr>", desc = "Workspace Diagnostics" },
     },
     config = function()
       require("fzf-lua").setup({
@@ -57,6 +54,31 @@ return {
         },
         grep = {
           rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096",
+        },
+        -- LSP specific configuration
+        lsp = {
+          jump_to_single_result = true,
+          jump_to_single_result_action = require("fzf-lua.actions").file_edit,
+          async_or_timeout = 3000,
+          code_actions = {
+            async_or_timeout = 5000,
+            ui_select = true,
+          },
+          diagnostics = {
+            severity_limit = "Hint",
+            multiline = true,
+            path_shorten = 1,
+          },
+          symbols = {
+            async_or_timeout = 4000,
+            symbol_hl = function(s)
+              return vim.lsp.protocol.SymbolKind[s.kind] or "Unknown"
+            end,
+            symbol_fmt = function(s)
+              return ("[%s] %s"):format(s.kind, s.name)
+            end,
+            child_prefix = true,
+          },
         },
       })
     end,

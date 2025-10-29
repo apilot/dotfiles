@@ -88,6 +88,7 @@ return {
         { "<leader>S", group = "session" },
         { "<leader>t", group = "terminal" },
         { "<leader>u", group = "ui" },
+        { "<leader>l", group = "lsp" },
       },
     },
   },
