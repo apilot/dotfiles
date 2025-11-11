@@ -79,7 +79,24 @@ return {
   { "ThePrimeagen/git-worktree.nvim" },
   { "folke/todo-comments.nvim" },
   { "jpmcb/nvim-llama" },
-  { "github/copilot.vim" },
+  {
+    "github/copilot.vim",
+    enabled = function()
+      -- Check if Copilot should be disabled
+      local force_disable = vim.env.CPILOT_FORCE_DISABLE == "1"
+      local already_disabled = vim.g.copilot_disabled_at_start == true
+
+      return not (force_disable or already_disabled)
+    end,
+    config = function()
+      -- Set up initial state
+      if vim.env.CPILOT_FORCE_DISABLE == "1" then
+        vim.g.copilot_enabled = 0
+        vim.g.copilot_assume_mapped = true
+        vim.g.copilot_no_tab_map = true
+      end
+    end,
+  },
   { "nvim-mini/mini.nvim", version = "*" },
   {
     "hat0uma/csvview.nvim",

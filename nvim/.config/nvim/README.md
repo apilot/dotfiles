@@ -1,141 +1,338 @@
-# 💤 LazyVim Configuration
+# 💤 Neovim Configuration
 
-Custom Neovim configuration based on [LazyVim](https://github.com/LazyVim/LazyVim) with enhanced productivity features and Ruby development support.
+Мощная конфигурация Neovim на основе [LazyVim](https://github.com/LazyVim/LazyVim) с улучшенными функциями продуктивности и поддержкой разработки.
 
-## 📁 Structure
+## ✨ Особенности
 
-### Configuration Files (`lua/config/`)
+- 🚀 **Быстрый старт** - автоматическая установка плагинов при первом запуске
+- 🎨 **Современный интерфейс** - тема Catppuccin с режимами Zen и Twilight
+- 🔍 **Умный поиск** - FZF-lua для быстрого поиска файлов и содержимого
+- 📁 **Управление файлами** - Neo-tree с возможностью скрыть файлы конфигурации
+- 🔧 **Ruby разработка** - полная поддержка с LSP и автоформатированием
+- 🤖 **AI ассистенты** - интеграция с Claude, Ollama и Avante
+- ⚡ **Git интеграция** - LazyGit в модальном окне с полной интеграцией с Neovim
+- 💾 **Управление сессиями** - автоматическое сохранение и восстановление
+- 🌊 **Плавная прокрутка** - Neoscroll для комфортной навигации
 
-- **`editor.lua`** - Basic editor settings (numbers, indentation, search)
-- **`neovide.lua`** - GUI-specific settings and macOS keybindings
-- **`languages.lua`** - Language-specific configurations (Ruby, Hyprland)
-- **`keymaps.lua`** - Custom hotkeys organized by functionality
-- **`autocmds.lua`** - Custom automatic commands
-- **`lazy.lua`** - Lazy.nvim configuration and plugin management
+## 📁 Структура
 
-### Plugin Categories (`lua/plugins/`)
+```
+lua/
+├── config/          # Основная конфигурация
+│   ├── editor.lua   # Настройки редактора
+│   ├── keymaps.lua  # Горячие клавиши
+│   ├── languages.lua # Языковые настройки
+│   ├── autocmds.lua # Автокоманды
+│   ├── lazy.lua     # Lazy.nvim конфигурация
+│   ├── neovide.lua  # Настройки GUI
+│   └── copilot.lua  # Автоопределение Copilot
+└── plugins/         # Плагины
+    ├── ui.lua       # Интерфейс (темы, zen-mode)
+    ├── lsp.lua      # LSP и автодополнение
+    ├── tools.lua    # Инструменты (lazygit, neo-tree)
+    ├── editing.lua  # Улучшения редактирования
+    ├── fzf.lua      # FZF поиск
+    ├── ai.lua       # AI ассистенты
+    ├── colorsheme.lua # Цветовые схемы
+    ├── conform.lua  # Форматирование кода
+    ├── which-key.lua # Помощник по горячим клавишам
+    ├── snacks.lua   # Индикатор прогресса
+    └── ...         # Специализированные плагины
+```
 
-- **`ui.lua`** - UI plugins (zen-mode, twilight, colorscheme)
-- **`editing.lua`** - Editing enhancements (formatting, autopairs, surround)
-- **`tools.lua`** - Development tools (file explorer, git, sessions)
-- **`lsp.lua`** - Language Server Protocol and completion
-- **`ai.lua`** - AI assistants (gen, llm, avante)
-- **Individual plugins** - Specialized configurations (treesitter, obsidian, etc.)
+## 🎨 Интерфейс
 
-## ⌨️ Key Mappings
+### Темы и оформление
+- **Catppuccin** - современная цветовая схема с акцентами
+- **Zen Mode** - фокусированный режим без отвлекающих элементов
+- **Twilight** - затемнение неактивного кода
+- **Dim** - автоматическое затемнение неактивных окон
+- **Indent-blankline** - визуальные отступы
 
-### Code Operations (`<leader>c`)
-- `<leader>cc` - Switch CamelCase/snake_case
-- `<leader>cf` - Format current buffer
-- `<leader>ce` - Special edit options
+### Улучшения интерфейса
+- **Smooth scrolling** - плавная прокрутка
+- **Better escape** - улучшенный выход из режимов
+- **Illuminate** - подсветка текущего слова
+- **Navic** - навигационная строка
+- **Lualine** - информационная строка состояния
 
-### File Operations (`<leader>f`)
-- `<leader>fe` - File explorer (Neo-tree)
-- `<leader>ff` - Find files (Telescope)
-- `<leader>fg` - Live grep
-- `<leader>fb` - Find buffers
+## ⌨️ Горячие клавиши
 
-### Git Operations (`<leader>g`)
-- `<leader>gg` - LazyGit
+### 📂 Работа с файлами (`<leader>f`)
+- `<leader>ff` - Найти файлы (fzf-lua)
+- `<leader>fg` - Поиск по содержимому (fzf-lua)
+- `<leader>fb` - Найти буферы (fzf-lua)
+- `<leader>fh` - История файлов (fzf-lua)
+- `<leader>fc` - Команды (fzf-lua)
+- `<leader>fl` - Найденные слова (fzf-lua)
+- `<leader>fe` - Файловый менеджер (Neo-tree)
+
+### 🔧 Работа с кодом (`<leader>c`)
+- `<leader>cc` - Переключить CamelCase ↔ snake_case
+- `<leader>cf` - Форматировать буфер
+- `<leader>ca` - Действия с кодом (code actions)
+- `<leader>cd` - Перейти к определению
+- `<leader>cr` - Переименовать символ
+
+### 🌿 Git операции (`<leader>g`)
+- `<leader>gg` - **LazyGit** (открывается в модальном окне)
 - `<leader>gs` - Git status
 - `<leader>gc` - Git commit
 - `<leader>gp` - Git push
+- `<leader>gb` - Git blame
+- `<leader>gd` - Git diff
 
-### LSP Operations (`<leader>l`)
-- `<leader>li` - LSP Info
-- `<leader>lr` - LSP Restart
-- `<leader>lf` - Format buffer
-- `<leader>la` - Code actions
-- `<leader>ld` - Go to definition
-- `<leader>lrn` - Rename symbol
+### 💬 LSP операции (`<leader>l`)
+- `<leader>li` - LSP информация
+- `<leader>lr` - Перезапустить LSP
+- `<leader>lf` - Форматировать через LSP
+- `<leader>la` - Действия с кодом LSP
+- `<leader>ld` - Перейти к определению
+- `<leader>lrn` - Переименовать через LSP
+- `<leader>lR` - Перезапустить LSP
+- `<leader>lI` - Информация о LSP
+- `<leader>lD` - Показать определение в float
+- `<leader>lt` - Показать тип
+- `<leader>ls` - Показать символы
 
-### Window Management (`<leader>w`)
-- `<leader>we` - Make windows equal size
-- `<leader>wv` - Split vertical
-- `<leader>wh` - Split horizontal
-- `<leader>wq` - Close window
+### 🪟 Управление окнами (`<leader>w`)
+- `<leader>we` - Сделать окна равного размера
+- `<leader>wv` - Разделить вертикально
+- `<leader>wh` - Разделить горизонтально
+- `<leader>wq` - Закрыть окно
+- `<leader>ws` - Разделить окно
+- `<leader>w-` - Уменьшить высоту
+- `<leader>w+` - Увеличить высоту
+- `<leader>w<` - Уменьшить ширину
+- `<leader>w>` - Увеличить ширину
+- `<leader>wo` - Закрыть другие окна
 
-### Encoding & File Format (`<leader>E`)
-- `<leader>Ew` - Windows CP1251 encoding
-- `<leader>Eu` - UTF-8 encoding
-- `<leader>Ej` - Format JSON with jq
+### 🧠 AI ассистенты (`<leader>a`)
+- `<leader>ag` - Сгенерировать с AI
+- `<leader>ac` - Чат с AI
+- `<leader>al` - Переключить сессию LLM
+- `<leader>aa` - Спросить Avante
+- `<leader>ae` - Редактировать с Avante
+- `<leader>ar` - Объяснить код
+- `<leader>af` - Исправить код
 
-### CSV Operations (`<leader>C`)
-- `<leader>Cc` - CSV with comma delimiter
-- `<leader>Cs` - CSV with semicolon delimiter
+### 🎨 Интерфейс (`<leader>u`)
+- `<leader>uz` - Переключить Zen Mode
+- `<leader>ut` - Переключить Twilight
+- `<leader>ud` - Отладочный режим
+- `<leader>ui` - Информация о компонентах UI
+- `<leader>us` - Переключить боковую панель
 
-### UI & Appearance (`<leader>u`)
-- `<leader>uz` - Toggle Zen Mode
-- `<leader>ut` - Toggle Twilight
+### 🌐 Навигация
+- `<C-h>` - Перейти в левое окно
+- `<C-j>` - Перейти в нижнее окно
+- `<C-k>` - Перейти в верхнее окно
+- `<C-l>` - Перейти в правое окно
+- `<leader>w` - Сохранить файл
+- `<leader>q` - Выйти
+- `<leader>Q` - Выйти из всех
 
-### AI Assistants (`<leader>a`)
-- `<leader>ag` - Generate with AI
-- `<leader>ac` - AI Chat
-- `<leader>al` - Toggle LLM Session
-- `<leader>aa` - Ask Avante
-- `<leader>ae` - Edit with Avante
+### 💾 Терминал (`<leader>t`)
+- `<leader>tt` - Открыть терминал
+- `<leader>tg` - Создать временный git репозиторий
+- `<leader>td` - Запустить docker контейнер
+- `<leader>th` - История команд
+- `<leader>tj` - Форматировать JSON
+- `<leader>tc` - Удалить историю терминала
+- `<leader>tL` - Удалить всю историю терминала
 
-### Quick Navigation
-- `<C-h/j/k/l>` - Navigate between windows
-- `<leader>w` - Save file
-- `<leader>q` - Quit
-- `<leader>Q` - Quit all
-- `<leader>tt` - Open terminal
+### 🔤 Текстовые операции
+- `<leader>u` - Отменить (Undo Tree)
+- `<leader>x` - Закрыть буфер
+- `<leader>X` - Принудительно закрыть буфер
+- `<leader>b` - Удалить буфер
+- `<leader>B` - Принудительно удалить буфер
 
-## 🚀 Features
+### 📄 Кодировки (`<leader>E`)
+- `<leader>Ew` - Windows CP1251
+- `<leader>Eu` - UTF-8
+- `<leader>Ej` - Форматировать JSON с jq
 
-### Development Environment
-- **Ruby Development**: Solargraph LSP, StandardRB formatting
-- **Hyprland Support**: LSP for Hyprland configuration files
-- **Git Integration**: LazyGit, fugitive, git signs
-- **File Management**: Neo-tree explorer, Telescope search
-- **Session Management**: Auto-save/restore sessions
+### 📊 CSV (`<leader>C`)
+- `<leader>Cc` - CSV с запятой
+- `<leader>Cs` - CSV с точкой с запятой
 
-### AI Integration
-- **Multiple AI providers**: Claude, local models via Ollama
-- **Code generation**: In-line generation and chat interfaces
-- **Contextual assistance**: File-aware AI interactions
+## 🚀 Установка
 
-### UI Enhancements
-- **Zen Mode**: Distraction-free writing
-- **Twilight**: Dim inactive code sections
-- **Catppuccin theme**: Modern color scheme
-- **Better navigation**: Smooth scrolling, window management
+1. **Сделайте бэкап существующей конфигурации:**
+   ```bash
+   mv ~/.config/nvim ~/.config/nvim.backup
+   mv ~/.local/share/nvim ~/.local/share/nvim.backup
+   ```
 
-### Productivity Tools
-- **Auto-formatting**: On-save formatting for multiple languages
-- **Case switching**: CamelCase ↔ snake_case conversion
-- **CSV editing**: Toggle table view for CSV files
-- **Encoding support**: Quick switching between text encodings
+2. **Клонируйте репозиторий:**
+   ```bash
+   git clone https://github.com/yourusername/nvim-config.git ~/.config/nvim
+   ```
 
-## 🔧 Installation
+3. **Запустите Neovim:**
+   ```bash
+   nvim
+   ```
+   Плагины установятся автоматически при первом запуске.
 
-1. Backup your existing Neovim configuration
-2. Clone this repository to `~/.config/nvim`
-3. Run Neovim - plugins will be automatically installed
-4. Ensure required tools are installed:
-   - `solargraph` (Ruby LSP)
-   - `standardrb` (Ruby formatter)
-   - `hyprls` (Hyprland LSP, optional)
+## 📋 Зависимости
 
-## 📚 Dependencies
+### Обязательные
+- **Neovim 0.8+**
+- **Git**
+- **Ripgrep** (для поиска fzf-lua)
+- **Node.js** (для некоторых LSP серверов)
+- **Python 3** (для некоторых LSP серверов)
 
-### Required
-- Neovim 0.8+
-- Git
-- `ripgrep` (for Telescope search)
+### Для Ruby разработки
+- **Solargraph**: `gem install solargraph`
+- **StandardRB**: `gem install standardrb`
+- **RuboCop**: `gem install rubocop`
 
-### Language Specific
-- Ruby: `solargraph`, `standardrb`
-- Lua: `stylua`
-- Shell: `shfmt`
-- Hyprland: `hyprls` (optional)
+### Для других языков
+- **Lua**: `stylua` (форматирование)
+- **Shell**: `shfmt` (форматирование)
+- **Hyprland**: `hyprls` (LSP, опционально)
 
-### AI Tools (optional)
-- `ollama` (for local models)
-- `claude` API key (for Claude integration)
+### AI инструменты (опционально)
+- **Ollama**: для локальных моделей
+- **Claude API ключ**: для интеграции с Claude
 
-## 🤝 Contributing
+## 🎯 Основные возможности
 
-Feel free to submit issues and enhancement requests!
-test change
+### 💻 Разработка
+
+#### Ruby
+- **Solargraph LSP** - полный Language Server Protocol
+- **StandardRB** - автоформатирование
+- **Автодополнение** - методов и классов
+- **Подсветка синтаксиса** - enhancedRuby
+- **Slim шаблоны** - полная поддержка
+
+#### Другие языки
+- **Lua** - встроенный LSP
+- **Hyprland** - подсветка конфигурационных файлов
+- **Markdown** - улучшенная поддержка с предпросмотром
+- **JSON/YAML** - подсветка и валидация
+
+### 🔍 Поиск и навигация
+- **FZF-lua** - сверхбыстрый поиск файлов и содержимого
+- **Neo-tree** - мощный файловый менеджер
+- **Telescope** - дополнительный поиск
+- **Smooth scrolling** - комфортная прокрутка
+
+### 🤖 AI интеграция
+- **Множественные провайдеры**: Claude, Ollama, локальные модели
+- **Генерация кода**: в редакторе и через чат
+- **Контекстная помощь**: с учетом текущих файлов
+- **Автоопределение**: Copilot отключается при недоступности
+
+### 🔧 Git
+- **LazyGit** в модальном окне (90% экрана)
+- **Прямая интеграция** с текущим Neovim
+- **Файлы открываются** в том же окне при `o`
+- **Без врапперов** и прослоек
+- **Git signs** - визуальные индикаторы изменений
+
+### 🎨 UI/UX
+- **Catppuccin тема** с множеством акцентов
+- **Zen Mode** для концентрации
+- **Twilight** для фокусировки
+- **Автоматическое затемнение** неактивных окон
+- **Better escape** для улучшенного управления режимами
+
+## 💾 Сессии и workspace
+
+### Auto-session
+- **Автосохранение** при выходе
+- **Автовосстановление** при входе
+- **Работа с ветками** - сессии по веткам Git
+- **Управление** через `:SessionRestore`, `:SessionSave`
+
+### Управление буферами
+- **Smart tab** - улучшенные табы
+- **Better buffer** - удаление буферов без закрытия окон
+- **Autopairs** - автоматические пары скобок и кавычек
+- **Surround** - удобное управление окружающими символами
+
+## 🔧 Конфигурация
+
+### Кастомизация плагинов
+Все плагины легко настраиваются через соответствующие файлы в `lua/plugins/`:
+
+```lua
+-- Пример настройки темы в lua/plugins/colorsheme.lua
+{
+  "catppuccin/nvim",
+  name = "catppuccin",
+  opts = {
+    flavour = "mocha",
+    background = { dark = "mocha" },
+    integrations = { ... }
+  }
+}
+```
+
+### Добавление новых горячих клавиш
+```lua
+-- В lua/config/keymaps.lua
+keymap("n", "<leader>yourkey", "<cmd>YourCommand<cr>", { desc = "Ваше описание" })
+```
+
+### Настройка языков
+```lua
+-- В lua/config/languages.lua
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "yourfiletype",
+  callback = function()
+    -- Ваша настройка
+  end
+})
+```
+
+## 🎯 Особенности
+
+### LazyGit интеграция
+- **Модальное окно** - 90% экрана по центру
+- **Никаких врапперов** - прямой запуск lazygit
+- **Полная интеграция** - файлы открываются в текущем Neovim
+- **Умное окружение** - автоматическая настройка переменных
+
+### Автоматическое определение Copilot
+- **Проверка доступности** при запуске
+- **Автоотключение** при недоступности
+- **Переключение по требованию** через команды
+- **Уведомления** о статусе
+
+### Ruby разработка
+- **Полный LSP** с solargraph
+- **Автоформатирование** при сохранении
+- **Поддержка Slim** шаблонов
+- **Gemfile** автодополнение
+
+### AI инструменты
+- **Claude API** для облачных моделей
+- **Ollama** для локальных моделей
+- **Gen** для быстрой генерации
+- **Avante** для контекстной помощи
+
+## 📚 Дополнительная документация
+
+- [**Полное описание на русском**](README_RU.md) - подробная русская документация
+- [**Обзор проекта**](PROJECT_OVERVIEW.md) - архитектура и технические детали
+
+## 🤝 Вклад
+
+Не стесняйтесь отправлять:
+- **Issue** - баги и предложения
+- **Pull requests** - улучшения и новые функции
+- **Документацию** - исправления и дополнения
+
+## 📄 Лицензия
+
+MIT License - свободное использование и распространение
+
+---
+
+**Наслаждайтесь продуктивной разработкой!** 🚀

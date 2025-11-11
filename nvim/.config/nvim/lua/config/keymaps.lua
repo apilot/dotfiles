@@ -76,4 +76,9 @@ keymap("n", "<leader>lR", "<cmd>LspRestart<cr>", { desc = "LSP Restart" })
 
 -- Terminal
 keymap("n", "<leader>tt", "<cmd>terminal<cr>", { desc = "Open terminal" })
-keymap("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
+-- Terminal key mappings
+vim.cmd([[
+  " ESC mapping for normal terminals (but exclude lazygit)
+  autocmd TermOpen * if &filetype != 'lazygit' | tnoremap <buffer> <Esc> <C-\><C-n> | endif
+]])

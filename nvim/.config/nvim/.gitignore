@@ -6,3 +6,47 @@ debug
 foo.*
 *.log
 data
+
+# Claude-related files and directories
+.claude/
+claude*
+*claude*
+*.claude
+.claude-*
+
+# Temporary files and session data
+lazygit-temp
+lazygit-wrapper
+*.temp
+*.tmp
+
+# Runtime directories
+lua/cache/
+cache/
+
+# Backup files
+*~
+*.swp
+*.swo
+*.bak
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor temporary files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# AI and LLM related files
+.llm/
+.ollama/
+*ai-temp*
+*gen-temp*

@@ -41,14 +41,31 @@ return {
   -- Session management
   {
     "rmagatti/auto-session",
+    lazy = false,
+    ---enables autocomplete for opts
+    ---@module "auto-session"
+    ---@type AutoSession.Config
+    config = function(_, opts)
+      -- Ensure sessionoptions includes localoptions
+      vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+      require("auto-session").setup(opts)
+    end,
+
     opts = {
       auto_restore = true,
       auto_restore_last_session = false,
       auto_save = true,
+      auto_create = true,
       enabled = true,
       git_use_branch_name = true,
-      log_level = "info",
-      root_dir = "/home/aboyarinov/.local/share/nvim/sessions/",
+      log_level = "warn", -- Changed to warn to reduce noise
+      cwd_change_handling = false, -- Automatically save/restore sessions when changing directories
+      single_session_mode = false,
+      suppressed_dirs = { "~", "/", "/tmp" },
+      root_dir = vim.fn.stdpath("data") .. "/sessions/",
+      session_lens = {
+        load_on_setup = true,
+      },
     },
   },
 

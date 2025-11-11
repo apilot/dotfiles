@@ -84,7 +84,7 @@ export OPENAI_MODEL="qwen3-coder"
 
 # opencode
 export PATH=/home/aboyarinov/.opencode/bin:$PATH
-
+export OPENCODE_TIMEOUT=7200
 # pnpm
 export PNPM_HOME="/home/aboyarinov/.local/share/pnpm"
 case ":$PATH:" in

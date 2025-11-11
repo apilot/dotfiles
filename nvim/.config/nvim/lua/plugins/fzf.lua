@@ -14,7 +14,12 @@ return {
     },
     config = function()
       require("fzf-lua").setup({
-        "telescope",
+        -- ESC key mapping to close fzf-lua
+        actions = {
+          ["esc"] = require("fzf-lua.actions").close,
+          ["ctrl-c"] = require("fzf-lua.actions").close,
+          ["ctrl-q"] = require("fzf-lua.actions").close,
+        },
         winopts = {
           height = 0.90,
           width = 0.85,
