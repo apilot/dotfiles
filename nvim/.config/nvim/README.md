@@ -138,3 +138,4 @@ Custom Neovim configuration based on [LazyVim](https://github.com/LazyVim/LazyVi
 ## 🤝 Contributing
 
 Feel free to submit issues and enhancement requests!
+test change
