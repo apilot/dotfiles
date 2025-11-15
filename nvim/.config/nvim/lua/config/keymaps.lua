@@ -63,6 +63,7 @@ keymap("n", "<leader>w", "<cmd>w<cr>", { desc = "Save file" })
 keymap("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 keymap("n", "<leader>Q", "<cmd>qa<cr>", { desc = "Quit all" })
 
+
 -- LSP operations (<leader>l) - using fzf-lua where possible
 keymap("n", "<leader>li", "<cmd>FzfLua lsp_implementations<cr>", { desc = "LSP Implementations" })
 keymap("n", "<leader>lr", "<cmd>FzfLua lsp_references<cr>", { desc = "LSP References" })
@@ -76,6 +77,11 @@ keymap("n", "<leader>lR", "<cmd>LspRestart<cr>", { desc = "LSP Restart" })
 
 -- Terminal
 keymap("n", "<leader>tt", "<cmd>terminal<cr>", { desc = "Open terminal" })
+
+-- AI Assistant operations (<leader>a)
+keymap("n", "<leader>aa", "<cmd>AiderOpen<cr>", { desc = "Open Aider" })
+keymap("v", "<leader>aa", "<cmd>AiderOpen<cr>", { desc = "Open Aider" })
+keymap("n", "<leader>am", "<cmd>AiderAddModifiedFiles<cr>", { desc = "Add modified files" })
 
 -- Terminal key mappings
 vim.cmd([[
