@@ -19,5 +19,14 @@
       // "j k": ["workspace::SendKeystrokes", "escape"]
       "space e": "project_panel::Open" // type space then e
     }
+  },
+  {
+    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
+    "bindings": {
+      "space g g": [
+        "task::Spawn",
+        { "task_name": "lazygit", "target": "center" }
+      ]
+    }
   }
 ]
