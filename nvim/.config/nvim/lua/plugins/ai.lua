@@ -39,9 +39,6 @@ return {
     config = function(_, opts)
       require("aider").setup(opts)
 
-      -- Setup utility commands
-      require("utils.aider").setup_commands()
-
       -- Create alias command after plugin is loaded
       vim.defer_fn(function()
         vim.api.nvim_create_user_command("Aider", function()
