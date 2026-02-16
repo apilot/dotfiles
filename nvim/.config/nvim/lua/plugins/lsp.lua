@@ -4,9 +4,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      -- Ensure LSP servers are properly configured
       inlay_hints = { enabled = true },
-      capabilities = {},
       servers = {
         -- Lua LSP for Neovim configuration
         lua_ls = {
@@ -30,27 +28,41 @@ return {
           },
         },
         solargraph = {
-          cmd = { "solargraph", "stdio" },
+          cmd = { "rbenv", "exec", "solargraph", "stdio" },
+          filetypes = { "ruby", "eruby" },
+          root_dir = vim.fs.root(".ruby-version", "Gemfile", ".git", "config.ru"),
+          autostart = true,
           settings = {
             solargraph = {
-              formatting = false, -- Use StandardRB for formatting instead
-              configPath = vim.fn.getcwd() .. "/.standard.yml",
-              diagnostics = {
-                enabled = true,
-                exclude = { "rubocop" }, -- Disable RuboCop diagnostics
-              },
+              formatting = false,
+              diagnostics = { enabled = true },
               completion = true,
               signatures = true,
+              definitions = true,
+              references = true,
+              rename = true,
+              symbols = true,
+              useBundler = false,
+              includeGems = false,
             },
           },
           on_attach = function(client, bufnr)
-            -- Disable Solargraph formatting capability to use StandardRB
             client.server_capabilities.documentFormattingProvider = false
             vim.keymap.set("n", "<leader>lf", function()
               require("conform").format({ bufnr = bufnr })
             end, { buffer = bufnr, desc = "Format with Standard" })
           end,
         },
+      },
+    },
+  },
+
+  -- Mason-lspconfig bridge (disable automatic_enable for servers we manage via rbenv)
+  {
+    "mason-org/mason-lspconfig.nvim",
+    opts = {
+      automatic_enable = {
+        exclude = { "solargraph" },
       },
     },
   },
@@ -65,9 +77,8 @@ return {
       ensure_installed = {
         "stylua",
         "shfmt",
-        "standardrb",
         "hyprls",
-        "lua-language-server", -- Добавляем Lua LSP
+        "lua-language-server",
       },
     },
     config = function(_, opts)
@@ -75,7 +86,6 @@ return {
       local mr = require("mason-registry")
       mr:on("package:install:success", function()
         vim.defer_fn(function()
-          -- trigger FileType event to possibly load this newly installed LSP server
           require("lazy.core.handler.event").trigger({
             event = "FileType",
             buf = vim.api.nvim_get_current_buf(),

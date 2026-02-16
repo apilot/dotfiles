@@ -1,0 +1,40 @@
+-- Autoclose lazygit when opening a new file
+-- LazyGit buffers are named 'lazygit'
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  callback = function()
+    local bufname = vim.api.nvim_buf_get_name(0)
+
+    -- If the newly opened buffer is NOT a lazygit buffer, close all lazygit buffers
+    if bufname ~= "^lazygit" then
+      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        local name = vim.api.nvim_buf_get_name(buf)
+        -- Check if buffer name contains 'lazygit'
+        if name:match("lazygit") then
+          vim.api.nvim_buf_delete(buf, { force = true })
+        end
+      end
+    end
+
+    print("Opened: " .. bufname)
+  end,
+  desc = "Auto-close lazygit when opening a file",
+})
+
+-- Also close lazygit when editing starts on a new buffer
+vim.api.nvim_create_autocmd("BufReadPost", {
+  callback = function()
+    local bufname = vim.api.nvim_buf_get_name(0)
+
+    -- If reading a file that is NOT lazygit, close lazygit buffers
+    if bufname ~= "" and bufname:match("^/") then
+      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        local name = vim.api.nvim_buf_get_name(buf)
+        if name:match("lazygit") then
+          vim.api.nvim_buf_delete(buf, { force = true })
+        end
+      end
+    end
+  end,
+  desc = "Close lazygit after reading a file",
+})

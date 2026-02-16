@@ -38,7 +38,6 @@ return {
         mini = true,
         native_lsp = true,
         navic = true,
-        neotree = true,
         neotest = true,
         noice = true,
         notify = true,

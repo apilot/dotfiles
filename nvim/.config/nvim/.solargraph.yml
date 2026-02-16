@@ -1,0 +1,36 @@
+# Solargraph configuration for Rails projects
+
+# Ignore large directories to prevent WorkspaceTooLargeError
+exclude:
+  - "spec/**/*"
+  - "test/**/*"
+  - "tmp/**/*"
+  - "log/**/*"
+  - "vendor/**/*"
+  - "node_modules/**/*"
+  - "public/**/*"
+  - "db/**/*"
+  - ".git/**/*"
+  - "storage/**/*"
+
+# Max files to index (increase for large Rails projects)
+maxFiles: 5000
+
+# Performance optimizations
+diagnostics:
+  enabled: true
+
+# Formatting disabled (using StandardRB)
+formatting: false
+
+# Completion
+completion: true
+hover: true
+signatures: true
+
+# Use .standard.yml for config
+configPath: ".standard.yml"
+
+# Rails-specific settings
+rails:
+  enablePages: true

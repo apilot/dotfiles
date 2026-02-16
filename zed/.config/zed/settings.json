@@ -1,75 +1,164 @@
 {
-  "agent": {
-    "always_allow_tool_actions": true,
-    "default_model": {
-      "provider": "ollama",
-      "model": "codellama:34b"
-    }
-  },
   "vim_mode": true,
-  "ui_font_size": 16,
-  "active_pane_magnification": 1.0,
+  "show_whitespaces": "boundary",
+  "scroll_beyond_last_line": "one_page",
   "current_line_highlight": "all",
-  "buffer_font_family": "FiraCodeNFM-Ret",
+  "cursor_blink": false,
+  "tab_size": 2,
+  "soft_wrap": "none",
+  "search": {
+    "case_sensitive": false,
+    "whole_word": false
+  },
+  "ui_font_size": 16,
+  "ui_font_family": "FiraCodeNFM-Ret",
   "buffer_font_size": 14,
+  "buffer_font_family": "FiraCodeNFM-Ret",
   "buffer_font_weight": 100,
+  "buffer_line_height": "comfortable",
   "buffer_font_features": {
     "calt": true
   },
-  "format_on_save": "on",
   "theme": {
     "mode": "system",
     "light": "Catppuccin Mocha",
     "dark": "Catppuccin Mocha (Blue Blur+)"
   },
+  "clipboard": "system",
   "git": {
     "git_gutter": "tracked_files",
     "inline_blame": {
-      "enabled": true
+      "enabled": true,
+      "delay_ms": 500
     }
   },
-  "scrollbar": {
-    "show": "auto",
-    "cursors": true,
-    "git_diff": true,
-    "search_results": true,
-    "selected_symbol": true,
-    "diagnostics": "all"
+  "lsp": {
+    "initialization_options": {
+      "ruby-lsp": {
+        "enabledFeatures": {
+          "formatting": false
+        }
+      }
+    }
+  },
+  "diagnostics": {
+    "allowed_browsers": "all",
+    "version": "Latest",
+    "active_line": true,
+    "show_in_gutter": true
+  },
+  "inlay_hints": {
+    "enabled": true,
+    "show_type_hints": true,
+    "show_parameter_hints": true
+  },
+  "code_actions_on_format": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  },
+  "format_on_save": "on",
+  "autosave": "on_focus_change",
+  "remove_trailing_whitespace_on_save": true,
+  "ensure_final_newline_on_save": true,
+  "split_direction": "right",
+  "split_close_on_last": false,
+  "terminal": {
+    "font_family": "FiraCodeNFM-Ret",
+    "font_size": 14,
+    "line_height": "comfortable",
+    "cursor_blink": false
   },
   "languages": {
     "Ruby": {
-      "language_servers": ["ruby-lsp"]
-    }
-  },
-  "language_models": {
-    "ollama": {
-      "api_url": "http://localhost:11434",
-      "available_models": [
-        //       {
-        //         "name": "qwen3-coder",
-        //         "display_name": "qwen 3 coder",
-        //         "max_tokens": 16384,
-        //         "supports_tools": true,
-        //         "supports_thinking": true,
-        //         "supports_images": true
-        //       }
-        {
-          "name": "qwen3-coder",
-          "display_name": "Qwen3-Coder (Fast)",
-          "max_tokens": 16384, // <-- Оптимальное значение
-          "temperature": 0.3,
-          "supports_tools": true,
-          "supports_thinking": true,
-          "supports_images": true
-        },
-        {
-          "name": "codellama:34b",
-          "display_name": "CodeLlama-34B (Powerful)",
-          "url": "http://localhost:11434",
-          "max_tokens": 16384, // <-- Оптимальное значение
-          "temperature": 0.2
+      "language_servers": ["ruby-lsp"],
+      "formatter": "language_server",
+      "tab_size": 2,
+      "soft_wrap": "none",
+      "format_on_save": "on"
+    },
+    "Rails": {
+      "language_servers": ["ruby-lsp"],
+      "tab_size": 2
+    },
+    "ERB": {
+      "language_servers": ["ruby-lsp"],
+      "tab_size": 2
+    },
+    "Lua": {
+      "language_servers": ["lua-language-server"],
+      "tab_size": 2,
+      "formatter": "language_server"
+    },
+    "Python": {
+      "language_servers": ["pyright"],
+      "tab_size": 4,
+      "formatter": {
+        "external": {
+          "command": "black",
+          "arguments": ["--stdin-filename", "{buffer_path}"]
         }
-      ]
+      }
+    },
+    "TypeScript": {
+      "language_servers": ["typescript-language-server"],
+      "tab_size": 2,
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": ["--stdin-filepath", "{buffer_path}"]
+        }
+      },
+      "format_on_save": "on"
+    },
+    "JavaScript": {
+      "language_servers": ["typescript-language-server"],
+      "tab_size": 2,
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": ["--stdin-filepath", "{buffer_path}"]
+        }
+      },
+      "format_on_save": "on"
+    },
+    "JSON": {
+      "tab_size": 2,
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": ["--stdin-filepath", "{buffer_path}"]
+        }
+      }
+    },
+    "YAML": {
+      "tab_size": 2,
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": ["--stdin-filepath", "{buffer_path}"]
+        }
+      }
+    },
+    "HTML": {
+      "tab_size": 2,
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": ["--stdin-filepath", "{buffer_path}"]
+        }
+      }
+    },
+    "CSS": {
+      "tab_size": 2,
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": ["--stdin-filepath", "{buffer_path}"]
+        }
+      }
+    },
+    "SQL": {
+      "tab_size": 2
     }
   }
 }

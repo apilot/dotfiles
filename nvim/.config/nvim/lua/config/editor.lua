@@ -43,29 +43,33 @@ opt.splitbelow = true -- split horizontal window to the bottom
 opt.syntax = "on"
 opt.swapfile = false -- turn off swapfile
 
--- Enable NVIM server for remote connections with predictable path
-local server_path = vim.fn.stdpath("cache") .. "/nvim-server"
+-- NOTE: Disabled custom server setup to work with flatten.nvim
+-- flatten.nvim uses the standard Neovim server (vim.v.servername)
+-- If you need custom server path for other tools, configure them to use vim.v.servername
 
--- Check if server socket already exists
-local socket_exists = vim.fn.filereadable(server_path) == 1 or vim.fn.getftype(server_path) == "socket"
-
-if socket_exists then
-  -- Server already exists, just set the environment variable
-  vim.env.NVIM_LISTEN_ADDRESS = server_path
-else
-  -- Try to start new server
-  local ok, server_addr = pcall(vim.fn.serverstart, server_path)
-  if ok and server_addr then
-    vim.env.NVIM_LISTEN_ADDRESS = server_addr
-  else
-    -- If starting server fails, try with a unique name
-    local unique_path = server_path .. "-" .. vim.fn.getpid()
-    local ok2, server_addr2 = pcall(vim.fn.serverstart, unique_path)
-    if ok2 and server_addr2 then
-      vim.env.NVIM_LISTEN_ADDRESS = server_addr2
-    end
-  end
-end
+-- -- Enable NVIM server for remote connections with predictable path
+-- local server_path = vim.fn.stdpath("cache") .. "/nvim-server"
+--
+-- -- Check if server socket already exists
+-- local socket_exists = vim.fn.filereadable(server_path) == 1 or vim.fn.getftype(server_path) == "socket"
+--
+-- if socket_exists then
+--   -- Server already exists, just set the environment variable
+--   vim.env.NVIM_LISTEN_ADDRESS = server_path
+-- else
+--   -- Try to start new server
+--   local ok, server_addr = pcall(vim.fn.serverstart, server_path)
+--   if ok and server_addr then
+--     vim.env.NVIM_LISTEN_ADDRESS = server_addr
+--   else
+--     -- If starting server fails, try with a unique name
+--     local unique_path = server_path .. "-" .. vim.fn.getpid()
+--     local ok2, server_addr2 = pcall(vim.fn.serverstart, unique_path)
+--     if ok2 and server_addr2 then
+--       vim.env.NVIM_LISTEN_ADDRESS = server_addr2
+--     end
+--   end
+-- end
 
 -- Session options (set before auto-session loads)
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
@@ -73,9 +77,6 @@ vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,
 -- Spell checking
 opt.spelllang = "en_us,ru_yo,ru_ru"
 opt.spell = true
-
--- Netrw settings
-vim.cmd("let g:netrw_liststyle = 3")
 
 -- LazyVim specific settings
 vim.g.lazyvim_prettier_needs_config = true

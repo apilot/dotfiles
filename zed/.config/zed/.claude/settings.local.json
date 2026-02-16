@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chmod:*)",
+      "Bash(wc:*)",
+      "WebSearch",
+      "Bash(ls:*)",
+      "Bash(cat:*)"
+    ]
+  }
+}

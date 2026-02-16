@@ -50,3 +50,4 @@ Thumbs.db
 .ollama/
 *ai-temp*
 *gen-temp*
+.ruby-lsp-server

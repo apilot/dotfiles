@@ -3,7 +3,7 @@ return {
     "stevearc/conform.nvim",
     opts = {
       default_format_opts = {
-        timeout_ms = 3000,
+        timeout_ms = 10000, -- Increased from 3000 to handle larger Ruby files
         async = false, -- not recommended to change
         quiet = false, -- not recommended to change
         lsp_format = "fallback", -- not recommended to change
@@ -13,6 +13,9 @@ return {
         fish = { "fish_indent" },
         sh = { "shfmt" },
         ruby = { "standardrb" },
+        eruby = { "htmlbeautifier", "standardrb" }, -- ERB files for Rails views
+        haml = { "haml-lint" }, -- HAML files (if used)
+        slim = { "slim-lint" }, -- SLIM files (if used)
         markdown = { "prettier", "markdownlint-cli2", "markdown-toc" },
         ["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
       },
@@ -30,6 +33,7 @@ return {
           end,
         },
         ["markdownlint-cli2"] = {
+          prepend_args = { "--config", vim.fn.expand("~/.config/nvim/.markdownlint.json") },
           condition = function(_, ctx)
             local diag = vim.tbl_filter(function(d)
               return d.source == "markdownlint"

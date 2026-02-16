@@ -1,18 +1,19 @@
 # 💤 Neovim Configuration
 
-Мощная конфигурация Neovim на основе [LazyVim](https://github.com/LazyVim/LazyVim) с улучшенными функциями продуктивности и поддержкой разработки.
+Мощная конфигурация Neovim на основе [LazyVim](https://github.com/LazyVim/LazyVim), оптимизированная для **Ruby on Rails** разработки с улучшенными функциями продуктивности и поддержкой разработки.
 
 ## ✨ Особенности
 
 - 🚀 **Быстрый старт** - автоматическая установка плагинов при первом запуске
 - 🎨 **Современный интерфейс** - тема Catppuccin с режимами Zen и Twilight
 - 🔍 **Умный поиск** - FZF-lua для быстрого поиска файлов и содержимого
-- 📁 **Управление файлами** - Neo-tree с возможностью скрыть файлы конфигурации
-- 🔧 **Ruby разработка** - полная поддержка с LSP и автоформатированием
-- 🤖 **AI ассистенты** - интеграция с Claude, Ollama и Avante
-- ⚡ **Git интеграция** - LazyGit в модальном окне с полной интеграцией с Neovim
+- 📁 **Управление файлами** - Snacks.explorer с полной интеграцией
+- 🔧 **Ruby on Rails разработка** - полная поддержка с LSP, автоформатированием и тестированием
+- 🤖 **AI ассистенты** - интеграция с Aider (Qwen) и Ollama
+- ⚡ **Git интеграция** - LazyGit с полной интеграцией с Neovim
 - 💾 **Управление сессиями** - автоматическое сохранение и восстановление
-- 🌊 **Плавная прокрутка** - Neoscroll для комфортной навигации
+- 🌊 **Плавная прокрутка** - комфортная навигация
+- 🧪 **Тестирование** - RSpec интеграция через Neotest
 
 ## 📁 Структура
 
@@ -79,12 +80,28 @@ lua/
 
 ### 🌿 Git операции (`<leader>g`)
 
-- `<leader>gg` - **LazyGit** (открывается в модальном окне)
+- `<leader>gg` - **LazyGit** (LazyVim default, автоматически)
 - `<leader>gs` - Git status
 - `<leader>gc` - Git commit
 - `<leader>gp` - Git push
 - `<leader>gb` - Git blame
 - `<leader>gd` - Git diff
+
+### 🚂 Ruby on Rails (`<leader>r`)
+
+- `<leader>rc` - Перейти к контроллеру (`:Econtroller`)
+- `<leader>rm` - Перейти к модели (`:Emodel`)
+- `<leader>rv` - Перейти к вью (`:Eview`)
+- `<leader>rh` - Перейти к хелперу (`:Helper`)
+- `<leader>rl` - Перейти к локализации (`:Elocale`)
+- `<leader>rs` - Перейти к серверу (`:Eserver`)
+
+### 🧪 Тестирование RSpec (`<leader>t`)
+
+- `<leader>tn` - Запустить ближайший тест
+- `<leader>tf` - Запустить тестовый файл
+- `<leader>ts` - Запустить весь тестовый набор
+- `<leader>to` - Показать вывод тестов
 
 ### 💬 LSP операции (`<leader>l`)
 
@@ -201,11 +218,17 @@ lua/
 - **Node.js** (для некоторых LSP серверов)
 - **Python 3** (для некоторых LSP серверов)
 
-### Для Ruby разработки
+### Для Ruby on Rails разработки
 
-- **Solargraph**: `gem install solargraph`
-- **StandardRB**: `gem install standardrb`
-- **RuboCop**: `gem install rubocop`
+- **rbenv**: управление версиями Ruby (требуется для Solargraph, StandardRB, RuboCop)
+- **Solargraph**: `gem install solargraph` - Ruby LSP
+- **StandardRB**: `gem install standardrb` - Ruby formatter
+- **RuboCop**: `gem install rubocop rubocop-rails rubocop-rspec` - Ruby linter
+- **RSpec**: добавляется в Gemfile Rails проекта - тестирование
+- **Node.js**: (опционально) для некоторых инструментов Rails
+- **bundler**: `gem install bundler` - управление гемами
+
+**Примечание:** Все Ruby инструменты (Solargraph, StandardRB, RuboCop) используют `rbenv` для выполнения.
 
 ### Для других языков
 
@@ -222,13 +245,51 @@ lua/
 
 ### 💻 Разработка
 
-#### Ruby
+#### Ruby on Rails
 
-- **Solargraph LSP** - полный Language Server Protocol
-- **StandardRB** - автоформатирование
-- **Автодополнение** - методов и классов
-- **Подсветка синтаксиса** - enhancedRuby
-- **Slim шаблоны** - полная поддержка
+- **Solargraph LSP** - полный Language Server Protocol для Ruby и ERB
+  - Автодополнение Rails методов (belongs_to, has_many, validates)
+  - Перейти к определению в контроллерах, моделях, хелперах
+  - Hover документация для Rails API
+  - Подписи методов (signature help)
+
+- **RuboCop LSP** - статический анализ и style checking
+  - Real-time diagnostics в редакторе
+  - Rails-specific правила
+  - Легко настраивается через `.rubocop.yml`
+
+- **StandardRB** - автоформатирование при сохранении
+  - Поддерживает: `*.rb`, `*.rake`, `Gemfile`, `Rakefile`, `config.ru`
+  - ERB файлы: использует htmlbeautifier + standardrb
+  - HAML файлы: haml-lint (если используется)
+  - SLIM файлы: slim-lint (если используется)
+
+- **RSpec тестирование** - через Neotest
+  - Запуск тестов: nearest, file, suite
+  - Просмотр результатов тестов
+  - Интеграция с bundle exec rspec
+
+- **Rails навигация** - через vim-rails
+  - Быстрое переключение между контроллерами, моделями, вью
+  - Поддержка стандартной структуры Rails проекта
+  - Команды: `:Econtroller`, `:Emodel`, `:Eview`, `:Helper`, `:Elocale`, `:Eserver`
+
+- **Мультикурсор** - для рефакторинга
+  - Alt + j/k - добавить курсор ниже/выше
+  - Быстрое редактирование в нескольких местах
+
+- **Автодополнение** - TabNine AI + LSP
+  - cmp-tabnine (AI, оптимизирован для Ruby, priority 900)
+  - cmp-nvim-lsp (Solargraph, priority 1000)
+  - cmp-buffer (локальные переменные, priority 250)
+  - cmp-path (пути в Rails проектах, priority 500)
+  - Luasnip (snippets, priority 800)
+
+- **Подсветка синтаксиса** - vim-ruby
+  - Enhanced подсветка Ruby кода
+  - Поддержка всех версий Ruby
+
+- **Slim шаблоны** - полная поддержка (через vim-slim.lua)
 
 #### Другие языки
 
@@ -329,12 +390,17 @@ vim.api.nvim_create_autocmd("FileType", {
 - **Полная интеграция** - файлы открываются в текущем Neovim
 - **Умное окружение** - автоматическая настройка переменных
 
-### Ruby разработка
+### Ruby on Rails разработка
 
-- **Полный LSP** с solargraph
-- **Автоформатирование** при сохранении
-- **Поддержка Slim** шаблонов
-- **Gemfile** автодополнение
+- **Полный LSP** - Solargraph (Ruby, ERB) + RuboCop (style checking)
+- **Автоформатирование** - StandardRB при сохранении всех Ruby файлов
+- **Rails навигация** - быстрые переходы между контроллерами, моделями, вью
+- **RSpec тестирование** - Neotest интеграция с keymaps
+- **AI автодополнение** - TabNine (оптимизирован для Ruby)
+- **Rails методы** - автодополнение belongs_to, has_many, validates, render, redirect_to
+- **Поддержка шаблонов** - ERB, HAML, SLIM с форматированием
+- **Gemfile** автодополнение - всех Ruby dependencies
+- **Rake tasks** автодополнение - для Rails задач
 
 ### AI инструменты
 
@@ -347,6 +413,8 @@ vim.api.nvim_create_autocmd("FileType", {
 
 - [**Полное описание на русском**](README_RU.md) - подробная русская документация
 - [**Обзор проекта**](PROJECT_OVERVIEW.md) - архитектура и технические детали
+- [**Ruby on Rails Setup Guide**](RUBY_SETUP.md) - полное руководство по настройке Ruby инструментов
+- [**Code Standards**](.opencode/context/core/standards/code.md) - стандарты кодирования и конфигурация
 
 ## 🤝 Вклад
 

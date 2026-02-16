@@ -1,52 +1,8 @@
-// Project tasks configuration. See https://zed.dev/docs/tasks for documentation.
-//
-// Example:
+// Project tasks configuration - ported from Neovim FzfLua
 [
-  {
-    "label": "Example task",
-    "command": "for i in {1..5}; do echo \"Hello $i/5\"; sleep 1; done",
-    //"args": [],
-    // Env overrides for the command, will be appended to the terminal's environment from the settings.
-    "env": { "foo": "bar" },
-    // Current working directory to spawn the command into, defaults to current project root.
-    //"cwd": "/path/to/working/directory",
-    // Whether to use a new terminal tab or reuse the existing one to spawn the process, defaults to `false`.
-    "use_new_terminal": false,
-    // Whether to allow multiple instances of the same task to be run, or rather wait for the existing ones to finish, defaults to `false`.
-    "allow_concurrent_runs": false,
-    // What to do with the terminal pane and tab, after the command was started:
-    // * `always` — always show the task's pane, and focus the corresponding tab in it (default)
-    // * `no_focus` — always show the task's pane, add the task's tab in it, but don't focus it
-    // * `never` — do not alter focus, but still add/reuse the task's tab in its pane
-    "reveal": "always",
-    // Where to place the task's terminal item after starting the task:
-    // * `dock` — in the terminal dock, "regular" terminal items' place (default)
-    // * `center` — in the central pane group, "main" editor area
-    "reveal_target": "dock",
-    // What to do with the terminal pane and tab, after the command had finished:
-    // * `never` — Do nothing when the command finishes (default)
-    // * `always` — always hide the terminal tab, hide the pane also if it was the last tab in it
-    // * `on_success` — hide the terminal tab on task success only, otherwise behaves similar to `always`
-    "hide": "never",
-    // Which shell to use when running a task inside the terminal.
-    // May take 3 values:
-    // 1. (default) Use the system's default terminal configuration in /etc/passwd
-    //      "shell": "system"
-    // 2. A program:
-    //      "shell": {
-    //        "program": "sh"
-    //      }
-    // 3. A program with arguments:
-    //     "shell": {
-    //         "with_arguments": {
-    //           "program": "/bin/bash",
-    //           "args": ["--login"]
-    //         }
-    //     }
-    "shell": "system"
-    // Represents the tags for inline runnable indicators, or spawning multiple tasks at once.
-    // "tags": []
-  },
+  // ============================================
+  // GIT OPERATIONS (leader+g)
+  // ============================================
   {
     "label": "lazygit",
     "command": "kitty --class 'dotfiles.floating' -e lazygit",
@@ -58,27 +14,135 @@
     "hide": "on_success",
     "reveal": "always"
   },
-  {
-    "label": "RG",
-    "command": "zed \"$(fzf --bind 'start:reload:rg --column --line-number --no-heading --color=always --smart-case \"\"' --bind 'change:reload:rg --column --line-number --no-heading --color=always --smart-case {q} || true' --bind 'enter:become(echo {1}:{2})' --ansi --disabled --delimiter : --preview 'bat -n --color=always --highlight-line {2} {1}' --preview-window '+{2}-/2' --style full --layout reverse)\"",
-    "hide": "always",
-    "allow_concurrent_runs": true,
-    "use_new_terminal": true,
-    "reveal_target": "center"
-  },
-  {
-    "label": "Rg",
-    "command": "zed \"$(rg --column --line-number --no-heading --color=always --smart-case \"\" | fzf --bind 'enter:become(echo {1}:{2})' --ansi --delimiter : --nth {4..} --preview 'bat -n --color=always --highlight-line {2} {1}' --preview-window '+{2}-/2' --style full --layout reverse)\"",
-    "hide": "always",
-    "allow_concurrent_runs": true,
-    "use_new_terminal": true,
-    "reveal_target": "center"
-  },
+
+  // ============================================
+  // FILE SEARCH (FzfLua files equivalent)
+  // ============================================
   {
     "label": "Files",
-    "command": "zed \"$(rg --files | fzf --preview 'bat -n --color=always {}' --style full --layout reverse)\"",
+    "command": "kitty --class 'dotfiles.floating' -e sh -c \"FILE=\\$(rg --files --hidden -g '!.git' -g '!node_modules' -g '!.bundle' | fzf --preview 'bat -n --color=always {}' --preview-window 'right:50%' --style full --layout reverse --border --height 90% --prompt 'Files> '); [ -n \\\"\\$FILE\\\" ] && zed \\\"\\$FILE\\\"\"",
     "hide": "always",
     "allow_concurrent_runs": true,
+    "use_new_terminal": true,
+    "reveal_target": "center"
+  },
+
+  // ============================================
+  // LIVE GREP (FzfLua live_grep equivalent)
+  // ============================================
+  {
+    "label": "Rg",
+    "command": "kitty --class 'dotfiles.floating' -e sh -c \"QUERY=\\$(echo '' | fzf --print-query --no-sort --reverse --height 90% --prompt 'Search> ' --preview 'rg --column --line-number --no-heading --color=always --smart-case {q} | head -100' --preview-window 'down:70%' --bind 'change:reload:rg --column --line-number --no-heading --color=always --smart-case {q} || true' | head -1); [ -n \\\"\\$QUERY\\\" ] && FILE=\\$(rg --column --line-number --no-heading --color=always --smart-case \\\"\\$QUERY\\\" | fzf --bind 'enter:become(echo {1}:{2})' --ansi --delimiter : --nth {4..} --preview 'bat -n --color=always --highlight-line {2} {1}' --preview-window '+{2}-/2' --style full --layout reverse --border --height 90% --prompt 'Results> '); [ -n \\\"\\$FILE\\\" ] && zed \\\"\\$FILE\\\"\"",
+    "hide": "always",
+    "allow_concurrent_runs": true,
+    "use_new_terminal": true,
+    "reveal_target": "center"
+  },
+
+  // ============================================
+  // BUFFER LIST (FzfLua buffers equivalent)
+  // ============================================
+  {
+    "label": "Buffers",
+    "command": "kitty --class 'dotfiles.floating' -e sh -c \"FILE=\\$(ls -t | head -20 | fzf --preview 'bat -n --color=always {}' --preview-window 'right:50%' --style full --layout reverse --border --height 90% --prompt 'Buffers> '); [ -n \\\"\\$FILE\\\" ] && zed \\\"\\$FILE\\\"\"",
+    "hide": "always",
+    "allow_concurrent_runs": true,
+    "use_new_terminal": true,
+    "reveal_target": "center"
+  },
+
+  // ============================================
+  // GIT FILES (FzfLua git_files equivalent)
+  // ============================================
+  {
+    "label": "GitFiles",
+    "command": "kitty --class 'dotfiles.floating' -e sh -c \"FILE=\\$(git -C ${ZED_WORKTREE_ROOT} ls-files | fzf --preview 'bat -n --color=always {}' --preview-window 'right:50%' --style full --layout reverse --border --height 90% --prompt 'Git Files> '); [ -n \\\"\\$FILE\\\" ] && zed \\\"\\$FILE\\\"\"",
+    "hide": "always",
+    "allow_concurrent_runs": true,
+    "use_new_terminal": true,
+    "reveal_target": "center"
+  },
+
+  // ============================================
+  // RECENT FILES (FzfLua oldfiles equivalent)
+  // ============================================
+  {
+    "label": "Recent",
+    "command": "kitty --class 'dotfiles.floating' -e sh -c \"FILE=\\$(find ${ZED_WORKTREE_ROOT} -type f -mtime -7 -not -path '*/.git/*' -not -path '*/node_modules/*' -not -path '*/.bundle/*' | fzf --preview 'bat -n --color=always {}' --preview-window 'right:50%' --style full --layout reverse --border --height 90% --prompt 'Recent> '); [ -n \\\"\\$FILE\\\" ] && zed \\\"\\$FILE\\\"\"",
+    "hide": "always",
+    "allow_concurrent_runs": true,
+    "use_new_terminal": true,
+    "reveal_target": "center"
+  },
+
+  // ============================================
+  // COMMANDS (FzfLua commands equivalent)
+  // ============================================
+  {
+    "label": "Commands",
+    "command": "zed --open-help",
+    "hide": "always",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+
+  // ============================================
+  // HELP TAGS (FzfLua help_tags equivalent)
+  // ============================================
+  {
+    "label": "Help",
+    "command": "zed --open-help",
+    "hide": "always",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+
+  // ============================================
+  // LSP REFERENCES (FzfLua lsp_references equivalent)
+  // ============================================
+  {
+    "label": "LspReferences",
+    "command": "zed --show-references",
+    "hide": "always",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+
+  // ============================================
+  // LSP DEFINITIONS (FzfLua lsp_definitions equivalent)
+  // ============================================
+  {
+    "label": "LspDefinitions",
+    "command": "zed --go-to-definition",
+    "hide": "always",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+
+  // ============================================
+  // LSP IMPLEMENTATIONS (FzfLua lsp_implementations equivalent)
+  // ============================================
+  {
+    "label": "LspImplementations",
+    "command": "zed --go-to-implementation",
+    "hide": "always",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+
+  // ============================================
+  // WHICH KEY REFERENCE (nvim which-key equivalent)
+  // ============================================
+  {
+    "label": "WhichKey",
+    "command": "kitty --class 'dotfiles.floating' -e ~/.config/zed/which-key-fzf.sh",
+    "hide": "on_success",
+    "allow_concurrent_runs": false,
     "use_new_terminal": true,
     "reveal_target": "center"
   }

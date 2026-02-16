@@ -6,46 +6,55 @@ return {
     -- your configuration comes here
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
+    explorer = { enabled = true },
+    picker = {
+      enabled = true,
+      sources = {
+        explorer = {
+          win = {
+            list = {
+              keys = {
+                ["?"] = function(picker)
+                  picker.win:toggle_help({
+                    width = 60,
+                    height = 0.6,
+                    border = "rounded",
+                    title = "Explorer Keymaps",
+                    position = "float",
+                    col_width = 30,
+                    key_width = 25,
+                  })
+                end,
+              },
+            },
+          },
+        },
+      },
+    },
     dashboard = {
       enabled = true,
     },
     bigfile = { enabled = true },
+    -- Disabled - using Noice.nvim for notifications
     notifier = {
-      enabled = true,
-      timeout = 2500,
-      icons = {
-        error = " ",
-        warn = " ",
-        info = " ",
-        debug = " ",
-        trace = " ",
-      },
-      keep = function(notif)
-        return vim.fn.getcmdpos() > 0
-      end,
-      style = "compact",
+      enabled = false,
     },
     indent = { enabled = true },
-    input = { enabled = true },
+    -- Disabled - using Noice.nvim for cmdline
+    input = {
+      enabled = false,
+    },
     quickfile = { enabled = true },
     statuscolumn = { enabled = true },
     words = { enabled = true },
+    -- Disabled - using Noice.nvim for windows
     win = {
-      enabled = true,
+      enabled = false,
     },
+    -- Disabled - using Noice.nvim for notifications
     styles = {
       notification = {
-        -- wo = { wrap = true } -- Wrap notifications
-        border = "rounded",
-        zindex = 100,
-        ft = "markdown",
-        wo = {
-          winblend = 5,
-          wrap = false,
-          conceallevel = 2,
-          colorcolumn = "",
-        },
-        bo = { filetype = "snacks_notif" },
+        enabled = false,
       },
     },
   },

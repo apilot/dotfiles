@@ -9,16 +9,16 @@ return {
       local set = vim.keymap.set
 
       -- Add or skip cursor above/below the main cursor.
-      set({ "n", "x" }, "<up>", function()
+      set({ "n", "x" }, "<A-k>", function()
         mc.lineAddCursor(-1)
       end)
-      set({ "n", "x" }, "<down>", function()
+      set({ "n", "x" }, "<A-j>", function()
         mc.lineAddCursor(1)
       end)
-      set({ "n", "x" }, "<leader><up>", function()
+      set({ "n", "x" }, "<leader>k", function()
         mc.lineSkipCursor(-1)
       end)
-      set({ "n", "x" }, "<leader><down>", function()
+      set({ "n", "x" }, "<leader>j", function()
         mc.lineSkipCursor(1)
       end)
 
@@ -75,11 +75,8 @@ return {
       hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })
     end,
   },
-  { "equalsraf/neovim-gui-shim" },
   { "ThePrimeagen/git-worktree.nvim" },
   { "folke/todo-comments.nvim" },
-  { "jpmcb/nvim-llama" },
-  { "nvim-mini/mini.nvim", version = "*" },
   {
     "hat0uma/csvview.nvim",
     config = function()

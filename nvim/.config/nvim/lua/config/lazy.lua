@@ -20,6 +20,8 @@ require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    -- import nvim-cmp extra (disables blink.cmp)
+    { import = "lazyvim.plugins.extras.coding.nvim-cmp" },
     -- import/override with your plugins
     { import = "plugins" },
   },
@@ -42,12 +44,13 @@ require("lazy").setup({
         "crates",
         -- "matchit",
         -- "matchparen",
-        -- "netrwPlugin",
+        "netrwPlugin", -- Using Snacks.explorer instead
         "tarPlugin",
         "tohtml",
         "tutor",
         "zipPlugin",
       },
+      reset_packpath = true, -- Important for large Rails projects
     },
   },
 })

@@ -11,7 +11,7 @@
       "space w": "workspace::Save",
       "space q": "pane::CloseActiveItem",
       "space shift-q": "zed::Quit",
-      "space e": "project_panel::ToggleFocus"
+      "space e": "project_panel::Toggle"
     }
   },
 
@@ -63,7 +63,7 @@
       // Window navigation (Ctrl+h/j/k/l - same as nvim)
       "ctrl-h": "pane::ActivatePreviousItem",
       "ctrl-j": "menu::SelectNext",
-      "ctrl-k": "menu::SelectPrevious",
+      "ctrl-k": "menu::SelectPrev",
       "ctrl-l": "pane::ActivateNextItem",
 
       // ==========================================
@@ -85,7 +85,7 @@
       // ==========================================
       // TERMINAL (leader+t)
       // ==========================================
-      "space t t": "terminal_panel::Toggle",
+      "space t t": "terminal::Toggle",
 
       // ==========================================
       // UI TOGGLES (leader+u)
@@ -145,7 +145,7 @@
     "context": "Terminal",
     "bindings": {
       // ESC to exit terminal mode (same as nvim)
-      "escape": "terminal_panel::ToggleFocus"
+      "escape": "terminal::ToggleFocus"
     }
   }
 ]

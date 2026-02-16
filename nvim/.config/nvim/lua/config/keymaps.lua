@@ -17,7 +17,7 @@ keymap(
 )
 keymap("n", "<leader>cf", "<cmd>lua vim.lsp.buf.format()<cr>", { desc = "Format current buffer" })
 
-keymap("n", "<leader>e", "<cmd>Neotree<cr>", { desc = "File Explorer" })
+keymap("n", "<leader>e", "<cmd>lua Snacks.explorer()<cr>", { desc = "File Explorer" })
 -- File operations (<leader>f)
 keymap("n", "<leader>ff", "<cmd>FzfLua files<cr>", { desc = "Find files" })
 keymap("n", "<leader>fg", "<cmd>FzfLua live_grep<cr>", { desc = "Live grep" })
@@ -28,10 +28,23 @@ keymap("n", "<leader>fr", "<cmd>FzfLua oldfiles<cr>", { desc = "Recent files" })
 keymap("n", "<leader>fk", "<cmd>FzfLua keymaps<cr>", { desc = "Keymaps" })
 
 -- Git operations (<leader>g)
-keymap("n", "<leader>gg", "<cmd>LazyGit<cr>", { desc = "LazyGit" })
 keymap("n", "<leader>gs", "<cmd>Git<cr>", { desc = "Git status" })
 keymap("n", "<leader>gc", "<cmd>Git commit<cr>", { desc = "Git commit" })
 keymap("n", "<leader>gp", "<cmd>Git push<cr>", { desc = "Git push" })
+
+-- Rails operations (<leader>r)
+keymap("n", "<leader>rc", "<cmd>Econtroller<cr>", { desc = "Rails: Goto controller" })
+keymap("n", "<leader>rm", "<cmd>Emodel<cr>", { desc = "Rails: Goto model" })
+keymap("n", "<leader>rv", "<cmd>Eview<cr>", { desc = "Rails: Goto view" })
+keymap("n", "<leader>rh", "<cmd>Helper<cr>", { desc = "Rails: Goto helper" })
+keymap("n", "<leader>rl", "<cmd>Elocale<cr>", { desc = "Rails: Goto locale" })
+keymap("n", "<leader>rs", "<cmd>Eserver<cr>", { desc = "Rails: Goto server" })
+
+-- RSpec/Testing operations (<leader>t)
+keymap("n", "<leader>tn", function() require("neotest").run.run() end, { desc = "Run nearest test" })
+keymap("n", "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end, { desc = "Run test file" })
+keymap("n", "<leader>ts", function() require("neotest").run.run({ suite = true }) end, { desc = "Run test suite" })
+keymap("n", "<leader>to", function() require("neotest").output.open({ enter = true }) end, { desc = "Show test output" })
 
 -- Encoding & File format (<leader>E)
 keymap("n", "<leader>Ew", "<cmd>:e ++enc=cp1251<cr>", { desc = "Windows CP1251" })

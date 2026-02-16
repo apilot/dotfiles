@@ -62,6 +62,7 @@ ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_V
 
 alias ld="lazydocker"
 alias lg="lazygit"
+alias ee="eza -l"
 
 alias rs="bundle exec rails s"
 alias rc="bundle exec rails c"
@@ -72,12 +73,8 @@ export OLLAMA_MODELS="/mnt/docs/olama/models"
 export OLLAMA_NUM_THREADS=16
 export OLLAMA_CUDA=1
 export OLLAMA_MAX_LOADED=2
-export ANTHROPIC_BASE_URL=https://api.z.ai/api/anthropic
-export ANTHROPIC_AUTH_TOKEN=6879c7d6b50443948c4ae39f14018380.KkUKTZtnXTka9GUk
-
-export OPENAI_API_KEY="your_api_key_here"
-export OPENAI_BASE_URL="http://127.0.0.1:8080"
-export OPENAI_MODEL="qwen3-coder"
+# Load secrets (API keys) - not in version control
+[[ -f "$HOME/.zsh/secrets.zsh" ]] && source "$HOME/.zsh/secrets.zsh"
 
 # # opencode
 # export PATH=/home/aboyarinov/.opencode/bin:$PATH
@@ -85,6 +82,7 @@ export OPENAI_MODEL="qwen3-coder"
 # opencode
 export PATH=/home/aboyarinov/.opencode/bin:$PATH
 export OPENCODE_TIMEOUT=7200
+alias opencode='opencode --agent OpenCoder'
 # pnpm
 export PNPM_HOME="/home/aboyarinov/.local/share/pnpm"
 case ":$PATH:" in
@@ -92,3 +90,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# FZF word search - search for word under cursor
+source ~/.zsh/functions/fzf-word-search.zsh
