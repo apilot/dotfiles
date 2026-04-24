@@ -7,6 +7,17 @@ return {
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
     explorer = { enabled = true },
+    lazygit = {
+      configure = true,
+      win = {
+        style = "lazygit",
+      },
+      config = {
+        os = {
+          edit = "lg-edit {{filename}}",
+        },
+      },
+    },
     picker = {
       enabled = true,
       sources = {
@@ -42,7 +53,7 @@ return {
     indent = { enabled = true },
     -- Disabled - using Noice.nvim for cmdline
     input = {
-      enabled = false,
+      enabled = true,
     },
     quickfile = { enabled = true },
     statuscolumn = { enabled = true },
