@@ -40,7 +40,6 @@ opt.splitright = true -- split vertical window to the right
 opt.splitbelow = true -- split horizontal window to the bottom
 
 -- Other settings
-opt.syntax = "on"
 opt.swapfile = false -- turn off swapfile
 
 -- NOTE: Disabled custom server setup to work with flatten.nvim
@@ -80,5 +79,5 @@ opt.spell = true
 
 -- LazyVim specific settings
 vim.g.lazyvim_prettier_needs_config = true
-vim.g.lazyvim_ruby_lsp = "solargraph"
+vim.g.lazyvim_ruby_lsp = "ruby_lsp"
 vim.g.lazyvim_ruby_formatter = "standardrb"

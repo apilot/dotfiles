@@ -6,7 +6,7 @@ return {
         timeout_ms = 10000, -- Increased from 3000 to handle larger Ruby files
         async = false, -- not recommended to change
         quiet = false, -- not recommended to change
-        lsp_format = "fallback", -- not recommended to change
+        lsp_format = "prefer", -- not recommended to change
       },
       formatters_by_ft = {
         lua = { "stylua" },
@@ -55,5 +55,32 @@ return {
         -- },
       },
     },
+  },
+  -- Disable none-ls markdownlint diagnostics (we use nvim-lint instead)
+  {
+    "nvimtools/none-ls.nvim",
+    optional = true,
+    opts = function(_, opts)
+      local null_ls = require("null-ls")
+      opts.sources = opts.sources or {}
+      -- Remove markdownlint_cli2 from none-ls sources
+      opts.sources = vim.tbl_filter(function(source)
+        return source.name ~= "markdownlint_cli2"
+      end, opts.sources)
+      -- Also prevent it from being registered by returning a modified setup
+    end,
+  },
+  -- Override markdownlint-cli2 linter args to pass --config
+  {
+    "mfussenegger/nvim-lint",
+    optional = true,
+    config = function()
+      local lint = require("lint")
+      lint.linters["markdownlint-cli2"].args = {
+        "--config",
+        vim.fn.expand("~/.config/nvim/.markdownlint.json"),
+        "-",
+      }
+    end,
   },
 }

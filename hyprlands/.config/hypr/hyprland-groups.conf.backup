@@ -1,0 +1,39 @@
+# ═════════════════════════════════════════════════════════════════════
+# GROUPS - Built-in tab system (replaces hy3)
+# Documentation: https://wiki.hypr.land/Configuring/Groups/
+# ═════════════════════════════════════════════════════════════════════
+
+# Group settings (already configured in lines 100-107)
+# group {
+#     groupbar {
+#         enabled = true
+#     }
+#     auto_group = true
+# }
+
+# ═════════════════════════════════════════════════════════════════════
+# GROUP KEYBINDINGS (mirror hy3 functionality)
+# ═════════════════════════════════════════════════════════════════════
+
+# Layout (hy3:changegroup → changegroup)
+bind = $mainMod, W, changegroup, opposite
+bind = $mainMod, X, changegroup, toggletab
+bind = $mainMod, S, togglegroup  # Create/destroy group
+
+# Move window (hy3:movewindow → moveoutgroup/moveintogroup)
+bind = $mainMod SHIFT, left, moveoutgroup
+bind = $mainMod SHIFT, right, moveintogroup
+bind = $mainMod SHIFT, top, moveintogroup
+
+# Move focus within group (hy3:movefocus → changegroupactive)
+bind = $mainMod CTRL, h, changegroupactive, b
+bind = $mainMod CTRL, l, changegroupactive, f
+bind = $mainMod CTRL, k, changegroupactive, b
+bind = $mainMod CTRL, j, changegroupactive, f
+
+# Mouse support for tab switching (replaces hy3:focustab)
+bindn = , mouse:272, togglegroup
+
+# Additional useful group bindings
+bind = $mainMod SHIFT, G, moveoutgroup  # Remove window from group
+bind = $mainMod, G, togglegroup         # Toggle group mode

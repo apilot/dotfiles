@@ -29,10 +29,10 @@ if vim.g.neovide then
 end
 
 -- Global clipboard settings for all environments
-vim.api.nvim_set_keymap("", "<D-v>", "+p<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("!", "<D-v>", "<C-R>+", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("t", "<D-v>", "<C-R>+", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "<D-v>", "<C-R>+", { noremap = true, silent = true })
+vim.keymap.set("", "<D-v>", "+p<CR>", { noremap = true, silent = true })
+vim.keymap.set("!", "<D-v>", "<C-R>+", { noremap = true, silent = true })
+vim.keymap.set("t", "<D-v>", "<C-R>+", { noremap = true, silent = true })
+vim.keymap.set("v", "<D-v>", "<C-R>+", { noremap = true, silent = true })
 
 -- Font settings for GUI
 vim.opt.guifont = { "MesloLGS Nerd Font:h10.:w-0.2:#h-slight" }

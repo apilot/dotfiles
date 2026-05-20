@@ -14,12 +14,25 @@ return {
     opts = {},
   },
 
-  -- Custom colorscheme (if exists)
+  -- Word-under-cursor highlight (LSP + regex only; treesitter broken on Nvim 0.12)
+  {
+    "RRethy/vim-illuminate",
+    opts = {
+      providers = { "lsp", "regex" },
+    },
+  },
+
+  -- Custom colorscheme
   {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
     opts = {
+      transparent = true,
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
+      },
       integrations = {
         aerial = true,
         alpha = true,
@@ -29,15 +42,22 @@ return {
         gitsigns = true,
         headlines = true,
         illuminate = true,
-        indent_blankline = true,
         leap = true,
         lazygit = true,
         lsp_trouble = true,
         mason = true,
         markdown = true,
         mini = true,
-        native_lsp = true,
-        navic = true,
+        native_lsp = {
+          enabled = true,
+          underlines = {
+            errors = { "undercurl" },
+            hints = { "undercurl" },
+            warnings = { "undercurl" },
+            information = { "undercurl" },
+          },
+        },
+        navic = { enabled = true, custom_bg = "lualine" },
         neotest = true,
         noice = true,
         notify = true,
@@ -46,7 +66,6 @@ return {
         treesitter = true,
         treesitter_context = true,
         which_key = true,
-        ufo = true,
       },
     },
   },

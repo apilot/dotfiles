@@ -1,15 +1,15 @@
-/* colors -Authored by Axarva lol */
+/* Catppuccin Macchiato */
 
 * {
   al:      #00000000;
-  bg:      #010101ff;
-  se:      #ffd5cdff;
-  fg:      #eeeeeeff;
-  ac:      #ea907aff;
-  red:     #EC7875ff;
-  green:   #61C766ff;
-  yellow:  #FDD835ff;
-  blue:    #42A5F5ff;
-  purple:  #BA68C8ff;
-  cyan:    #4DD0E1ff;
+  bg:      #24273aff;
+  se:      #f4dbd6ff;
+  fg:      #cad3f5ff;
+  ac:      #b7bdf8ff;
+  red:     #ed8796ff;
+  green:   #a6da95ff;
+  yellow:  #eed49fff;
+  blue:    #8aadf4ff;
+  purple:  #c6a0f6ff;
+  cyan:    #8bd5caff;
 }

@@ -1,16 +1,16 @@
-/* colors */
+/* Catppuccin Macchiato */
 
 * {
-  background-alt:      #121212ff;
-  background:      #121212ff;
-  selected:      #ffd5cdff;
-  foreground:      #eeeeeeff;
+  background-alt:      #24273aff;
+  background:      #24273aff;
+  selected:      #f4dbd6ff;
+  foreground:      #cad3f5ff;
   border:  #00000000;
-  ac:      #ea907aff;
-  red:     #D35D6Eff;
-  green:   #90c861ff;
-  yellow:  #FDD835ff;
-  blue:    #84afdbff;
-  purple:  #c47eb7ff;
-  cyan:    #4DD0E1ff;
+  ac:      #b7bdf8ff;
+  red:     #ed8796ff;
+  green:   #a6da95ff;
+  yellow:  #eed49fff;
+  blue:    #8aadf4ff;
+  purple:  #c6a0f6ff;
+  cyan:    #8bd5caff;
 }

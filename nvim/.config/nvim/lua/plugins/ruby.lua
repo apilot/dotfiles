@@ -17,9 +17,11 @@ return {
 }
 
 -- Ruby LSP Configuration:
--- - Solargraph is the only Ruby LSP server
+-- - ruby-lsp (Shopify) is the Ruby LSP server
+-- - ruby-lsp-rails for Rails-specific features
 -- - Uses rbenv for Ruby version management
--- - Gem indexing is disabled for performance
--- - StandardRB is used for formatting
+-- - Auto-installs ruby-lsp gem if missing for current rbenv version
+-- - StandardRB is used for formatting (via conform.nvim)
 -- - Keymaps:
---   - `<leader>lR` - Restart Solargraph
+--   - `<leader>lR` - Restart Ruby LSP
+--   - `<leader>lI` - Install ruby-lsp gems

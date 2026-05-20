@@ -1,8 +1,11 @@
 // from https://github.com/hyprwm/Hyprland/issues/1140#issuecomment-1335128437
 
+#version 300 es
 precision highp float;
-varying vec2 v_texcoord;
+
+in vec2 v_texcoord;
 uniform sampler2D tex;
+out vec4 fragColor;
 
 const float temperature = 4000.0;
 const float temperatureStrength = 1.0;
@@ -25,19 +28,15 @@ vec3 colorTemperatureToRGB(const in float temperature) {
 }
 
 void main() {
-    vec4 pixColor = texture2D(tex, v_texcoord);
-
-    // RGB
-    vec3 color = vec3(pixColor[0], pixColor[1], pixColor[2]);
+    vec4 pixColor = texture(tex, v_texcoord);
+    vec3 color = pixColor.rgb;
 
 #ifdef WithQuickAndDirtyLuminancePreservation
-    color *= mix(1.0, dot(color, vec3(0.2126, 0.7152, 0.0722)) / max(dot(color, vec3(0.2126, 0.7152, 0.0722)), 1e-5),
-                 LuminancePreservationFactor);
+    float lum = dot(color, vec3(0.2126, 0.7152, 0.0722));
+    color *= mix(1.0, lum / max(lum, 1e-5), LuminancePreservationFactor);
 #endif
 
     color = mix(color, color * colorTemperatureToRGB(temperature), temperatureStrength);
 
-    vec4 outCol = vec4(color, pixColor[3]);
-
-    gl_FragColor = outCol;
+    fragColor = vec4(color, pixColor.a);
 }

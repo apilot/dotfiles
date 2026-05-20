@@ -17,6 +17,9 @@ ZSH_COLORIZE_TOOL=chroma
 ZSH_COLORIZE_STYLE="colorful"
 ZSH_COLORIZE_CHROMA_FORMATTER=terminal256
 
+# Фикс bracketed paste: ZLE engine корректно обрабатывает вставку в normal mode
+ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_ZLE
+
 source $ZSH/oh-my-zsh.sh
 source $HOME/.zshenv
 source $HOME/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
@@ -63,6 +66,15 @@ ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_V
 alias ld="lazydocker"
 alias lg="lazygit"
 alias ee="eza -l"
+alias docker-compose="docker compose"
+
+# DisplayLink: безопасное отключение/подключение монитора
+alias dl-off='sudo rc-service displaylink stop'
+alias dl-on='sudo rc-service displaylink zap && sudo rc-service displaylink start && hyprctl keyword monitor DVI-I-1,1920x1080@60,0x0,1'
+
+# HDMI (NVIDIA): отключение/подключение монитора
+alias hdmi-off='hyprctl keyword monitor HDMI-A-1,disable'
+alias hdmi-on='hyprctl keyword monitor HDMI-A-1,1920x1080@75,1920x0,1'
 
 alias rs="bundle exec rails s"
 alias rc="bundle exec rails c"
@@ -93,3 +105,27 @@ esac
 
 # FZF word search - search for word under cursor
 source ~/.zsh/functions/fzf-word-search.zsh
+
+# GnuCash с русским интерфейсом и темой Catppuccin
+alias gnucash='gnucash-ru'
+export PATH="$PATH:$HOME/development/flutter/bin"
+# Android SDK
+export ANDROID_HOME=$HOME/android-sdk
+export ANDROID_SDK_ROOT=$ANDROID_HOME
+export ANDROID_AVD_HOME=$HOME/.android/avd
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/build-tools/36.0.0
+# Алиас для быстрого запуска эмулятора с KVM
+alias emu-kvm='emulator -avd flutter_emulator -gpu host -accel on -memory 4096 -cores 4'
+
+# Алиас для запуска Flutter приложения
+alias frun='flutter run -d emulator-5554'
+
+# bun completions
+[ -s "/home/aboyarinov/.bun/_bun" ] && source "/home/aboyarinov/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

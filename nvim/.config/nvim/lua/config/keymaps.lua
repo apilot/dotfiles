@@ -97,7 +97,10 @@ keymap("v", "<leader>aa", "<cmd>AiderOpen<cr>", { desc = "Open Aider" })
 keymap("n", "<leader>am", "<cmd>AiderAddModifiedFiles<cr>", { desc = "Add modified files" })
 
 -- Terminal key mappings
-vim.cmd([[
-  " ESC mapping for normal terminals (but exclude lazygit)
-  autocmd TermOpen * if &filetype != 'lazygit' | tnoremap <buffer> <Esc> <C-\><C-n> | endif
-]])
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    if vim.bo.filetype ~= "lazygit" then
+      vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { buffer = true })
+    end
+  end,
+})

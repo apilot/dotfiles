@@ -1,75 +1,35 @@
 -- Language specific configurations
 
--- Ruby: Auto-create .solargraph.yml for projects
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  pattern = { "*.rb", "*.rake", "Gemfile", "Rakefile", "config.ru", "*.erb" },
+-- Ruby: Check ruby-lsp availability on FileType
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "ruby", "eruby" },
   once = true,
   callback = function()
-    if vim.fs.root(".ruby-version", "Gemfile", ".git", "config.ru") then
-      local root = vim.fs.root(".ruby-version", "Gemfile", ".git", "config.ru")
-      local solargraph_config = root .. "/.solargraph.yml"
-
-      -- Check if .solargraph.yml exists
-      if vim.fn.filereadable(solargraph_config) == 0 then
-        -- Create .solargraph.yml with minimal settings (no gem indexing)
-        local content = [[# Solargraph configuration
-# Disable gem indexing for performance
-
-# Don't include gems in indexing
-includeGems: false
-
-# Ignore large directories
-exclude:
-  - "spec/**/*"
-  - "test/**/*"
-  - "tmp/**/*"
-  - "log/**/*"
-  - "vendor/**/*"
-  - "node_modules/**/*"
-  - "public/**/*"
-  - "db/**/*"
-  - ".git/**/*"
-  - "storage/**/*"
-
-# Max files to index
-maxFiles: 5000
-
-# Formatting disabled (using StandardRB)
-formatting: false
-
-# Diagnostics
-diagnostics: true
-
-# Features
-completion: true
-hover: true
-signatures: true
-definitions: true
-references: true
-rename: true
-symbols: true
-]]
-        vim.fn.writefile(vim.split(content, "\n", { plain = true }), solargraph_config)
-        vim.notify("Created .solargraph.yml (gem indexing disabled)", vim.log.levels.INFO, { title = "Solargraph" })
-      end
-    end
+    require("config.ruby-lsp").ensure_installed()
   end,
-  desc = "Auto-create .solargraph.yml for Ruby projects"
+  desc = "Check ruby-lsp gem availability for current rbenv version",
 })
 
--- Ruby: Keymaps for Solargraph
+-- Ruby: Keymaps for Ruby LSP
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "ruby", "eruby" },
   callback = function()
-    -- Restart Solargraph
-    vim.keymap.set("n", "<leader>lR", function()
-      require("config.ruby-solargraph").restart()
+    -- Restart Ruby LSP
+    vim.keymap.set("n", "<leader>rR", function()
+      require("config.ruby-lsp").restart()
     end, {
       buffer = true,
-      desc = "Restart Solargraph",
+      desc = "Restart Ruby LSP",
+    })
+    -- Install ruby-lsp gems
+    vim.keymap.set("n", "<leader>rI", function()
+      require("config.ruby-lsp").install_gems()
+    end, {
+      buffer = true,
+      desc = "Install ruby-lsp gems",
     })
   end,
-  desc = "Ruby Solargraph keymaps"
+  desc = "Ruby LSP keymaps",
 })
 
 -- Hyprland LSP configuration
