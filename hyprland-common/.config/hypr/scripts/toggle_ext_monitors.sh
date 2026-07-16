@@ -24,8 +24,9 @@ read_var() {
     ' "$DETECTED_CONF"
 }
 
-DP="$(read_var DP)";     DP="${DP:-DP-1}"
-HDMI="$(read_var HDMI)"; HDMI="${HDMI:-HDMI-A-2}"
+DP="$(read_var DP)";       DP="${DP:-DP-1}"
+DP_RATE="$(read_var DP_RATE)"; DP_RATE="${DP_RATE:-60}"
+HDMI="$(read_var HDMI)";   HDMI="${HDMI:-HDMI-A-2}"
 
 is_ext_on() {
     hyprctl monitors -j 2>/dev/null | jq -r '.[].name' | grep -qx -- "${HDMI}"
@@ -52,8 +53,8 @@ turn_off() {
 
 turn_on() {
     # 1. Enable external monitors (positions match monitors.conf)
-    hyprctl keyword monitor "${DP},1920x1080@60,0x0,1"      2>/dev/null || true
-    hyprctl keyword monitor "${HDMI},1920x1080@75,1920x0,1" 2>/dev/null || true
+    hyprctl keyword monitor "${DP},1920x1080@${DP_RATE},0x0,1"      2>/dev/null || true
+    hyprctl keyword monitor "${HDMI},1920x1080@75,1920x0,1"         2>/dev/null || true
 
     sleep 1
 
