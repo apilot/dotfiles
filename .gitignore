@@ -2,3 +2,5 @@
 zsh/.zsh/secrets.zsh
 # Vendored third-party Hyprland theme (separate upstream clone, kept local only)
 hyprland-common/.config/hypr/themes/winter/
+
+.worktrees/
