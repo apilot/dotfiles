@@ -409,6 +409,11 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("nm-applet --indicator &")
     hl.exec_cmd("blueman-tray")
     hl.exec_cmd("~/.config/hypr/scripts/monitors-detect.sh")
+    -- Iiyama PL2493H on HDMI defaults to "Display Native" (over-bright under ICC) and
+    -- rejects User1. Force neutral 6500K preset (0x05) + contrast 75 to match DP-1.
+    -- Fixed presets LOCK RGB gains, so never touch 0x16/18/1a here (it reverts the preset).
+    -- Bus is detected dynamically (connector card*-HDMI-A-* -> /dev/i2c-N).
+    hl.exec_cmd([[ ( sleep 3; b=$(ddcutil detect --brief 2>/dev/null | awk '/I2C bus:/{s=$3} /DRM connector:/{c=$3} /Monitor:/{if(c~/HDMI/){sub(/.*i2c-/,"",s); print s}}'); [ -n "$b" ] && ddcutil --bus "$b" setvcp 14 0x05 && ddcutil --bus "$b" setvcp 12 75 ) & ]])
     hl.exec_cmd("~/.local/bin/wpaperd -d")
     hl.exec_cmd("/usr/libexec/hyprpolkitagent")
     hl.exec_cmd("/usr/bin/qs -c noctalia-shell")
