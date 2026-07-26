@@ -314,7 +314,7 @@ hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("~/.config/hypr/scripts/start
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("~/.config/hypr/scripts/lock-with-monitors.sh"))
 
 -- hy3
-hl.bind("mouse:272", hy3("focustab mouse"), { mouse = true })            -- bindn: left-click focuses hy3 tab
+hl.bind("mouse:272", hy3("focustab mouse"), { non_consuming = true })   -- bindn: left-click focuses hy3 tab, click passes through
 hl.bind(mainMod .. " + S", hy3("makegroup opposite force_ephemeral"))
 hl.bind(mainMod .. " + W", hy3("changegroup opposite"))
 hl.bind(mainMod .. " + X", hy3("changegroup toggletab"))
