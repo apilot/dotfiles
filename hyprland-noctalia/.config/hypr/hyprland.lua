@@ -263,12 +263,11 @@ hl.layer_rule({ blur_popups = true, match = { namespace = "noctalia-background-.
 ------------------------------------------------------------------
 -- keybinds  (keybinds.conf)
 ------------------------------------------------------------------
--- helper: route a dispatcher through hyprctl (works for plugins like hy3
--- and for dispatchers whose Lua hl.dsp wrapper is uncertain).
-local function hctl(disp, arg)
-    return hl.dsp.exec_cmd("hyprctl dispatch " .. disp .. (arg and (" " .. arg) or ""))
-end
-local function hy3(arg)  return hctl("hy3:" .. arg) end
+-- hy3 plugin dispatchers (Lua factories under hl.plugin.hy3). hy3 is loaded in
+-- the autostart handler (Lua has no synchronous `plugin = path`), so on the very
+-- first config eval it may be absent -- the hy3 binds are guarded and register
+-- once the start handler has loaded the plugin and triggered a reload.
+local hy3 = hl.plugin.hy3
 
 -- noctalia-shell shortcuts
 hl.bind(mainMod .. " + D",        hl.dsp.exec_cmd("/usr/bin/qs -c noctalia-shell ipc call launcher toggle"))
@@ -286,9 +285,9 @@ hl.bind("ALT + Tab",       hl.dsp.exec_cmd("/usr/bin/qs -c noctalia-shell ipc ca
 -- app launches / window ops
 hl.bind(mainMod .. " + Return",        hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + T",             hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + Q",             hctl("killactive"))
-hl.bind(mainMod .. " + F",             hctl("fullscreen"))
-hl.bind(mainMod .. " + SHIFT + space", hctl("togglefloating"))
+hl.bind(mainMod .. " + Q",             hl.dsp.window.close())
+hl.bind(mainMod .. " + F",             hl.dsp.window.fullscreen())
+hl.bind(mainMod .. " + SHIFT + space", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + E",             hl.dsp.exec_cmd(fileExplorer))
 hl.bind(mainMod .. " + SHIFT + R",     hl.dsp.exec_cmd("~/.config/hypr/scripts/monitors-detect.sh"))
 
@@ -313,48 +312,51 @@ hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggl
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("~/.config/hypr/scripts/start-workspace-apps.sh"))
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("~/.config/hypr/scripts/lock-with-monitors.sh"))
 
--- hy3
-hl.bind("mouse:272", hy3("focustab mouse"), { non_consuming = true })   -- bindn: left-click focuses hy3 tab, click passes through
-hl.bind(mainMod .. " + S", hy3("makegroup opposite force_ephemeral"))
-hl.bind(mainMod .. " + W", hy3("changegroup opposite"))
-hl.bind(mainMod .. " + X", hy3("changegroup toggletab"))
+-- hy3 binds (guarded -- register once the plugin is loaded on the post-start reload)
+if hy3 then
+    -- NOTE: hy3:focustab "mouse" (click-to-focus hovered tab) has no direct Lua
+    -- equivalent -- hl.plugin.hy3.focus_tab requires direction|index. Dropped for now.
+    hl.bind(mainMod .. " + S", hy3.make_group("opposite", { ephemeral = "force" }))
+    hl.bind(mainMod .. " + W", hy3.change_group("opposite"))
+    hl.bind(mainMod .. " + X", hy3.change_group("toggletab"))
 
--- move focus (arrows / ctrl+arrows / ctrl+hjkl)
-for _, kp in ipairs({
-    { "left",  "l" }, { "right", "r" }, { "up", "u" }, { "down", "d" },
-}) do
-    hl.bind(mainMod .. " + " .. kp[1],        hy3("movefocus " .. kp[2]))
-    hl.bind(mainMod .. " + CTRL + " .. kp[1], hy3("movefocus " .. kp[2]))
-end
-for _, kp in ipairs({ { "h", "l" }, { "l", "r" }, { "k", "u" }, { "j", "d" } }) do
-    hl.bind(mainMod .. " + CTRL + " .. kp[1], hy3("movefocus " .. kp[2]))
-end
+    -- move focus (arrows / ctrl+arrows / ctrl+hjkl)
+    for _, kp in ipairs({
+        { "left", "l" }, { "right", "r" }, { "up", "u" }, { "down", "d" },
+    }) do
+        hl.bind(mainMod .. " + " .. kp[1],        hy3.move_focus(kp[2]))
+        hl.bind(mainMod .. " + CTRL + " .. kp[1], hy3.move_focus(kp[2]))
+    end
+    for _, kp in ipairs({ { "h", "l" }, { "l", "r" }, { "k", "u" }, { "j", "d" } }) do
+        hl.bind(mainMod .. " + CTRL + " .. kp[1], hy3.move_focus(kp[2]))
+    end
 
--- move windows
-hl.bind(mainMod .. " + SHIFT + up",    hy3("movewindow u"))
-hl.bind(mainMod .. " + SHIFT + down",  hy3("movewindow d"))
-hl.bind(mainMod .. " + SHIFT + left",  hy3("movewindow l"))
-hl.bind(mainMod .. " + SHIFT + right", hy3("movewindow r"))
+    -- move windows
+    hl.bind(mainMod .. " + SHIFT + up",    hy3.move_window("u"))
+    hl.bind(mainMod .. " + SHIFT + down",  hy3.move_window("d"))
+    hl.bind(mainMod .. " + SHIFT + left",  hy3.move_window("l"))
+    hl.bind(mainMod .. " + SHIFT + right", hy3.move_window("r"))
+end
 
 -- workspaces
-for i = 1, 9 do hl.bind(mainMod .. " + " .. i, hctl("workspace", tostring(i))) end
-hl.bind(mainMod .. " + 0", hctl("workspace", "10"))
+for i = 1, 9 do hl.bind(mainMod .. " + " .. i, hl.dsp.focus({ workspace = tostring(i) })) end
+hl.bind(mainMod .. " + 0", hl.dsp.focus({ workspace = "10" }))
 
--- move to workspace
-for i = 1, 9 do hl.bind("ALT + SHIFT + " .. i, hctl("movetoworkspace", tostring(i))) end
-hl.bind("ALT + SHIFT + 0", hctl("movetoworkspace", "10"))
+-- move to workspace (follow = focus the target workspace)
+for i = 1, 9 do hl.bind("ALT + SHIFT + " .. i, hl.dsp.window.move({ workspace = tostring(i), follow = true })) end
+hl.bind("ALT + SHIFT + 0", hl.dsp.window.move({ workspace = "10", follow = true }))
 
--- move active window silently
-for i = 1, 9 do hl.bind(mainMod .. " + SHIFT + " .. i, hctl("movetoworkspacesilent", tostring(i))) end
-hl.bind(mainMod .. " + SHIFT + 0", hctl("movetoworkspacesilent", "10"))
+-- move active window silently (no focus change)
+for i = 1, 9 do hl.bind(mainMod .. " + SHIFT + " .. i, hl.dsp.window.move({ workspace = tostring(i), follow = false })) end
+hl.bind(mainMod .. " + SHIFT + 0", hl.dsp.window.move({ workspace = "10", follow = false }))
 
 -- scroll workspaces
-hl.bind(mainMod .. " + mouse_down", hctl("workspace", "e+1"))
-hl.bind(mainMod .. " + mouse_up",   hctl("workspace", "e-1"))
+hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
 
--- mouse move / resize (bindm)
-hl.bind(mainMod .. " + mouse:272", hctl("movewindow"),    { mouse = true })
-hl.bind(mainMod .. " + mouse:273", hctl("resizewindow"),  { mouse = true })
+-- mouse move / resize (interactive drag)
+hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
+hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- navigation mode
 hl.bind(mainMod .. " + CTRL + SHIFT + 0", hl.dsp.exec_cmd("~/.config/hypr/scripts/set_nav_mode.sh toggle"))
@@ -376,17 +378,17 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"))
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"))
 
 -- resize submap
-hl.bind(mainMod .. " + R", hctl("submap", "resize"))
+hl.bind(mainMod .. " + R", hl.dsp.submap("resize"))
 hl.define_submap("resize", function()
-    hl.bind("right", hctl("resizeactive", "50 0"),  { ["repeat"] = true })
-    hl.bind("L",     hctl("resizeactive", "50 0"),  { ["repeat"] = true })
-    hl.bind("left",  hctl("resizeactive", "-50 0"), { ["repeat"] = true })
-    hl.bind("H",     hctl("resizeactive", "-50 0"), { ["repeat"] = true })
-    hl.bind("up",    hctl("resizeactive", "0 -50"), { ["repeat"] = true })
-    hl.bind("K",     hctl("resizeactive", "0 -50"), { ["repeat"] = true })
-    hl.bind("down",  hctl("resizeactive", "0 50"),  { ["repeat"] = true })
-    hl.bind("J",     hctl("resizeactive", "0 50"),  { ["repeat"] = true })
-    hl.bind("escape", hctl("submap", "reset"))
+    hl.bind("right", hl.dsp.window.resize({ x =  50, y =   0, relative = true }), { ["repeat"] = true })
+    hl.bind("L",     hl.dsp.window.resize({ x =  50, y =   0, relative = true }), { ["repeat"] = true })
+    hl.bind("left",  hl.dsp.window.resize({ x = -50, y =   0, relative = true }), { ["repeat"] = true })
+    hl.bind("H",     hl.dsp.window.resize({ x = -50, y =   0, relative = true }), { ["repeat"] = true })
+    hl.bind("up",    hl.dsp.window.resize({ x =   0, y = -50, relative = true }), { ["repeat"] = true })
+    hl.bind("K",     hl.dsp.window.resize({ x =   0, y = -50, relative = true }), { ["repeat"] = true })
+    hl.bind("down",  hl.dsp.window.resize({ x =   0, y =  50, relative = true }), { ["repeat"] = true })
+    hl.bind("J",     hl.dsp.window.resize({ x =   0, y =  50, relative = true }), { ["repeat"] = true })
+    hl.bind("escape", hl.dsp.submap("reset"))
 end)
 
 ------------------------------------------------------------------
