@@ -26,14 +26,15 @@ local DP_RATE = "74.97"
 local HDMI    = "HDMI-A-2"
 
 local home       = os.getenv("HOME") or "/home/aboyarinov"
-local ICC_IIYAMA = home .. "/.local/share/icc/PL2493H.icc"
+local ICC_IIYAMA      = home .. "/.local/share/icc/PL2493H.icc"        -- factory matrix profile (DP-1)
+local ICC_IIYAMA_VCGT = home .. "/.local/share/icc/PL2493H-vcgt.icc"   -- + gamma VCGT (HDMI: 6500K preset is over-bright without it)
 
 ------------------------------------------------------------------
 -- monitors  (monitors.conf) + ICC
 ------------------------------------------------------------------
 hl.monitor({ output = DP,       mode = "1920x1080@" .. DP_RATE, position = "0x0",      scale = 1.0, icc = ICC_IIYAMA })
 hl.monitor({ output = "eDP-1",  mode = "1920x1080@240.00101",   position = "960x1080", scale = 1.0 })
-hl.monitor({ output = HDMI,     mode = "1920x1080@75",          position = "1920x0",   scale = 1.0, icc = ICC_IIYAMA })
+hl.monitor({ output = HDMI,    mode = "1920x1080@75",          position = "1920x0",   scale = 1.0, icc = ICC_IIYAMA_VCGT })
 
 -- workspace -> monitor
 hl.workspace_rule({ workspace = "1", monitor = "eDP-1" })
