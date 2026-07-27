@@ -34,7 +34,7 @@ local ICC_IIYAMA_VCGT = home .. "/.local/share/icc/PL2493H-vcgt.icc"   -- + gamm
 ------------------------------------------------------------------
 hl.monitor({ output = DP,       mode = "1920x1080@" .. DP_RATE, position = "0x0",      scale = 1.0, icc = ICC_IIYAMA })
 hl.monitor({ output = "eDP-1",  mode = "1920x1080@240.00101",   position = "960x1080", scale = 1.0 })
-hl.monitor({ output = HDMI,    mode = "1920x1080@75",          position = "1920x0",   scale = 1.0, icc = ICC_IIYAMA_VCGT })
+hl.monitor({ output = HDMI,    mode = "1920x1080@75",          position = "1920x0",   scale = 1.0, icc = ICC_IIYAMA })   -- factory ICC; monitor on sRGB preset (HDMI rejects User1 like DP-1)
 
 -- workspace -> monitor
 hl.workspace_rule({ workspace = "1", monitor = "eDP-1" })
@@ -412,11 +412,11 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("nm-applet --indicator &")
     hl.exec_cmd("blueman-tray")
     hl.exec_cmd("~/.config/hypr/scripts/monitors-detect.sh")
-    -- Iiyama PL2493H on HDMI defaults to "Display Native" (over-bright under ICC) and
-    -- rejects User1. Force neutral 6500K preset (0x05) + contrast 75 to match DP-1.
-    -- Fixed presets LOCK RGB gains, so never touch 0x16/18/1a here (it reverts the preset).
-    -- Bus is detected dynamically (connector card*-HDMI-A-* -> /dev/i2c-N).
-    hl.exec_cmd([[ ( sleep 3; b=$(ddcutil detect --brief 2>/dev/null | awk '/I2C bus:/{s=$3} /DRM connector:/{c=$3} /Monitor:/{if(c~/HDMI/){sub(/.*i2c-/,"",s); print s}}'); [ -n "$b" ] && ddcutil --bus "$b" setvcp 14 0x05 && ddcutil --bus "$b" setvcp 12 75 ) & ]])
+    -- HDMI Iiyama PL2493H colour tuning is set via the monitor OSD (color temp
+    -- 6500K + gamma 2 -- the fix for the over-bright; DP-1 uses User1 + gamma 2).
+    -- These live in the monitor's NVRAM and have NO DDC VCP (gamma isn't exposed,
+    -- and 'setvcp 14' would reset gamma to the preset's factory default of 1).
+    -- So nothing to enforce here -- the OSD state persists across reboots.
     hl.exec_cmd("~/.local/bin/wpaperd -d")
     hl.exec_cmd("/usr/libexec/hyprpolkitagent")
     hl.exec_cmd("/usr/bin/qs -c noctalia-shell")
