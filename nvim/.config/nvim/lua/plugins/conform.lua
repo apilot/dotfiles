@@ -13,7 +13,7 @@ return {
         fish = { "fish_indent" },
         sh = { "shfmt" },
         ruby = { "standardrb" },
-        eruby = { "htmlbeautifier", "standardrb" }, -- ERB files for Rails views
+        eruby = { "herb_format" }, -- HTML+ERB via Herb (LSP formatting disabled in lsp.lua)
         haml = { "haml-lint" }, -- HAML files (if used)
         slim = { "slim-lint" }, -- SLIM files (if used)
         markdown = { "prettier", "markdownlint-cli2", "markdown-toc" },
@@ -42,6 +42,12 @@ return {
           end,
         },
         injected = { options = { ignore_errors = true } },
+        -- Herb formatter for HTML+ERB (global npm binary @herb-tools/formatter)
+        herb_format = {
+          command = "herb-format",
+          args = { "-" },
+          stdin = true,
+        },
         -- # Example of using dprint only when a dprint.json file is present
         -- dprint = {
         --   condition = function(ctx)
