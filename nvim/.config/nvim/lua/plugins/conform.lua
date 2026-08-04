@@ -70,17 +70,81 @@ return {
       -- Also prevent it from being registered by returning a modified setup
     end,
   },
-  -- Override markdownlint-cli2 linter args to pass --config
+  -- Filter unwanted markdownlint rules from diagnostics
   {
     "mfussenegger/nvim-lint",
     optional = true,
+    opts = {
+      linters = {
+        ["markdownlint-cli2"] = {
+          args = {
+            "--config",
+            vim.fn.expand("~/.config/nvim/.markdownlint.json"),
+            "-",
+          },
+        },
+      },
+      linters_by_ft = {
+        markdown = { "markdownlint-cli2" },
+      },
+    },
+  },
+  {
+    "mfussenegger/nvim-lint",
+    optional = true,
+    event = "VeryLazy",
     config = function()
-      local lint = require("lint")
-      lint.linters["markdownlint-cli2"].args = {
-        "--config",
-        vim.fn.expand("~/.config/nvim/.markdownlint.json"),
-        "-",
-      }
+      local ignored_rules = { ["MD013/"] = true, ["MD024/"] = true, ["MD036"] = true, ["MD040/"] = true, ["MD060/"] = true }
+      local group = vim.api.nvim_create_augroup("filter_markdownlint", { clear = true })
+      local filtering = false
+      vim.api.nvim_create_autocmd("DiagnosticChanged", {
+        group = group,
+        callback = function(ev)
+          if filtering then return end
+          local diags = ev.data.diagnostics
+          if not diags or #diags == 0 then
+            return
+          end
+          -- Only filter markdownlint diagnostics
+          local has_filtered = false
+          local filtered = {}
+          for _, d in ipairs(diags) do
+            local skip = false
+            if d.source and (d.source == "markdownlint" or d.source == "markdownlint-cli2") then
+              for rule in pairs(ignored_rules) do
+                if d.message:find(rule, 1, true) then
+                  skip = true
+                  has_filtered = true
+                  break
+                end
+              end
+            end
+            if not skip then
+              filtered[#filtered + 1] = d
+            end
+          end
+          if has_filtered then
+            filtering = true
+            -- Reset ALL namespaces for this buffer, then set filtered for each
+            for id, ns in pairs(vim.diagnostic.get_namespaces()) do
+              local buf_diags = vim.diagnostic.get(ev.buf, { ns_id = id })
+              if #buf_diags > 0 then
+                local ns_filtered = vim.tbl_filter(function(d)
+                  if d.source and (d.source == "markdownlint" or d.source == "markdownlint-cli2") then
+                    for rule in pairs(ignored_rules) do
+                      if d.message:find(rule, 1, true) then return false end
+                    end
+                  end
+                  return true
+                end, buf_diags)
+                vim.diagnostic.reset(id, ev.buf)
+                vim.diagnostic.set(id, ev.buf, ns_filtered)
+              end
+            end
+            filtering = false
+          end
+        end,
+      })
     end,
   },
 }
