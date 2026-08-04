@@ -12,7 +12,7 @@ return {
         lua = { "stylua" },
         fish = { "fish_indent" },
         sh = { "shfmt" },
-        ruby = { "standardrb" },
+        ruby = { "rubyfmt" }, -- Ruby via rubyfmt (Rust, opinionated); ruby_lsp formatting disabled in lsp.lua
         eruby = { "herb_format" }, -- HTML+ERB via Herb (LSP formatting disabled in lsp.lua)
         haml = { "haml-lint" }, -- HAML files (if used)
         slim = { "slim-lint" }, -- SLIM files (if used)
@@ -49,6 +49,14 @@ return {
         herb_format = {
           command = vim.fn.expand("~/.local/share/mise/installs/node/22.13.0/bin/herb-format"),
           args = { "-" },
+          stdin = true,
+        },
+        -- Ruby formatter (rubyfmt, Rust). Binary ships as "rubyfmt-main"
+        -- (Cargo package name); conform's built-in expects bare "rubyfmt"
+        -- which won't resolve. Pin absolute cargo path: nvim launched without
+        -- cargo bin on PATH (GUI launch) can't find it otherwise.
+        rubyfmt = {
+          command = vim.fn.expand("~/.cargo/bin/rubyfmt-main"),
           stdin = true,
         },
         -- # Example of using dprint only when a dprint.json file is present
