@@ -42,9 +42,12 @@ return {
           end,
         },
         injected = { options = { ignore_errors = true } },
-        -- Herb formatter for HTML+ERB (global npm binary @herb-tools/formatter)
+        -- Herb formatter for HTML+ERB (global npm binary @herb-tools/formatter).
+        -- Absolute path: nvim launched without mise on PATH can't resolve bare
+        -- "herb-format". Pin to install bin so it works regardless of launch context
+        -- and project node version (formatter is a standalone dev tool).
         herb_format = {
-          command = "herb-format",
+          command = vim.fn.expand("~/.local/share/mise/installs/node/22.13.0/bin/herb-format"),
           args = { "-" },
           stdin = true,
         },

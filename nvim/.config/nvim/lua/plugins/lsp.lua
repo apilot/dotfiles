@@ -55,6 +55,13 @@ return {
         -- Formatting is handled by herb-format via conform.nvim (mirror ruby_lsp/standardrb).
         herb_ls = {
           mason = false,
+          -- Pin cmd to mise install bin so it resolves regardless of how nvim is
+          -- launched (mirrors ruby_lsp; bare "herb-language-server" is not on PATH
+          -- when nvim starts from a GUI/non-mise context).
+          cmd = {
+            vim.fn.expand("~/.local/share/mise/installs/node/22.13.0/bin/herb-language-server"),
+            "--stdio",
+          },
           on_attach = function(client, _)
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
