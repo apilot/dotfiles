@@ -14,8 +14,6 @@ return {
         sh = { "shfmt" },
         ruby = { "rubyfmt" }, -- Ruby via rubyfmt (Rust, opinionated); ruby_lsp formatting disabled in lsp.lua
         eruby = { "herb_format" }, -- HTML+ERB via Herb (LSP formatting disabled in lsp.lua)
-        haml = { "haml-lint" }, -- HAML files (if used)
-        slim = { "slim-lint" }, -- SLIM files (if used)
         markdown = { "prettier", "markdownlint-cli2", "markdown-toc" },
         ["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
       },
