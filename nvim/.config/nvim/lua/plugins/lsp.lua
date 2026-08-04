@@ -52,8 +52,13 @@ return {
         },
         -- HTML-aware ERB Language Server (installed globally via npm)
         -- Built-in config ships in nvim-lspconfig v2 (lsp/herb_ls.lua).
+        -- Formatting is handled by herb-format via conform.nvim (mirror ruby_lsp/standardrb).
         herb_ls = {
           mason = false,
+          on_attach = function(client, _)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end,
         },
       },
     },
