@@ -4,3 +4,21 @@ zsh/.zsh/secrets.zsh
 hyprland-common/.config/hypr/themes/winter/
 
 .worktrees/
+
+# Scratch / backups / agent artifacts (kept local, not tracked)
+archives/
+hypr-profile
+hyprland-waybar/
+PROFILES.md
+zsh/new_feature.md
+hyprlands/.config/hypr/.claude/
+hyprlands/.config/hypr/CLAUDE.md
+hyprlands/.config/hypr/MEMORY.md
+hyprlands/.config/hypr/README_WINDOWRULES_CONVERSION.md
+hyprlands/.config/hypr/hyprland.conf.backup
+hyprlands/.config/hypr/hyprland.conf.backup.*
+hyprlands/.config/hypr/hyprland.conf.bak
+hyprlands/.config/hypr/hyprland.conf.converted
+hyprlands/.config/hypr/hyprland.conf.fixed
+hyprlands/.config/hypr/hyprland.conf.layerrules_fixed
+hyprlands/.config/hypr/hyprland.conf.optimized
