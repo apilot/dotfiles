@@ -29,13 +29,31 @@ return {
         },
         ruby_lsp = {
           mason = false,
-          init_options = { formatter = "none" },
+          -- Pin the cmd to the mise shim so the correct Ruby version + bundle
+          -- context is used per-project regardless of how nvim was launched.
+          -- Do NOT use `bundle exec ruby-lsp` (ruby-lsp uses a composed bundle).
+          cmd = { vim.fn.expand("~/.local/share/mise/shims/ruby-lsp") },
+          init_options = {
+            formatter = "none", -- formatting handled by StandardRB via conform.nvim
+            -- Explicit Rails add-on configuration. The add-on auto-installs on
+            -- Rails projects, but pinning its settings makes behavior predictable.
+            addonSettings = {
+              ["Ruby LSP Rails"] = {
+                enablePendingMigrationsPrompt = true,
+              },
+            },
+          },
           on_attach = function(client, bufnr)
             client.server_capabilities.documentFormattingProvider = false
             vim.keymap.set("n", "<leader>lf", function()
               require("conform").format({ bufnr = bufnr })
             end, { buffer = bufnr, desc = "Format with Standard" })
           end,
+        },
+        -- HTML-aware ERB Language Server (installed globally via npm)
+        -- Built-in config ships in nvim-lspconfig v2 (lsp/herb_ls.lua).
+        herb_ls = {
+          mason = false,
         },
       },
     },
