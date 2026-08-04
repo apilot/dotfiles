@@ -80,4 +80,4 @@ opt.spell = true
 -- LazyVim specific settings
 vim.g.lazyvim_prettier_needs_config = true
 vim.g.lazyvim_ruby_lsp = "ruby_lsp"
-vim.g.lazyvim_ruby_formatter = "standardrb"
+vim.g.lazyvim_ruby_formatter = "rubyfmt"

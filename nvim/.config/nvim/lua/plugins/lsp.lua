@@ -34,7 +34,7 @@ return {
           -- Do NOT use `bundle exec ruby-lsp` (ruby-lsp uses a composed bundle).
           cmd = { vim.fn.expand("~/.local/share/mise/shims/ruby-lsp") },
           init_options = {
-            formatter = "none", -- formatting handled by StandardRB via conform.nvim
+            formatter = "none", -- formatting handled by rubyfmt via conform.nvim
             -- Explicit Rails add-on configuration. The add-on auto-installs on
             -- Rails projects, but pinning its settings makes behavior predictable.
             addonSettings = {
@@ -44,10 +44,13 @@ return {
             },
           },
           on_attach = function(client, bufnr)
+            -- ruby_lsp provides intelligence only; formatting is done by rubyfmt
+            -- via conform.nvim. Disable both formatting providers so conform owns it.
             client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
             vim.keymap.set("n", "<leader>lf", function()
               require("conform").format({ bufnr = bufnr })
-            end, { buffer = bufnr, desc = "Format with Standard" })
+            end, { buffer = bufnr, desc = "Format (rubyfmt)" })
           end,
         },
         -- HTML-aware ERB Language Server (installed globally via npm)
@@ -67,16 +70,6 @@ return {
             client.server_capabilities.documentRangeFormattingProvider = false
           end,
         },
-      },
-    },
-  },
-
-  -- Mason-lspconfig bridge (disable automatic_enable for servers we manage via rbenv)
-  {
-    "mason-org/mason-lspconfig.nvim",
-    opts = {
-      automatic_enable = {
-        exclude = { "ruby_lsp" },
       },
     },
   },
