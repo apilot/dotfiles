@@ -1,0 +1,162 @@
+// Zed keymap - ported from Neovim LazyVim configuration
+// Leader key: Space (same as nvim)
+// Last updated: 2026-02-09 - All commands verified against official Zed default keymaps
+[
+  // ============================================
+  // GLOBAL BINDINGS (works in all modes)
+  // ============================================
+  {
+    "context": "Workspace",
+    "bindings": {
+      "space w": "workspace::Save",
+      "space q": "pane::CloseActiveItem",
+      "space shift-q": "zed::Quit",
+      "space e": "project_panel::ToggleFocus",
+      "ctrl-alt-o": [
+        "agent::NewExternalAgentThread",
+        {
+          "agent": {
+            "custom": {
+              "name": "OpenCode",
+              "command": { "command": "opencode", "args": ["acp"] }
+            }
+          }
+        }
+      ]
+    }
+  },
+
+  // ============================================
+  // VIM MODE SPECIFIC BINDINGS
+  // ============================================
+  {
+    "context": "Editor && vim_mode == normal && !VimWaiting",
+    "bindings": {
+      // Quick save/quit (same as nvim)
+      "space w": "workspace::Save",
+      "space q": "pane::CloseActiveItem",
+      "space shift-q": "zed::Quit",
+
+      // ==========================================
+      // FILE OPERATIONS (leader+f) - FzfLua equivalent
+      // ==========================================
+      "space space": "file_finder::Toggle",
+      "space f f": "file_finder::Toggle",
+      "space f b": "pane::ActivateNextItem", // Switch between buffers
+      "space shift-b": "pane::ActivatePreviousItem",
+      "space f c": "command_palette::Toggle", // Commands equivalent
+
+      // Live grep - using custom task
+      "space f g": [
+        "task::Spawn",
+        { "task_name": "Rg", "reveal_target": "center" }
+      ],
+
+      // ==========================================
+      // GIT OPERATIONS (leader+g)
+      // ==========================================
+      "space g g": [
+        "task::Spawn",
+        { "task_name": "lazygit", "reveal_target": "center" }
+      ],
+      "space g s": "project_panel::ToggleFocus",
+      "space g c": "git_panel::ToggleFocus",
+      "space g p": "git::Push",
+
+      // ==========================================
+      // WINDOW MANAGEMENT (leader+w)
+      // ==========================================
+      "space w v": "pane::SplitRight", // Split vertical
+      "space w shift-v": "pane::SplitDown", // Split horizontal
+      "space w h": "pane::SplitDown", // Split horizontal
+      "space w q": "pane::CloseActiveItem", // Close window
+
+      // Window navigation (Ctrl+h/j/k/l - same as nvim)
+      "ctrl-h": "pane::ActivatePreviousItem",
+      "ctrl-j": "menu::SelectNext",
+      "ctrl-k": "menu::SelectPrevious",
+      "ctrl-l": "pane::ActivateNextItem",
+
+      // ==========================================
+      // LSP OPERATIONS (leader+l)
+      // ==========================================
+      "space l f": "editor::Format",
+      "space l n": "editor::Rename", // Rename symbol
+      "space l a": "editor::ToggleCodeActions",
+      "space l d": "editor::GoToDefinition",
+      "space l i": "editor::GoToImplementation",
+      "space l r": "editor::FindAllReferences",
+
+      // ==========================================
+      // CODE OPERATIONS (leader+c)
+      // ==========================================
+      "space c f": "editor::Format",
+      "space c a": "editor::ToggleCodeActions",
+
+      // ==========================================
+      // TERMINAL (leader+t)
+      // ==========================================
+      "space t t": "terminal_panel::Toggle",
+
+      // ==========================================
+      // UI TOGGLES (leader+u)
+      // ==========================================
+      "space u z": "workspace::ToggleCenteredLayout",
+      "space u l": "workspace::ToggleLeftDock",
+      "space u r": "workspace::ToggleRightDock",
+      "space u b": "workspace::ToggleBottomDock",
+
+      // ==========================================
+      // WHICH KEY REFERENCE (leader+?)
+      // ==========================================
+      "space shift-slash": [
+        "task::Spawn",
+        { "task_name": "WhichKey", "reveal_target": "center" }
+      ],
+      "space question": [
+        "task::Spawn",
+        { "task_name": "WhichKey", "reveal_target": "center" }
+      ],
+
+      // ==========================================
+      // SEARCH & NAVIGATION
+      // ==========================================
+      "space s s": "project_search::ToggleFocus",
+      "space s w": [
+        "task::Spawn",
+        { "task_name": "Rg", "reveal_target": "center" }
+      ],
+
+      // ==========================================
+      // BUFFER MANAGEMENT
+      // ==========================================
+      "space b b": "pane::ActivateNextItem",
+      "space shift-b": "pane::ActivatePreviousItem",
+      "space b d": "pane::CloseActiveItem",
+      "space b n": "pane::ActivateNextItem",
+      "space b p": "pane::ActivatePreviousItem"
+    }
+  },
+
+  // ============================================
+  // VIM INSERT MODE
+  // ============================================
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // Quick save in insert mode
+      "ctrl-s": "workspace::Save"
+    }
+  },
+
+  // ============================================
+  // TERMINAL CONTEXT
+  // ============================================
+  {
+    "context": "Terminal",
+    "bindings": {
+      // ESC to exit terminal mode (same as nvim)
+      "escape": "terminal_panel::ToggleFocus"
+    }
+  }
+]

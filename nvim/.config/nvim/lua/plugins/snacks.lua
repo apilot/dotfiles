@@ -25,15 +25,17 @@ return {
           win = {
             list = {
               keys = {
-                ["?"] = function(picker)
-                  picker.win:toggle_help({
-                    width = 60,
-                    height = 0.6,
-                    border = "rounded",
-                    title = "Explorer Keymaps",
-                    position = "float",
-                    col_width = 30,
-                    key_width = 25,
+                ["?"] = function(win)
+                  win:toggle_help({
+                    col_width = 45,
+                    key_width = 10,
+                    win = {
+                      width = 60,
+                      height = 0.6,
+                      border = "rounded",
+                      title = " Explorer Keymaps ",
+                      position = "float",
+                    },
                   })
                 end,
               },

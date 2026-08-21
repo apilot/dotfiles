@@ -17,11 +17,10 @@ return {
 }
 
 -- Ruby LSP Configuration:
--- - ruby-lsp (Shopify) is the Ruby LSP server
--- - ruby-lsp-rails for Rails-specific features
--- - Uses rbenv for Ruby version management
--- - Auto-installs ruby-lsp gem if missing for current rbenv version
--- - StandardRB is used for formatting (via conform.nvim)
--- - Keymaps:
---   - `<leader>lR` - Restart Ruby LSP
---   - `<leader>lI` - Install ruby-lsp gems
+-- - ruby-lsp (Shopify) is the Ruby LSP server (managed via mise shim, see plugins/lsp.lua)
+-- - ruby-lsp-rails for Rails-specific features (auto-installed add-on)
+-- - ruby_lsp provides intelligence only; formatting is done by rubyfmt via
+--   conform.nvim (formatters_by_ft.ruby = { "rubyfmt" })
+-- - Keymaps (see config/languages.lua, buffer-local on ruby/eruby FileType):
+--   - `<leader>rR` - Restart Ruby LSP
+--   - `<leader>rI` - Install ruby-lsp gems

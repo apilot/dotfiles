@@ -1,47 +1,82 @@
+// Zed settings
+// Ported from Neovim LazyVim + augmented with jellydn/zed-101-setup patterns
+// Last updated: 2026-08-12
 {
-  "project_panel": {
-    "dock": "left"
+  // ─── Privacy (P2, from jellydn) ──────────────────────────────────────
+  "redact_private_values": true,
+
+  // ─── Features (P1) ───────────────────────────────────────────────────
+  "features": {
+    // Inline ghost-text edit predictions (Copilot-style), replaces cmp-tabnine from nvim
+    "edit_prediction_provider": "zed"
   },
-  "outline_panel": {
-    "dock": "left"
+
+  // ─── Theme & Icons ────────────────────────────────────────────────────
+  "theme": {
+    "mode": "system",
+    "light": "Catppuccin Mocha",
+    "dark": "Catppuccin Mocha (Blue Blur+)"
   },
-  "collaboration_panel": {
-    "dock": "left"
-  },
-  "agent": {
-    "dock": "right",
-    "favorite_models": [],
-    "model_parameters": []
-  },
-  "git_panel": {
-    "dock": "left"
-  },
-  "vim_mode": true,
-  "show_whitespaces": "boundary",
-  "scroll_beyond_last_line": "one_page",
-  "current_line_highlight": "all",
-  "cursor_blink": false,
-  "tab_size": 2,
-  "soft_wrap": "none",
-  "search": {
-    "case_sensitive": false,
-    "whole_word": false
-  },
+  // P1: icon theme (was missing - only icon set internally)
+  "icon_theme": "Catppuccin Mocha",
+
+  // ─── Fonts ────────────────────────────────────────────────────────────
   "ui_font_size": 16,
   "ui_font_family": "FiraCodeNFM-Ret",
   "buffer_font_size": 14,
   "buffer_font_family": "FiraCodeNFM-Ret",
   "buffer_font_weight": 100,
   "buffer_line_height": "comfortable",
-  "buffer_font_features": {
-    "calt": true
-  },
-  "theme": {
-    "mode": "system",
-    "light": "Catppuccin Mocha",
-    "dark": "Catppuccin Mocha (Blue Blur+)"
-  },
+  "buffer_font_features": { "calt": true },
+
+  // ─── Vim Mode ──────────────────────────────────────────────────────────
+  "vim_mode": true,
+  // P2: enable sneak explicitly (we also bind s/S to vim::PushSneak in keymap)
+  "vim": { "enable_vim_sneak": true },
+
+  // ─── Editor behavior ─────────────────────────────────────────────────
+  "show_whitespaces": "boundary",
+  "scroll_beyond_last_line": "one_page",
+  "current_line_highlight": "all",
+  "cursor_blink": false,
+  "tab_size": 2,
+  "soft_wrap": "none",
+  "relative_line_numbers": false,
   "clipboard": "system",
+  "search": {
+    "case_sensitive": false,
+    "whole_word": false
+  },
+
+  // ─── File finder (P2, from jellydn) ──────────────────────────────────
+  "file_finder": {
+    "modal_max_width": "medium"
+  },
+
+  // ─── Tab bar / Tabs (P1: show only errors in tabs) ───────────────────
+  "tab_bar": { "show": true },
+  "tabs": {
+    "show_diagnostics": "errors"
+  },
+
+  // ─── Scrollbar (P1, from jellydn) ────────────────────────────────────
+  "scrollbar": {
+    "show": "never"
+  },
+
+  // ─── Indent guides (P1: rainbow indent - replaces mini.indentscope) ─
+  "indent_guides": {
+    "enabled": true,
+    "coloring": "indent_aware"
+  },
+
+  // ─── Centered layout / Zen mode (P1: padding for space u z) ──────────
+  "centered_layout": {
+    "left_padding": 0.15,
+    "right_padding": 0.15
+  },
+
+  // ─── Git ──────────────────────────────────────────────────────────────
   "git": {
     "git_gutter": "tracked_files",
     "inline_blame": {
@@ -49,26 +84,63 @@
       "delay_ms": 500
     }
   },
+
+  // ─── LSP ──────────────────────────────────────────────────────────────
+  // CRITICAL: ruby-lsp must be launched via mise shim. Without this Zed falls back
+  // to ~/.rbenv/shims/ruby-lsp (legacy, deleted) and fails with:
+  //   "rbenv: ruby-lsp: command not found"
+  // LSP not starting => no `g d`, no formatting, no autocomplete, no diagnostics.
   "lsp": {
-    "initialization_options": {
-      "ruby-lsp": {
+    "ruby-lsp": {
+      "binary": {
+        "path": "/home/aboyarinov/.local/share/mise/shims/ruby-lsp",
+        "arguments": []
+      },
+      // Ensure mise shims are on PATH so ruby-lsp can find `bundle`, `gem`, correct Ruby version
+      "environment": {
+        "PATH": "/home/aboyarinov/.local/share/mise/shims:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin"
+      },
+      "initialization_options": {
+        // Enable all features (was disabled: formatting=false - that blocked `formatter: language_server`)
         "enabledFeatures": {
-          "formatting": false
+          "formatting": true,
+          "codeactions": true,
+          "diagnostics": true,
+          "documentSymbols": true,
+          "foldingRanges": true,
+          "hover": true,
+          "inlayHint": true,
+          "onTypeFormatting": true,
+          "selectionRanges": true,
+          "semanticHighlighting": true,
+          "completion": true,
+          "codeLens": true,
+          "definition": true,
+          "workspaceSymbols": true,
+          "typeHierarchy": true,
+          "references": true,
+          "rename": true
         }
       }
     }
   },
+
+  // ─── Diagnostics ──────────────────────────────────────────────────────
   "diagnostics": {
     "allowed_browsers": "all",
     "version": "Latest",
     "active_line": true,
     "show_in_gutter": true
   },
+
+  // ─── Inlay hints ──────────────────────────────────────────────────────
   "inlay_hints": {
     "enabled": true,
     "show_type_hints": true,
     "show_parameter_hints": true
   },
+
+  // ─── Format / Save ────────────────────────────────────────────────────
   "code_actions_on_format": {
     "source.fixAll": true,
     "source.organizeImports": true
@@ -79,13 +151,83 @@
   "ensure_final_newline_on_save": true,
   "split_direction": "right",
   "split_close_on_last": false,
+
+  // ─── File scan exclusions (P1, from jellydn - hide from tree & search)
+  //     Critical for performance on large projects (Rails, Node, etc.)
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/.classpath",
+    "**/.settings",
+    "**/out",
+    "**/dist",
+    "**/.husky",
+    "**/.turbo",
+    "**/.vscode-test",
+    "**/.vscode",
+    "**/.next",
+    "**/.storybook",
+    "**/.tap",
+    "**/.nyc_output",
+    "**/report",
+    "**/node_modules",
+    // Rails/Ruby-specific
+    "**/.bundle",
+    "**/vendor/bundle",
+    "**/coverage",
+    "**/.yarn",
+    "**/.pnp.*"
+  ],
+
+  // ─── AI agent ──────────────────────────────────────────────────────────
+  "agent": {
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  "agent_servers": {
+    "OpenCode": {
+      "command": "opencode",
+      "args": ["acp"]
+    }
+  },
+
+  // ─── Terminal (P1: EDITOR env so `git commit` opens in Zed) ──────────
   "terminal": {
     "font_family": "FiraCodeNFM-Ret",
     "font_size": 14,
     "line_height": "comfortable",
-    "cursor_blink": false
+    "cursor_blink": false,
+    "env": {
+      "EDITOR": "zed --wait"
+    }
   },
+
+  // ─── Panels / Docks ────────────────────────────────────────────────────
+  "project_panel": {
+    "dock": "left",
+    "git_status": true
+  },
+  "outline_panel": { "dock": "left" },
+  "collaboration_panel": { "dock": "left" },
+  "git_panel": { "dock": "left" },
+  // P1: pin where notifications/chat pop up (was missing)
+  "notification_panel": { "dock": "left" },
+  "chat_panel": { "dock": "left" },
+
+  // ─── Telemetry (P1, from jellydn) ────────────────────────────────────
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+
+  // ─── Languages ──────────────────────────────────────────────────────────
   "languages": {
+    // Ruby / Rails - ruby-lsp (unchanged)
     "Ruby": {
       "language_servers": ["ruby-lsp"],
       "formatter": "language_server",
@@ -101,23 +243,24 @@
       "language_servers": ["ruby-lsp"],
       "tab_size": 2
     },
+    // Lua - lua-language-server (unchanged)
     "Lua": {
       "language_servers": ["lua-language-server"],
       "tab_size": 2,
       "formatter": "language_server"
     },
+    // Python (P1: switch black → ruff, faster and LSP-native, matches nvim lang.python)
     "Python": {
-      "language_servers": ["pyright"],
+      "language_servers": ["pyright", "ruff"],
       "tab_size": 4,
       "formatter": {
-        "external": {
-          "command": "black",
-          "arguments": ["--stdin-filename", "{buffer_path}"]
-        }
-      }
+        "language_server": { "name": "ruff" }
+      },
+      "format_on_save": "on"
     },
+    // TypeScript (P1: +ESLint for linting, prettier still formats)
     "TypeScript": {
-      "language_servers": ["typescript-language-server"],
+      "language_servers": ["typescript-language-server", "eslint"],
       "tab_size": 2,
       "formatter": {
         "external": {
@@ -127,8 +270,9 @@
       },
       "format_on_save": "on"
     },
+    // JavaScript (P1: +ESLint)
     "JavaScript": {
-      "language_servers": ["typescript-language-server"],
+      "language_servers": ["typescript-language-server", "eslint"],
       "tab_size": 2,
       "formatter": {
         "external": {
@@ -137,6 +281,14 @@
         }
       },
       "format_on_save": "on"
+    },
+    "JSX": {
+      "language_servers": ["typescript-language-server", "eslint"],
+      "tab_size": 2
+    },
+    "TSX": {
+      "language_servers": ["typescript-language-server", "eslint"],
+      "tab_size": 2
     },
     "JSON": {
       "tab_size": 2,
@@ -147,7 +299,9 @@
         }
       }
     },
+    // YAML (P1: +yaml-language-server with schemastore, replaces nvim lang.yaml)
     "YAML": {
+      "language_servers": ["yaml-language-server"],
       "tab_size": 2,
       "formatter": {
         "external": {
@@ -167,6 +321,7 @@
     },
     "CSS": {
       "tab_size": 2,
+      "language_servers": ["tailwindcss-language-server"],
       "formatter": {
         "external": {
           "command": "prettier",
@@ -175,6 +330,11 @@
       }
     },
     "SQL": {
+      "tab_size": 2
+    },
+    // P1: Dockerfile LSP (replaces nvim lang.docker)
+    "Dockerfile": {
+      "language_servers": ["dockerfile-language-server"],
       "tab_size": 2
     }
   }

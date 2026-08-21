@@ -48,10 +48,12 @@ return {
             end,
           },
         },
-        strategies = {
+        -- NOTE: `strategies` was renamed to `interactions` (the old `agent`
+        -- strategy no longer exists; it split into `cmd` + `background`).
+        interactions = {
           chat = { adapter = "llama_local" },
           inline = { adapter = "llama_local" },
-          agent = { adapter = "llama_local" },
+          cmd = { adapter = "llama_local" },
         },
         display = {
           chat = {
@@ -60,7 +62,7 @@ return {
               position = "right",
             },
             show_settings = true,
-            render_headers = false,
+            show_header_separator = false,
           },
           action_palette = {
             -- CodeCompanion не имеет встроенного fzf_lua провайдера,

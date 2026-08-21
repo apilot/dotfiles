@@ -10,8 +10,12 @@ return {
       "html", "css", "prisma", "markdown", "markdown_inline",
       "svelte", "graphql", "bash", "lua", "vim", "dockerfile",
       "gitignore", "query", "vimdoc", "c", "ruby",
+      "embedded_template", -- ERB (.erb) parser; injects ruby for treesitter highlighting
     }
-    vim.cmd("TSInstallSync! " .. table.concat(parsers, " "))
+    -- TSInstallSync does not exist in current nvim-treesitter (main branch);
+    -- use TSInstall (installs missing parsers, no-op for already-installed).
+    -- It is async: parsers compile in the background after build returns.
+    vim.cmd("TSInstall " .. table.concat(parsers, " "))
   end,
   dependencies = {
     "windwp/nvim-ts-autotag",

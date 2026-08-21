@@ -53,23 +53,6 @@ return {
             end, { buffer = bufnr, desc = "Format (rubyfmt)" })
           end,
         },
-        -- HTML-aware ERB Language Server (installed globally via npm)
-        -- Built-in config ships in nvim-lspconfig v2 (lsp/herb_ls.lua).
-        -- Formatting is handled by herb-format via conform.nvim (mirror ruby_lsp/standardrb).
-        herb_ls = {
-          mason = false,
-          -- Pin cmd to mise install bin so it resolves regardless of how nvim is
-          -- launched (mirrors ruby_lsp; bare "herb-language-server" is not on PATH
-          -- when nvim starts from a GUI/non-mise context).
-          cmd = {
-            vim.fn.expand("~/.local/share/mise/installs/node/22.13.0/bin/herb-language-server"),
-            "--stdio",
-          },
-          on_attach = function(client, _)
-            client.server_capabilities.documentFormattingProvider = false
-            client.server_capabilities.documentRangeFormattingProvider = false
-          end,
-        },
       },
     },
   },
@@ -80,14 +63,26 @@ return {
     cmd = "Mason",
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
     build = ":MasonUpdate",
-    opts = {
-      ensure_installed = {
-        "stylua",
-        "shfmt",
-        "hyprls",
-        "lua-language-server",
-      },
-    },
+    -- Filter out Ruby gems that LazyVim's lang.ruby extra auto-installs via
+    -- Mason (erb-formatter, erb-lint). We manage Ruby tooling through mise
+    -- shims instead (see conform.lua `erb_format` pin and `ruby_lsp` mason=false
+    -- above). Mason's gem copies bake a Ruby-version-specific shebang and go
+    -- stale/broken when the Ruby version changes (e.g. the rbenv 3.3.6 shebang
+    -- error after switching to mise). opts is a function so it runs AFTER
+    -- LazyVim merges the extra's ensure_installed, letting us strip these.
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      opts.ensure_installed = vim.tbl_filter(function(pkg)
+        return pkg ~= "erb-formatter" and pkg ~= "erb-lint"
+      end, opts.ensure_installed)
+      -- Ensure the baseline tools are present even after filtering.
+      for _, pkg in ipairs({ "stylua", "shfmt", "hyprls", "lua-language-server" }) do
+        if not vim.tbl_contains(opts.ensure_installed, pkg) then
+          table.insert(opts.ensure_installed, pkg)
+        end
+      end
+      return opts
+    end,
   },
 
   -- Which key for showing keybindings
@@ -103,7 +98,7 @@ return {
         { "<leader>E", group = "encoding" },
         { "<leader>C", group = "csv" },
         { "<leader>S", group = "session" },
-        { "<leader>t", group = "terminal" },
+        { "<leader>t", group = "test/terminal" },
         { "<leader>u", group = "ui" },
         { "<leader>l", group = "lsp" },
       },
