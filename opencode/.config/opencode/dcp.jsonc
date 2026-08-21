@@ -1,0 +1,47 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Opencode-DCP/opencode-dynamic-context-pruning/master/dcp.schema.json",
+  "enabled": true,
+  "pruneNotification": "detailed",
+  // Protect recent tool outputs (last 3 turns) from being pruned
+  "turnProtection": {
+    "enabled": true,
+    "turns": 3
+  },
+  "compress": {
+    "mode": "range",
+    "maxContextLimit": 140000,
+    "minContextLimit": 70000,
+    "modelMaxLimits": {
+      "zai-coding-plan/glm-5.2": 180000,
+      "zai-coding-plan/glm-5.1": 140000,
+      "zai-coding-plan/glm-5": 140000,
+      "zai-coding-plan/glm-5-turbo": 140000,
+      "zai-coding-plan/glm-4.7": 140000,
+      "zai-coding-plan/glm-4.7-flash": 140000,
+      "zai-coding-plan/glm-4.7-flashx": 140000,
+      "zai-coding-plan/glm-4.6": 140000,
+      "zai-coding-plan/glm-4.6v": 90000,
+      "zai-coding-plan/glm-4.5": 90000,
+      "zai-coding-plan/glm-4.5v": 45000,
+      "zai-coding-plan/glm-4.5-air": 90000
+    },
+    "modelMinLimits": {
+      "zai-coding-plan/glm-5.2": 110000,
+      "zai-coding-plan/glm-5.1": 70000,
+      "zai-coding-plan/glm-5": 70000,
+      "zai-coding-plan/glm-5-turbo": 70000,
+      "zai-coding-plan/glm-4.7": 70000,
+      "zai-coding-plan/glm-4.7-flash": 70000,
+      "zai-coding-plan/glm-4.7-flashx": 70000,
+      "zai-coding-plan/glm-4.6": 70000,
+      "zai-coding-plan/glm-4.6v": 45000,
+      "zai-coding-plan/glm-4.5": 45000,
+      "zai-coding-plan/glm-4.5v": 22000,
+      "zai-coding-plan/glm-4.5-air": 45000
+    },
+    "protectedTools": ["task", "skill", "todowrite", "todoread"]
+  },
+  "experimental": {
+    "allowSubAgents": true
+  }
+}

@@ -1,0 +1,3 @@
+[submodule "opencode/.config/opencode/mcp/mcp_excalidraw"]
+	path = opencode/.config/opencode/mcp/mcp_excalidraw
+	url = https://github.com/yctimlin/mcp_excalidraw.git
