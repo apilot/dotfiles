@@ -1,0 +1,17 @@
+# Build artifacts & dependencies (recreated by install.sh)
+node_modules/
+mcp/mcp_excalidraw/node_modules/
+mcp/mcp_excalidraw/dist/
+mcp/mcp_excalidraw/frontend/node_modules/
+mcp/rlm/.venv/
+mcp/rlm/__pycache__/
+package-lock.json
+bun.lock
+
+# Runtime state & logs
+*.log
+opencode-notifier-state.json
+
+# Secrets
+.env
+.env.*

@@ -1,0 +1,517 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "@franlol/opencode-md-table-formatter@0.0.3",
+    "@tarquinen/opencode-dcp@latest",
+    "@mohak34/opencode-notifier@latest",
+    "opencode-pty"
+  ],
+  "default_agent": "OpenCoder",
+  "autoupdate": true,
+  "compaction": {
+    "auto": true,
+    "prune": false
+  },
+  "permission": {
+    "edit": "ask"
+  },
+  "tools": {
+    "enabled": true,
+    "write": true,
+    "bash": true,
+    "edit": true,
+    "read": true,
+    "grep": true,
+    "glob": true,
+    "patch": true,
+    "list": true,
+    "todowrite": true,
+    "todoread": true,
+    "webfetch": true
+  },
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
+      },
+      "enabled": true
+    },
+    "zai-mcp-server": {
+      "type": "local",
+      "command": [
+        "zai-mcp-server"
+      ],
+      "environment": {
+        "Z_AI_API_KEY": "{env:Z_AI_API_KEY}",
+        "Z_AI_MODE": "ZAI"
+      },
+      "timeout": 120000,
+      "enabled": true
+    },
+    "web-search-prime": {
+      "type": "remote",
+      "url": "https://api.z.ai/api/mcp/web_search_prime/mcp",
+      "headers": {
+        "Authorization": "Bearer {env:Z_AI_API_KEY}"
+      },
+      "enabled": true
+    },
+    "web-reader": {
+      "type": "remote",
+      "url": "https://api.z.ai/api/mcp/web_reader/mcp",
+      "headers": {
+        "Authorization": "Bearer {env:Z_AI_API_KEY}"
+      },
+      "enabled": true
+    },
+    "zread": {
+      "type": "remote",
+      "url": "https://api.z.ai/api/mcp/zread/mcp",
+      "headers": {
+        "Authorization": "Bearer {env:Z_AI_API_KEY}"
+      },
+      "enabled": true
+    },
+    "ripgrep": {
+      "type": "local",
+      "enabled": true,
+      "command": [
+        "npx",
+        "-y",
+        "mcp-ripgrep@latest"
+      ]
+    },
+    "hotwire-club": {
+      "type": "local",
+      "enabled": true,
+      "command": [
+        "hwc-mcp"
+      ]
+    },
+    "excalidraw": {
+      "type": "local",
+      "command": [
+        "node",
+        "{env:HOME}/.config/opencode/mcp/mcp_excalidraw/dist/index.js"
+      ],
+      "environment": {
+        "EXPRESS_SERVER_URL": "http://localhost:3333",
+        "ENABLE_CANVAS_SYNC": "true"
+      },
+      "enabled": true
+    },
+    "rlm": {
+      "type": "local",
+      "command": [
+        "{env:HOME}/.config/opencode/mcp/rlm/.venv/bin/python",
+        "{env:HOME}/.config/opencode/mcp/rlm/server.py"
+      ],
+      "environment": {
+        "Z_AI_API_KEY": "{env:Z_AI_API_KEY}",
+        "RLM_ROOT_MODEL": "glm-4.7",
+        "RLM_SUB_MODEL": "glm-4.7-flash",
+        "RLM_MAX_CONCURRENT_SUBCALLS": "2"
+      },
+      "enabled": true
+    }
+  },
+  "agent": {
+    "build": {
+      "mode": "primary",
+      "model": "zai-coding-plan/glm-5.3",
+      "prompt": "{file:./prompts/build.txt}",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "todowrite": true,
+        "todoread": true
+      },
+      "options": {},
+      "permission": {
+        "edit": "allow",
+        "bash": "allow",
+        "todowrite": "allow",
+        "todoread": "allow"
+      }
+    },
+    "plan": {
+      "mode": "primary",
+      "model": "zai-coding-plan/glm-5.3",
+      "permission": {
+        "bash": {
+          "echo *": "allow"
+        }
+      },
+      "options": {}
+    },
+    "Task Manager": {
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "description": "SOTA для планирования сложных задач",
+      "options": {},
+      "permission": {}
+    },
+    "Coder Agent": {
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "description": "Оптимизация для кода и тестов",
+      "options": {},
+      "permission": {}
+    },
+    "explore": {
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7-flash",
+      "description": "Быстрый поиск и анализ кодовой базы",
+      "options": {},
+      "permission": {}
+    },
+    "Documentation": {
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7-flash",
+      "description": "Качественная документация из кода",
+      "options": {},
+      "permission": {}
+    },
+    "Reviewer": {
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-5.3",
+      "description": "Анализ кода и безопасность (GLM-5.3, cyber-SOTA)",
+      "options": {},
+      "permission": {
+        "edit": "deny"
+      }
+    },
+    "DeepSeek Reviewer": {
+      "mode": "subagent",
+      "model": "deepseek/deepseek-chat",
+      "description": "Cross-model ревью кода и безопасности (DeepSeek-V4)",
+      "options": {},
+      "permission": {
+        "edit": "deny"
+      }
+    },
+    "Tester": {
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "description": "TDD и тестирование",
+      "options": {},
+      "permission": {}
+    },
+    "Codebase Pattern Analyst": {
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7-flash",
+      "description": "Codebase pattern analysis agent",
+      "options": {},
+      "permission": {}
+    },
+    "Build Agent": {
+      "mode": "subagent",
+      "model": "zai-coding-plan/glm-4.7",
+      "description": "Type check and build validation agent",
+      "options": {},
+      "permission": {}
+    }
+  },
+  "provider": {
+    "zai-coding-plan": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Z.AI Coding Plan",
+      "options": {
+        "baseURL": "https://api.z.ai/api/coding/paas/v4",
+        "apiKey": "{env:Z_AI_API_KEY}"
+      },
+      "models": {
+        "glm-5.3": {
+          "name": "glm-5.3",
+          "attachment": false,
+          "reasoning": true,
+          "temperature": true,
+          "tool_call": true,
+          "cost": {
+            "input": 0.0075,
+            "output": 0.0075
+          },
+          "options": {
+            "stream": true,
+            "temperature": 0.1,
+            "reasoning_effort": "high"
+          }
+        },
+        "glm-5.2": {
+          "name": "glm-5.2",
+          "attachment": false,
+          "reasoning": true,
+          "temperature": true,
+          "tool_call": true,
+          "cost": {
+            "input": 0.01,
+            "output": 0.01
+          },
+          "options": {
+            "stream": true,
+            "temperature": 0.1,
+            "reasoning_effort": "medium"
+          }
+        },
+        "glm-5.1": {
+          "name": "glm-5.1",
+          "attachment": true,
+          "reasoning": true,
+          "temperature": true,
+          "tool_call": true,
+          "cost": {
+            "input": 0.01,
+            "output": 0.01
+          },
+          "options": {
+            "stream": true,
+            "temperature": 0.1
+          }
+        },
+        "glm-5": {
+          "name": "glm-5",
+          "attachment": true,
+          "reasoning": true,
+          "temperature": true,
+          "tool_call": true,
+          "cost": {
+            "input": 0.01,
+            "output": 0.01
+          },
+          "options": {
+            "stream": true,
+            "temperature": 0.1
+          }
+        },
+        "glm-5-turbo": {
+          "name": "glm-5-turbo",
+          "attachment": true,
+          "reasoning": true,
+          "temperature": true,
+          "tool_call": true,
+          "cost": {
+            "input": 0.005,
+            "output": 0.005
+          },
+          "options": {
+            "stream": true,
+            "temperature": 0.1
+          }
+        },
+        "glm-4.7": {
+          "name": "glm-4.7",
+          "attachment": true,
+          "reasoning": true,
+          "temperature": true,
+          "tool_call": true,
+          "cost": {
+            "input": 0.005,
+            "output": 0.005
+          },
+          "options": {
+            "stream": true,
+            "temperature": 0.1
+          }
+        },
+        "glm-4.7-flash": {
+          "name": "glm-4.7-flash",
+          "attachment": true,
+          "reasoning": false,
+          "temperature": true,
+          "tool_call": true,
+          "cost": {
+            "input": 0.002,
+            "output": 0.002
+          },
+          "options": {
+            "stream": true,
+            "temperature": 0.1
+          }
+        },
+        "glm-4.7-flashx": {
+          "name": "glm-4.7-flashx",
+          "attachment": true,
+          "reasoning": false,
+          "temperature": true,
+          "tool_call": true,
+          "cost": {
+            "input": 0.001,
+            "output": 0.001
+          },
+          "options": {
+            "stream": true,
+            "temperature": 0.1
+          }
+        },
+        "glm-4.6": {
+          "name": "glm-4.6",
+          "attachment": true,
+          "reasoning": true,
+          "temperature": true,
+          "tool_call": true,
+          "cost": {
+            "input": 0.001,
+            "output": 0.001
+          },
+          "options": {
+            "stream": true,
+            "temperature": 0.2
+          }
+        },
+        "glm-4.6v": {
+          "name": "glm-4.6v",
+          "attachment": true,
+          "reasoning": true,
+          "temperature": true,
+          "tool_call": true,
+          "cost": {
+            "input": 0.0015,
+            "output": 0.0015
+          },
+          "options": {
+            "stream": true,
+            "temperature": 0.2
+          }
+        },
+        "glm-4.5": {
+          "name": "glm-4.5",
+          "attachment": true,
+          "reasoning": true,
+          "temperature": true,
+          "tool_call": true,
+          "cost": {
+            "input": 0.001,
+            "output": 0.001
+          },
+          "options": {
+            "stream": true,
+            "temperature": 0.2
+          }
+        },
+        "glm-4.5-air": {
+          "name": "glm-4.5-air",
+          "attachment": false,
+          "reasoning": false,
+          "temperature": true,
+          "tool_call": false,
+          "cost": {
+            "input": 0.0005,
+            "output": 0.0005
+          },
+          "options": {
+            "stream": true,
+            "temperature": 0.3
+          }
+        },
+        "glm-4.5v": {
+          "name": "glm-4.5v",
+          "attachment": true,
+          "reasoning": true,
+          "temperature": true,
+          "tool_call": true,
+          "cost": {
+            "input": 0.001,
+            "output": 0.001
+          },
+          "options": {
+            "stream": true,
+            "temperature": 0.2
+          }
+        }
+      }
+    },
+    "deepseek": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "DeepSeek API (pay-per-token)",
+      "options": {
+        "baseURL": "https://api.deepseek.com/v1",
+        "apiKey": "{env:DEEPSEEK_API_KEY}"
+      },
+      "models": {
+        "deepseek-chat": {
+          "name": "DeepSeek-V4 chat",
+          "attachment": false,
+          "reasoning": true,
+          "temperature": true,
+          "tool_call": true,
+          "cost": {
+            "input": 0.28,
+            "output": 0.42
+          },
+          "options": {
+            "stream": true,
+            "temperature": 0.1
+          }
+        },
+        "deepseek-reasoner": {
+          "name": "DeepSeek-V4 reasoner",
+          "attachment": false,
+          "reasoning": true,
+          "temperature": false,
+          "tool_call": false,
+          "cost": {
+            "input": 0.28,
+            "output": 0.42
+          },
+          "options": {
+            "stream": true
+          }
+        }
+      }
+    },
+    "llama.cpp": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "llama-server (local Qwen)",
+      "options": {
+        "baseURL": "http://127.0.0.1:8080/v1"
+      },
+      "models": {
+        "qwen2.5-coder-7b": {
+          "name": "Qwen2.5-Coder-7B-Instruct Q4_K_M (local)",
+          "attachment": false,
+          "reasoning": false,
+          "temperature": true,
+          "tool_call": true,
+          "cost": {
+            "input": 0,
+            "output": 0
+          },
+          "limit": {
+            "context": 16384,
+            "output": 4096
+          },
+          "options": {
+            "stream": true,
+            "temperature": 0.1
+          }
+        },
+        "qwen2.5-coder-3b": {
+          "name": "Qwen2.5-Coder-3B-Instruct Q5_K_M (local)",
+          "attachment": false,
+          "reasoning": false,
+          "temperature": true,
+          "tool_call": true,
+          "cost": {
+            "input": 0,
+            "output": 0
+          },
+          "limit": {
+            "context": 32768,
+            "output": 8192
+          },
+          "options": {
+            "stream": true,
+            "temperature": 0.1
+          }
+        }
+      }
+    }
+  },
+  "model": "zai-coding-plan/glm-5.3",
+  "small_model": "zai-coding-plan/glm-4.5-air",
+  "shell": "/bin/zsh",
+  "disabled_providers": []
+}
