@@ -36,7 +36,11 @@ vim.keymap.set("v", "<D-v>", "<C-R>+", { noremap = true, silent = true })
 
 -- Font settings for GUI
 vim.opt.guifont = { "MesloLGS Nerd Font:h10.:w-0.2:#h-slight" }
-vim.opt.linespace = -1
+-- Terminal (TUI) nvim gets tighter line spacing; neovide keeps the linespace=0
+-- set inside the `if vim.g.neovide` block above (do not override it here).
+if not vim.g.neovide then
+  vim.opt.linespace = -1
+end
 
 -- Ollama integration settings
 vim.g.ollama_split = "vsplit"

@@ -1,9 +1,7 @@
-// Project tasks configuration - ported from Neovim FzfLua + neotest
-// Last updated: 2026-08-12 - Removed broken `zed --open-help/--go-to-*` CLI tasks
-//                            (these Zed CLI flags don't exist), added RSpec tasks
+// Project tasks configuration - ported from Neovim FzfLua
 [
   // ============================================
-  // GIT - lazygit in floating kitty window
+  // GIT OPERATIONS (leader+g)
   // ============================================
   {
     "label": "lazygit",
@@ -78,41 +76,63 @@
   },
 
   // ============================================
-  // RSPEC - nearest test (replaces nvim neotest <leader>tn)
-  // Uses ripgrep + file:line to find nearest `it`/`describe`/`context` above cursor.
-  // Invoked via `task::Spawn` with `task_name: "RSpec: nearest"`.
+  // COMMANDS (FzfLua commands equivalent)
   // ============================================
   {
-    "label": "RSpec: nearest",
-    "command": "kitty --class 'dotfiles.floating' -e sh -c \"cd \\\"${ZED_WORKTREE_ROOT}\\\" && FILE=\\\"${ZED_FILE}\\\" && LINE=\\\"${ZED_ROW}\\\" && [ -n \\\"\\$FILE\\\" ] && SPEC=\\$(awk -v line=\\\"\\$LINE\\\" 'NR<=line && /^\\s*(it|describe|context|specify)\\s*[\\\"'\\''(]/ {last=NR\\\" \\\"\\$0} END{print last}' \\\"\\$FILE\\\") && bundle exec rspec \\\"\\$FILE\\\":\\$(echo \\\"\\$SPEC\\\" | awk '{print \\$1}')\"",
-    "hide": "on_success",
-    "allow_concurrent_runs": true,
-    "use_new_terminal": true,
-    "reveal_target": "center"
+    "label": "Commands",
+    "command": "zed --open-help",
+    "hide": "always",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
   },
 
   // ============================================
-  // RSPEC - current file (replaces nvim neotest <leader>tf)
+  // HELP TAGS (FzfLua help_tags equivalent)
   // ============================================
   {
-    "label": "RSpec: file",
-    "command": "kitty --class 'dotfiles.floating' -e sh -c \"cd \\\"${ZED_WORKTREE_ROOT}\\\" && [ -n \\\"${ZED_FILE}\\\" ] && bundle exec rspec \\\"${ZED_FILE}\\\"\"",
-    "hide": "on_success",
-    "allow_concurrent_runs": true,
-    "use_new_terminal": true,
-    "reveal_target": "center"
+    "label": "Help",
+    "command": "zed --open-help",
+    "hide": "always",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
   },
 
   // ============================================
-  // RSPEC - full suite (replaces nvim neotest <leader>ts)
+  // LSP REFERENCES (FzfLua lsp_references equivalent)
   // ============================================
   {
-    "label": "RSpec: suite",
-    "command": "kitty --class 'dotfiles.floating' -e sh -c \"cd \\\"${ZED_WORKTREE_ROOT}\\\" && bundle exec rspec\"",
-    "hide": "on_success",
-    "allow_concurrent_runs": true,
-    "use_new_terminal": true,
-    "reveal_target": "center"
+    "label": "LspReferences",
+    "command": "zed --show-references",
+    "hide": "always",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+
+  // ============================================
+  // LSP DEFINITIONS (FzfLua lsp_definitions equivalent)
+  // ============================================
+  {
+    "label": "LspDefinitions",
+    "command": "zed --go-to-definition",
+    "hide": "always",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+
+  // ============================================
+  // LSP IMPLEMENTATIONS (FzfLua lsp_implementations equivalent)
+  // ============================================
+  {
+    "label": "LspImplementations",
+    "command": "zed --go-to-implementation",
+    "hide": "always",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
   },
 
   // ============================================

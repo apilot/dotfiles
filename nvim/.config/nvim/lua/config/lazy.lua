@@ -1,5 +1,10 @@
 vim.opt.guifont = { "MesloLGS Nerd Font:h10.:w-0.2:#h-slight" }
-vim.opt.linespace = -1
+-- Tighter line spacing for terminal (TUI) nvim only; neovide.lua owns the
+-- neovide value (linespace=0). This file loads AFTER neovide.lua, so guard
+-- to avoid clobbering the neovide setting.
+if not vim.g.neovide then
+  vim.opt.linespace = -1
+end
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -34,7 +39,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "catppuccin", "mocha" } },
+  install = { colorscheme = { "catppuccin-mocha", "catppuccin" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {

@@ -28,9 +28,11 @@ keymap("n", "<leader>fr", "<cmd>FzfLua oldfiles<cr>", { desc = "Recent files" })
 keymap("n", "<leader>fk", "<cmd>FzfLua keymaps<cr>", { desc = "Keymaps" })
 
 -- Git operations (<leader>g)
-keymap("n", "<leader>gs", "<cmd>Git<cr>", { desc = "Git status" })
-keymap("n", "<leader>gc", "<cmd>Git commit<cr>", { desc = "Git commit" })
-keymap("n", "<leader>gp", "<cmd>Git push<cr>", { desc = "Git push" })
+-- NOTE: vim-fugitive is NOT installed (use neogit/diffview/gitsigns instead).
+-- `<leader>gc` is owned by gen.nvim (Gen Chat, see plugins/ai.lua).
+-- LazyVim defaults provide `<leader>gs` (stage hunk) and `<leader>gp`
+-- (preview hunk) via gitsigns, and neogit/diffview keymaps live under
+-- their own prefixes (see plugins/neogit.lua and which-key.lua).
 
 -- Rails operations (<leader>r)
 keymap("n", "<leader>rc", "<cmd>Econtroller<cr>", { desc = "Rails: Goto controller" })

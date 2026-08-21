@@ -20,6 +20,12 @@ return {
               }):flatten():totable()
             end,
           }),
+          -- Go adapter (neotest-golang, pulled by LazyVim lang.go extra).
+          -- Uses `go test` under the hood; only activates for Go test files.
+          require("neotest-golang")({}),
+          -- Python adapter (neotest-python, pulled by LazyVim lang.python extra).
+          -- Defaults to pytest; only activates for python test files.
+          require("neotest-python")({}),
         },
       })
     end,

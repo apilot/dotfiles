@@ -45,40 +45,10 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   desc = "Start Hyprland LSP for configuration files"
 })
 
--- Ruby auto-formatting on save using StandardRB
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = { "*.rb", "*.rake", "Gemfile", "Rakefile", "config.ru" },
-  callback = function()
-    require("conform").format({ bufnr = vim.api.nvim_get_current_buf() })
-  end,
-  desc = "Auto-format Ruby files on save with StandardRB"
-})
-
--- ERB (Rails views) auto-formatting on save
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = { "*.erb" },
-  callback = function()
-    require("conform").format({ bufnr = vim.api.nvim_get_current_buf() })
-  end,
-  desc = "Auto-format ERB files on save with htmlbeautifier + standardrb"
-})
-
--- HAML auto-formatting on save (if used)
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = { "*.haml" },
-  callback = function()
-    require("conform").format({ bufnr = vim.api.nvim_get_current_buf() })
-  end,
-  desc = "Auto-format HAML files on save with haml-lint"
-})
-
--- SLIM auto-formatting on save (if used)
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = { "*.slim" },
-  callback = function()
-    require("conform").format({ bufnr = vim.api.nvim_get_current_buf() })
-  end,
-  desc = "Auto-format SLIM files on save with slim-lint"
-})
+-- Ruby / ERB / HAML / SLIM auto-formatting on save is handled ONCE by
+-- conform.nvim's built-in `format_on_save` (LazyVim default), which reads the
+-- `formatters_by_ft` table in plugins/conform.lua (ruby -> rubyfmt, eruby ->
+-- erb_format/herb_format). Do NOT add per-ft BufWritePre autocmds here: they
+-- would duplicate conform's hook and format twice on every save.
 
 -- Additional language-specific autocmds can be added here

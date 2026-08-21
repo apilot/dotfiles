@@ -13,7 +13,26 @@ return {
         fish = { "fish_indent" },
         sh = { "shfmt" },
         ruby = { "rubyfmt" }, -- Ruby via rubyfmt (Rust, opinionated); ruby_lsp formatting disabled in lsp.lua
-        eruby = { "herb_format" }, -- HTML+ERB via Herb (LSP formatting disabled in lsp.lua)
+        -- ERB (.erb): formatter chosen per-buffer. erb-format (nebulab gem) is
+        -- the primary: it formats HTML structure, ERB tag delimiters AND the
+        -- Ruby inside <% %>, including correct indentation of ruby blocks
+        -- (if/do/end) ACROSS tags -- something rubyfmt via conform "injected"
+        -- cannot do (each <% %> is an incomplete fragment). BUT erb-format 0.7.3
+        -- CRASHES on views containing a <script> block: its HTML parser
+        -- mis-tokenizes the JavaScript ("Bad attribute, please fix spaces after
+        -- the equal sign"; known limitation in their roadmap). For such buffers
+        -- fall back to herb-format (@herb-tools), a real HTML/ERB parser that
+        -- treats <script> content as opaque text and never crashes. Trade-off:
+        -- herb only formats HTML structure + delimiters, NOT the Ruby deeply;
+        -- and the Ruby style is erb-formatter's (not rubyfmt's) for the primary.
+        eruby = function(bufnr)
+          for _, line in ipairs(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)) do
+            if line:match("<script") then
+              return { "herb_format" }
+            end
+          end
+          return { "erb_format" }
+        end,
         markdown = { "prettier", "markdownlint-cli2", "markdown-toc" },
         ["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
       },
@@ -39,15 +58,44 @@ return {
             return #diag > 0
           end,
         },
-        injected = { options = { ignore_errors = true } },
-        -- Herb formatter for HTML+ERB (global npm binary @herb-tools/formatter).
-        -- Absolute path: nvim launched without mise on PATH can't resolve bare
-        -- "herb-format". Pin to install bin so it works regardless of launch context
-        -- and project node version (formatter is a standalone dev tool).
+        -- ERB formatter (nebulab erb-formatter gem). Use the DIRECT install path
+        -- under the global-default ruby, NOT the mise shim: the shim resolves the
+        -- ruby version per-CWD, so in a Rails project whose .ruby-version pins a
+        -- ruby without the erb-format gem it errors "No version is set for shim:
+        -- erb-format". The direct binary always runs the global ruby's erb-format
+        -- regardless of the project's ruby (the formatter only rewrites ERB text,
+        -- it does not execute project code). Mirrors the herb_format/rubyfmt
+        -- direct-path pinning; update the version segment if the global ruby
+        -- changes. Built-in supplies args = { "--stdin" }.
+        erb_format = {
+          -- Invoke the gem wrapper with an EXPLICIT ruby interpreter (the global
+          -- default 3.4.10) instead of relying on the wrapper's "#!/usr/bin/env
+          -- ruby" shebang. The shebang resolves `ruby` from PATH, which inside a
+          -- Rails project is the PROJECT's ruby (e.g. 3.4.5 via .ruby-version);
+          -- that ruby lacks the erb-formatter gem (installed only under 3.4.10),
+          -- so the wrapper crashes with "can't find gem erb-formatter". Forcing
+          -- the 3.4.10 ruby makes formatting deterministic regardless of project
+          -- ruby (the formatter only rewrites ERB text, it does not run project
+          -- code). Update both version segments if the global ruby changes.
+          command = vim.fn.expand("~/.local/share/mise/installs/ruby/3.4.10/bin/ruby"),
+          args = {
+            vim.fn.expand("~/.local/share/mise/installs/ruby/3.4.10/bin/erb-format"),
+            "--stdin",
+          },
+        },
+        -- Fallback ERB formatter for views erb-format can't handle (see the
+        -- per-buffer eruby selection above). herb-format (@herb-tools/formatter,
+        -- Node) is a real HTML/ERB parser: it treats <script> content as opaque
+        -- text, so it never crashes on embedded JavaScript (unlike erb-format
+        -- 0.7.3). It formats HTML structure + ERB delimiters but does NOT deeply
+        -- format the Ruby inside <% %>. Reads stdin via "-" and writes formatted
+        -- output to stdout. Pin the node install path (mirrors erb_format/
+        -- rubyfmt); update the version segment if the global node changes.
+        -- NOTE: herb prints an "Experimental Preview" warning to stderr; conform
+        -- uses stdout only, so it is harmless (just noise in conform.log).
         herb_format = {
           command = vim.fn.expand("~/.local/share/mise/installs/node/22.13.0/bin/herb-format"),
           args = { "-" },
-          stdin = true,
         },
         -- Ruby formatter (rubyfmt, Rust). Binary ships as "rubyfmt-main"
         -- (Cargo package name); conform's built-in expects bare "rubyfmt"

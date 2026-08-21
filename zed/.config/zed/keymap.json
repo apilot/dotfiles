@@ -1,41 +1,113 @@
 // Zed keymap - ported from Neovim LazyVim configuration
 // Leader key: Space (same as nvim)
-// Last updated: 2026-02-09 - All commands verified against official Zed default keymaps
+// Last updated: 2026-08-12 - Fixed conflicts + added vim-native binds + sneak + markdown preview + project panel vim-style
+//
+// SOURCES:
+//   - Own LazyVim keymaps.lua (m0006)
+//   - jellydn/zed-101-setup keymap.json (m0003): sneak, vim_operator==c, ProjectPanel, EmptyPane, ctrl-\
+//
+// FIXED:
+//   - Removed `space w` direct Save conflict (was blocking space w v/h/q)
+//   - Fixed ctrl-h/j/k/l window navigation (was switching buffers instead of panes)
+//   - Added vim-native gd/gr/gi/gt/gf, ]d/[d, ]h/[h
+//   - Added diagnostics (space x x), outline (space s o), close-inactive (space b o)
 [
   // ============================================
-  // GLOBAL BINDINGS (works in all modes)
+  // GLOBAL BINDINGS (Workspace - works in all modes)
   // ============================================
   {
     "context": "Workspace",
     "bindings": {
-      "space w": "workspace::Save",
       "space q": "pane::CloseActiveItem",
       "space shift-q": "zed::Quit",
-      "space e": "project_panel::ToggleFocus"
+      "space e": "project_panel::ToggleFocus",
+      // Global save (replaces `space w` direct bind - now `space w` is a window group)
+      "ctrl-s": "workspace::Save",
+      // Quick terminal toggle (vim-style, from jellydn)
+      "ctrl-\\": "terminal_panel::ToggleFocus",
+      // Pane navigation (Ctrl+hjkl - same as nvim <C-w>hjkl), bound globally so it works in editor + panels + terminal
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      // OpenCode external agent
+      "ctrl-alt-o": [
+        "agent::NewExternalAgentThread",
+        {
+          "agent": {
+            "custom": {
+              "name": "OpenCode",
+              "command": { "command": "opencode", "args": ["acp"] }
+            }
+          }
+        }
+      ]
     }
   },
 
   // ============================================
-  // VIM MODE SPECIFIC BINDINGS
+  // EMPTY PANE - bindings available when no editor is open (from jellydn)
+  // ============================================
+  {
+    "context": "EmptyPane || SharedScreen",
+    "bindings": {
+      "space space": "file_finder::Toggle",
+      "space f f": "file_finder::Toggle",
+      "space f p": "projects::OpenRecent"
+    }
+  },
+
+  // ============================================
+  // VIM NORMAL MODE BINDINGS
   // ============================================
   {
     "context": "Editor && vim_mode == normal && !VimWaiting",
     "bindings": {
-      // Quick save/quit (same as nvim)
-      "space w": "workspace::Save",
+      // Quick quit
       "space q": "pane::CloseActiveItem",
       "space shift-q": "zed::Quit",
+
+      // ==========================================
+      // VIM-NATIVE NAVIGATION (g-prefix + bracket jumps)
+      // IMPORTANT: Zed vim mode already provides defaults for LSP navigation.
+      // See https://zed.dev/docs/vim -> "Language server" section:
+      //   g d = GoToDefinition, g D = GoToDeclaration, g y = GoToTypeDefinition,
+      //   g I = GoToImplementation, g A = FindAllReferences, g . = CodeActions,
+      //   g s = file symbols, g S = project symbols, c d = Rename,
+      //   g ] / ] d = next diagnostic, g [ / [ d = prev diagnostic
+      //   ] c = next git hunk, [ c = prev git hunk
+      // We only OVERRIDE what differs from LazyVim muscle memory:
+      //   - g r = FindAllReferences (LazyVim style; Zed native is g A)
+      // ==========================================
+      "g r": "editor::FindAllReferences",
+      "g f": "editor::OpenExcerpts",
+      "] d": "editor::GoToDiagnostic",
+      "[ d": "editor::GoToPreviousDiagnostic",
+      "] c": "editor::GoToHunk", // Zed native git hunk jump (was ] h - not an action)
+      "[ c": "editor::GoToPreviousHunk",
+
+
+      // ==========================================
+      // SNEAK MOTION moved to separate context block below
+      // (per Zed docs - using `vim_mode == normal || vim_mode == visual`
+      //  to avoid breaking multi-key sequence handling at Editor level)
+      // ==========================================
 
       // ==========================================
       // FILE OPERATIONS (leader+f) - FzfLua equivalent
       // ==========================================
       "space space": "file_finder::Toggle",
       "space f f": "file_finder::Toggle",
-      "space f b": "pane::ActivateNextItem", // Switch between buffers
+      "space f b": "pane::ActivateNextItem",
       "space shift-b": "pane::ActivatePreviousItem",
-      "space f c": "command_palette::Toggle", // Commands equivalent
-
-      // Live grep - using custom task
+      "space f c": "command_palette::Toggle",
+      "space f p": "projects::OpenRecent", // Recent projects (not files)
+      "space f r": [
+        // Recent files (nvim <leader>fr / FzfLua oldfiles)
+        "task::Spawn",
+        { "task_name": "Recent", "reveal_target": "center" }
+      ],
+      "space f k": "zed::OpenDefaultKeymap",
       "space f g": [
         "task::Spawn",
         { "task_name": "Rg", "reveal_target": "center" }
@@ -48,29 +120,25 @@
         "task::Spawn",
         { "task_name": "lazygit", "reveal_target": "center" }
       ],
-      "space g s": "project_panel::ToggleFocus",
+      "space g s": "git_panel::ToggleFocus",
       "space g c": "git_panel::ToggleFocus",
       "space g p": "git::Push",
 
       // ==========================================
-      // WINDOW MANAGEMENT (leader+w)
+      // WINDOW MANAGEMENT (leader+w) - GROUP, no direct `space w`
       // ==========================================
-      "space w v": "pane::SplitRight", // Split vertical
-      "space w shift-v": "pane::SplitDown", // Split horizontal
-      "space w h": "pane::SplitDown", // Split horizontal
-      "space w q": "pane::CloseActiveItem", // Close window
-
-      // Window navigation (Ctrl+h/j/k/l - same as nvim)
-      "ctrl-h": "pane::ActivatePreviousItem",
-      "ctrl-j": "menu::SelectNext",
-      "ctrl-k": "menu::SelectPrevious",
-      "ctrl-l": "pane::ActivateNextItem",
+      "space w v": "pane::SplitRight", // Split vertical (vim :vsplit)
+      "space w s": "pane::SplitDown", // Split horizontal (vim :split)
+      "space w h": "pane::SplitDown", // Alias: horizontal
+      "space w q": "pane::CloseActiveItem",
+      "space w c": "pane::CloseActiveItem", // Alias: close
+      "space w w": "workspace::Save", // Save inside window group
 
       // ==========================================
       // LSP OPERATIONS (leader+l)
       // ==========================================
       "space l f": "editor::Format",
-      "space l n": "editor::Rename", // Rename symbol
+      "space l n": "editor::Rename",
       "space l a": "editor::ToggleCodeActions",
       "space l d": "editor::GoToDefinition",
       "space l i": "editor::GoToImplementation",
@@ -81,11 +149,22 @@
       // ==========================================
       "space c f": "editor::Format",
       "space c a": "editor::ToggleCodeActions",
+      "space c r": "editor::Rename",
 
       // ==========================================
       // TERMINAL (leader+t)
       // ==========================================
       "space t t": "terminal_panel::Toggle",
+      "space t n": [
+        // RSpec: run nearest test (nvim neotest <leader>tn)
+        "task::Spawn",
+        { "task_name": "RSpec: nearest", "reveal_target": "center" }
+      ],
+      "space t f": [
+        // RSpec: run current file (nvim neotest <leader>tf)
+        "task::Spawn",
+        { "task_name": "RSpec: file", "reveal_target": "center" }
+      ],
 
       // ==========================================
       // UI TOGGLES (leader+u)
@@ -94,6 +173,18 @@
       "space u l": "workspace::ToggleLeftDock",
       "space u r": "workspace::ToggleRightDock",
       "space u b": "workspace::ToggleBottomDock",
+      "space u w": "editor::ToggleSoftWrap", // from jellydn
+
+      // ==========================================
+      // TOGGLES (leader+t) - editor toggles
+      // ==========================================
+      "space t i": "editor::ToggleInlayHints", // from jellydn
+
+      // ==========================================
+      // MARKDOWN PREVIEW (leader+m) - replaces markdown-preview.nvim
+      // ==========================================
+      "space m p": "markdown::OpenPreview", // from jellydn
+      "space m P": "markdown::OpenPreviewToTheSide",
 
       // ==========================================
       // WHICH KEY REFERENCE (leader+?)
@@ -108,22 +199,66 @@
       ],
 
       // ==========================================
-      // SEARCH & NAVIGATION
+      // SEARCH & NAVIGATION (leader+s)
       // ==========================================
       "space s s": "project_search::ToggleFocus",
+      "space s o": "outline::Toggle", // Symbol outline (nvim aerial.nvim)
       "space s w": [
         "task::Spawn",
         { "task_name": "Rg", "reveal_target": "center" }
       ],
+      "space /": "pane::DeploySearch", // Project search in current pane (from jellydn)
 
       // ==========================================
-      // BUFFER MANAGEMENT
+      // DIAGNOSTICS (leader+x) - trouble.nvim equivalent
+      // ==========================================
+      "space x x": "diagnostics::Deploy",
+
+      // ==========================================
+      // BUFFER MANAGEMENT (leader+b)
       // ==========================================
       "space b b": "pane::ActivateNextItem",
       "space shift-b": "pane::ActivatePreviousItem",
       "space b d": "pane::CloseActiveItem",
+      "space b o": "pane::CloseInactiveItems",
       "space b n": "pane::ActivateNextItem",
       "space b p": "pane::ActivatePreviousItem"
+    }
+  },
+
+  // ============================================
+  // VIM VISUAL MODE
+  // ============================================
+  {
+    "context": "Editor && vim_mode == visual && !VimWaiting && !menu",
+    "bindings": {
+      "g c": "editor::ToggleComments"
+    }
+  },
+
+  // ============================================
+  // SNEAK MOTION (per Zed docs - replaces flash.nvim / leap.nvim)
+  // NOTE: must be in this exact context (no `Editor &&` prefix) to avoid
+  //       breaking multi-key sequence handling. Overrides vim's `s` (substitute).
+  // ============================================
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "s": "vim::PushSneak",
+      "shift-s": "vim::PushSneakBackward"
+    }
+  },
+
+  // ============================================
+  // VIM OPERATOR-PENDING MODE (after pressing `c`)
+  // `cc` keeps change-line, `cr` = rename, `ca` = code action (from jellydn)
+  // ============================================
+  {
+    "context": "Editor && vim_operator == c",
+    "bindings": {
+      "c": "vim::CurrentLine",
+      "r": "editor::Rename",
+      "a": "editor::ToggleCodeActions"
     }
   },
 
@@ -133,8 +268,34 @@
   {
     "context": "Editor && vim_mode == insert",
     "bindings": {
-      // Quick save in insert mode
-      "ctrl-s": "workspace::Save"
+      "ctrl-s": "workspace::Save",
+      // Better escape (like nvim jk/jj)
+      "j j": "vim::NormalBefore",
+      "j k": "vim::NormalBefore"
+    }
+  },
+
+  // ============================================
+  // PROJECT PANEL - netrw-style file operations (from jellydn)
+  // Active when project panel focused and not editing a filename
+  // ============================================
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "a": "project_panel::NewFile",
+      "A": "project_panel::NewDirectory",
+      "r": "project_panel::Rename",
+      "d": "project_panel::Delete",
+      "x": "project_panel::Cut",
+      "c": "project_panel::Copy",
+      "p": "project_panel::Paste",
+      "q": "workspace::ToggleLeftDock", // Close project panel (it's docked left)
+      "space e": "workspace::ToggleLeftDock",
+      // Navigation from project panel
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight"
     }
   },
 
@@ -144,7 +305,6 @@
   {
     "context": "Terminal",
     "bindings": {
-      // ESC to exit terminal mode (same as nvim)
       "escape": "terminal_panel::ToggleFocus"
     }
   }
