@@ -1,0 +1,131 @@
+#!/usr/bin/env bash
+# aider wrapper: авто-подключение проектной документации (docs/ + docs/tasks/<ветка>)
+#
+# Логика (прозрачна для любых аргументов aider):
+#   1. Находит git-корень (работает и в git worktree: crm/, another_tasks/, ...)
+#   2. Ищет docs/: сначала ../docs (шарится над ворктри), затем ./docs
+#   3. Всегда подключает (--read) базовые доки проекта + требования к коду
+#   4. Определяет текущую задачу по имени ветки -> docs/tasks/<задача>/*.md
+#      (ветка feature/ARENZAPRO-3560-foo => задача ARENZAPRO-3560)
+#
+# Управление (env):
+#   AIDER_DOCS=0        — отключить инжект полностью
+#   AIDER_DOCS_MINIMAL=1 — без SUMMARY_EXECUTED_TASKS.md (экономия ~9k токенов)
+#   AIDER_DOCS_DEBUG=1  — показать, что подключено, и выйти (не запуская aider)
+#
+# Per-project конфиг: docs/.aider-read
+#   Список путей (относительно docs/, по одному в строке, # = комментарий).
+#   Найден → подключается ТОЛЬКО он + доки текущей задачи.
+#   Не найден → fallback: базовый список ниже + все *.md в корне docs/.
+#   Таким образом любой проект с конвенцией docs/ + docs/tasks/<ветка>/
+#   подключается одним файлом без правки этой обёртки.
+#
+# ВНИМАНИЕ: это обёртка поверх uv-инсталляции. После `uv tool upgrade aider-chat`
+# uv может восстановить симлинк ~/.local/bin/aider -> просто повторите установку
+# обёртки (см. комментарий в конце файла).
+set -u
+
+# Переносимость: ищем реальный бинарник aider по нескольким путям
+# (uv -> pipx -> системный), т.к. на другой машине установки могут отличаться.
+REAL=""
+for cand in \
+  "$HOME/.local/share/uv/tools/aider-chat/bin/aider" \
+  "$HOME/.local/pipx/venvs/aider-chat/bin/aider" \
+  "$HOME/.local/pipx/venvs/aider/bin/aider" \
+  "/usr/local/bin/aider" \
+  "/usr/bin/aider"; do
+  if [ -x "$cand" ]; then REAL="$cand"; break; fi
+done
+if [ -z "$REAL" ]; then
+  echo "aider не найден. Установите:" >&2
+  echo "  curl -LsSf https://astral.sh/uv/install.sh | sh && uv tool install --from git+https://github.com/Aider-AI/aider.git aider-chat" >&2
+  exit 127
+fi
+
+# Фолбэк окружения (делает ~/.env опциональным на новой машине):
+#   ключ: shell уже может экспортировать OPENAI_API_KEY, иначе берём Z_AI_API_KEY
+#   base: битый OPENAI_BASE_URL=z.ai/v1/ в шелле чиним на coding-эндпоинт
+[ -n "${Z_AI_API_KEY:-}" ] && export OPENAI_API_KEY="${OPENAI_API_KEY:-$Z_AI_API_KEY}"
+[ "${OPENAI_BASE_URL:-}" = "https://api.z.ai/v1/" ] && export OPENAI_BASE_URL="https://api.z.ai/api/coding/paas/v4"
+
+# Добавить --read <file> без дублей
+add_read() {
+  local f="$1" i
+  for i in "${extra[@]:-}"; do
+    [ "$i" = "$f" ] && return 0
+  done
+  extra+=(--read "$f")
+}
+
+extra=()
+root=$(git rev-parse --show-toplevel 2>/dev/null || true)
+
+if [ -n "$root" ] && [ "${AIDER_DOCS:-1}" != "0" ]; then
+  docs=""
+  for d in "$root/../docs" "$root/docs"; do
+    if [ -d "$d/tasks" ]; then docs=$(cd "$d" && pwd); break; fi
+  done
+
+  if [ -n "$docs" ]; then
+    if [ -f "$docs/.aider-read" ]; then
+      # --- per-project список (приоритет): docs/.aider-read ---
+      while IFS= read -r f; do
+        f=$(printf '%s' "$f" | sed 's/[[:space:]]*$//')   # trim EOL
+        case "$f" in ""|\#*) continue ;; esac
+        # MINIMAL: выкидываем тяжёлые summary-файлы и в этом режиме
+        [ "${AIDER_DOCS_MINIMAL:-0}" = "1" ] && case "$f" in *SUMMARY*) continue ;; esac
+        [ -f "$docs/$f" ] && add_read "$docs/$f"
+      done < "$docs/.aider-read"
+    else
+      # --- fallback: базовая документация и требования к коду ---
+      core=(
+        README.md
+        tasks/README.md
+        development/code-principles.md
+        development/testing.md
+        development/frontend-standards.md
+        opencode-standards/ruby.md
+        opencode-standards/tests.md
+        opencode-standards/service-patterns.md
+      )
+      [ "${AIDER_DOCS_MINIMAL:-0}" != "1" ] && core+=(SUMMARY_EXECUTED_TASKS.md)
+      for f in "${core[@]}"; do
+        [ -f "$docs/$f" ] && add_read "$docs/$f"
+      done
+      # + все *.md в корне docs/ (универсальный сбор для новых проектов)
+      for f in "$docs"/*.md; do
+        [ -f "$f" ] && add_read "$f"
+      done
+    fi
+
+    # --- документация ТЕКУЩЕЙ задачи (dir = имя из ветки) ---
+    branch=$(git branch --show-current 2>/dev/null || true)
+    if [ -n "$branch" ]; then
+      bname=${branch##*/}                 # feature/ARENZAPRO-3560-foo -> ARENZAPRO-3560-foo
+      task=""
+      [ -d "$docs/tasks/$bname" ] && task="$docs/tasks/$bname"
+      if [ -z "$task" ]; then
+        # точное имя ветки не совпало: ищем task-dir, содержащийся в имени ветки
+        while IFS= read -r t; do
+          case "$bname" in *"$t"*) task="$docs/tasks/$t"; break ;; esac
+        done < <(ls "$docs/tasks" 2>/dev/null)
+      fi
+      if [ -n "$task" ]; then
+        for f in "$task"/*.md; do
+          [ -f "$f" ] && add_read "$f"
+        done
+      fi
+    fi
+  fi
+fi
+
+if [ "${AIDER_DOCS_DEBUG:-0}" = "1" ]; then
+  echo "aider wrapper: root=${root:-<не git>}"
+  [ ${#extra[@]} -gt 0 ] && printf '  %s\n' "${extra[@]}" || echo "  (документация не найдена)"
+  exit 0
+fi
+
+exec "$REAL" "${extra[@]}" "$@"
+
+# Повторная установка обёртки после uv tool upgrade:
+#   cp ~/.local/bin/aider.wrapper ~/.local/bin/aider 2>/dev/null || true
