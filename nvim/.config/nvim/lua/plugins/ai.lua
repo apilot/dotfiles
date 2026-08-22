@@ -1,6 +1,7 @@
 -- AI and code generation plugins
 return {
-  -- Aider.nvim - AI pair programming assistant
+  -- Aider.nvim - хирургические правки (GLM через Coding Plan)
+  -- Модель/endpoint/auto-commits настраиваются в ~/.aider.conf.yml + ~/.env
   {
     "joshuavial/aider.nvim",
     event = "VeryLazy",
@@ -8,8 +9,8 @@ return {
       "nvim-lua/plenary.nvim",
     },
     opts = {
-      -- Default model to use
-      model = "openai/qwen3-coder",
+      -- Совпадает с ~/.aider.conf.yml (main), иначе переопределит конфиг
+      model = "openai/glm-5.3",
       -- Auto-focus aider window when opened
       auto_focus = true,
       -- Window configuration for floating aider
@@ -18,13 +19,9 @@ return {
         height = 0.85,
         border = "rounded",
       },
-      -- Additional aider options
+      -- НЕ передаём model/commits args: единый источник правды ~/.aider.conf.yml
       args = {
-        "--no-auto-commits",
-        "--yes-always",
         "--dark-mode",
-        "--chat-language",
-        "ru",
       },
       border = {
         style = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, -- or e.g. "rounded"
@@ -71,33 +68,5 @@ return {
         end, { desc = "Add files to Aider using fzf-lua" })
       end, 100)
     end,
-  },
-
-  -- General AI assistant
-  {
-    "David-Kunz/gen.nvim",
-    cmd = { "Gen", "GenChat", "GenSelect" },
-    opts = {
-      model = "mistral", -- default model
-      host = "localhost",
-      port = "11434",
-      display_mode = "float",
-      show_prompt = true,
-      show_model = true,
-      no_auto_close = false,
-      init = function(options) end,
-      command = function(options)
-        return "curl --silent --no-buffer -X POST http://"
-          .. options.host
-          .. ":"
-          .. options.port
-          .. "/api/generate -d $body"
-      end,
-      debug = false,
-    },
-    keys = {
-      { "<leader>ag", ":Gen<cr>", mode = { "n", "v" }, desc = "Generate with Gen" },
-      { "<leader>gc", ":GenChat<cr>", mode = { "n" }, desc = "Gen Chat" },
-    },
   },
 }

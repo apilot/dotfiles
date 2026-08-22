@@ -1,0 +1,42 @@
+# Aider Configuration — Z.AI GLM (PAYG via Z_AI_API_KEY)
+# Правки применяются, но НЕ коммитятся — коммитим вручную (auto-commits: false)
+
+# --- Модели (официальная линейка Coding Plan, flash-модели в план НЕ входят) --
+# Архитектор/чат: флагман думает и планирует
+model: openai/glm-5.3
+# Редактор: дешёвая модель применяет diff-правки
+editor-model: openai/glm-5-turbo
+# Слабая модель: commit-месседжи, summaries (при ручных коммитах почти не нужна)
+weak-model: openai/glm-5-turbo
+# Запасной дешёвый вариант (если turbo под лимитом): openai/glm-4.5-air
+
+# --- Endpoint Z.AI (OpenAI-compatible, Coding Plan — токены с подписки) --
+# base и ключ задаются в ~/.env (aider-only, override=True):
+#   OPENAI_BASE_URL=https://api.z.ai/api/coding/paas/v4
+#   OPENAI_API_KEY=<ключ>
+# (shell-wide OPENAI_BASE_URL=z.ai/v1/ и чужой OPENAI_API_KEY ломают litellm)
+
+# --- Режим правки -------------------------------------------------------
+# architect: 5.3 планирует -> flash применяет патчи (макс. экономия)
+architect: true
+edit-format: diff
+# Если GLM начнёт выдавать кривые diff-маркеры — закомментировать строку
+# выше и раскомментировать:
+# edit-format: whole
+
+# --- Repo map и кэш -----------------------------------------------------
+map-tokens: 1000
+cache-prompts: true
+cache-keepalive-pings: 2
+
+# --- Git: полный ручной контроль ----------------------------------------
+auto-commits: false
+attribute-committer: false
+attribute-author: false
+gitignore: false
+
+# --- Интерфейс ----------------------------------------------------------
+dark-mode: true
+chat-language: ru
+show-model-warnings: false
+check-model-accepts-settings: true

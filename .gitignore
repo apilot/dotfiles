@@ -1,4 +1,9 @@
-.aider*
+# Aider runtime artifacts (chat/input history, tags cache) — но НЕ aider/.aider.conf.yml
+.aider.chat.history*
+.aider.input.history
+.aider.llm.history
+.aider.tags.cache
+!aider/.aider.conf.yml
 zsh/.zsh/secrets.zsh
 # Vendored third-party Hyprland theme (separate upstream clone, kept local only)
 hyprland-common/.config/hypr/themes/winter/
