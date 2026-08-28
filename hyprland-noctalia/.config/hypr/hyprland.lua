@@ -270,18 +270,18 @@ hl.layer_rule({ blur_popups = true, match = { namespace = "noctalia-background-.
 -- once the start handler has loaded the plugin and triggered a reload.
 local hy3 = hl.plugin.hy3
 
--- noctalia-shell shortcuts
-hl.bind(mainMod .. " + D",        hl.dsp.exec_cmd("/usr/bin/qs -c noctalia-shell ipc call launcher toggle"))
-hl.bind(mainMod .. " + CTRL + D",  hl.dsp.exec_cmd("/usr/bin/qs -c noctalia-shell ipc call settings toggle"))
-hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("/usr/bin/qs -c noctalia-shell ipc call sessionMenu toggle"))
-hl.bind(mainMod .. " + N",        hl.dsp.exec_cmd("/usr/bin/qs -c noctalia-shell ipc call controlCenter toggle"))
-hl.bind(mainMod .. " + ALT + L",   hl.dsp.exec_cmd("/usr/bin/qs -c noctalia-shell ipc call lockScreen lock"))
-hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("/usr/bin/qs -c noctalia-shell ipc call notifications clear"))
+-- noctalia v5 shortcuts (native IPC; was v4 `qs -c noctalia-shell ipc call ...`)
+hl.bind(mainMod .. " + D",        hl.dsp.exec_cmd("/usr/bin/noctalia msg panel-toggle launcher"))
+hl.bind(mainMod .. " + CTRL + D",  hl.dsp.exec_cmd("/usr/bin/noctalia msg settings-toggle"))
+hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("/usr/bin/noctalia msg panel-toggle session"))
+hl.bind(mainMod .. " + N",        hl.dsp.exec_cmd("/usr/bin/noctalia msg panel-toggle control-center"))
+hl.bind(mainMod .. " + ALT + L",   hl.dsp.exec_cmd("/usr/bin/noctalia msg session lock"))
+hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("/usr/bin/noctalia msg notification-clear-history"))
 hl.bind("Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | swappy -f -'))
 
 -- clipboard / window switcher
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("/usr/bin/qs -c noctalia-shell ipc call launcher clipboard"))
-hl.bind("ALT + Tab",       hl.dsp.exec_cmd("/usr/bin/qs -c noctalia-shell ipc call launcher windows"))
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("/usr/bin/noctalia msg panel-toggle clipboard"))
+hl.bind("ALT + Tab",       hl.dsp.exec_cmd("/usr/bin/noctalia msg panel-toggle launcher windows"))
 
 -- app launches / window ops
 hl.bind(mainMod .. " + Return",        hl.dsp.exec_cmd(terminal))
@@ -419,7 +419,7 @@ hl.on("hyprland.start", function()
     -- So nothing to enforce here -- the OSD state persists across reboots.
     hl.exec_cmd("~/.local/bin/wpaperd -d")
     hl.exec_cmd("/usr/libexec/hyprpolkitagent")
-    hl.exec_cmd("/usr/bin/qs -c noctalia-shell")
+    hl.exec_cmd("/usr/bin/noctalia")
     hl.exec_cmd("wl-paste --type text --watch cliphist store")
     hl.exec_cmd("wl-paste --type image --watch cliphist store")
     hl.exec_cmd("gentoo-pipewire-launcher &")
