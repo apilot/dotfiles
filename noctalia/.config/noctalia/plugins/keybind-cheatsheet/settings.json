@@ -1,0 +1,732 @@
+{
+  "cheatsheetData": [
+    {
+      "title": "Keybinds",
+      "binds": [
+        {
+          "keys": "D",
+          "desc": "exec /home/aboyarinov/.local/bin/qs -c noctalia-shell ipc call launcher toggle",
+          "_verb": "exec",
+          "_param": "/home/aboyarinov/.local/bin/qs -c noctalia-shell ipc call launcher toggle",
+          "_mods": "",
+          "_mainKey": "D"
+        },
+        {
+          "keys": "Ctrl + D",
+          "desc": "exec /home/aboyarinov/.local/bin/qs -c noctalia-shell ipc call settings toggle",
+          "_verb": "exec",
+          "_param": "/home/aboyarinov/.local/bin/qs -c noctalia-shell ipc call settings toggle",
+          "_mods": "Ctrl",
+          "_mainKey": "D"
+        },
+        {
+          "keys": "Shift + E",
+          "desc": "exec /home/aboyarinov/.local/bin/qs -c noctalia-shell ipc call sessionMenu toggle",
+          "_verb": "exec",
+          "_param": "/home/aboyarinov/.local/bin/qs -c noctalia-shell ipc call sessionMenu toggle",
+          "_mods": "Shift",
+          "_mainKey": "E"
+        },
+        {
+          "keys": "N",
+          "desc": "exec /home/aboyarinov/.local/bin/qs -c noctalia-shell ipc call controlCenter toggle",
+          "_verb": "exec",
+          "_param": "/home/aboyarinov/.local/bin/qs -c noctalia-shell ipc call controlCenter toggle",
+          "_mods": "",
+          "_mainKey": "N"
+        },
+        {
+          "keys": "Ctrl + L",
+          "desc": "exec /home/aboyarinov/.local/bin/qs -c noctalia-shell ipc call lockScreen lock",
+          "_verb": "exec",
+          "_param": "/home/aboyarinov/.local/bin/qs -c noctalia-shell ipc call lockScreen lock",
+          "_mods": "Ctrl",
+          "_mainKey": "L"
+        },
+        {
+          "keys": "Shift + C",
+          "desc": "exec /home/aboyarinov/.local/bin/qs -c noctalia-shell ipc call notifications clear",
+          "_verb": "exec",
+          "_param": "/home/aboyarinov/.local/bin/qs -c noctalia-shell ipc call notifications clear",
+          "_mods": "Shift",
+          "_mainKey": "C"
+        },
+        {
+          "keys": "PrtSc",
+          "desc": "exec grim -g \"$(slurp)\" - | swappy -f -",
+          "_verb": "exec",
+          "_param": "grim -g \"$(slurp)\" - | swappy -f -",
+          "_mods": "",
+          "_mainKey": "PRINT"
+        },
+        {
+          "keys": "V",
+          "desc": "exec /home/aboyarinov/.local/bin/qs -c noctalia-shell ipc call launcher clipboard",
+          "_verb": "exec",
+          "_param": "/home/aboyarinov/.local/bin/qs -c noctalia-shell ipc call launcher clipboard",
+          "_mods": "",
+          "_mainKey": "V"
+        },
+        {
+          "keys": "Alt + TAB",
+          "desc": "exec /home/aboyarinov/.local/bin/qs -c noctalia-shell ipc call launcher windows",
+          "_verb": "exec",
+          "_param": "/home/aboyarinov/.local/bin/qs -c noctalia-shell ipc call launcher windows",
+          "_mods": "Alt",
+          "_mainKey": "TAB"
+        },
+        {
+          "keys": "RETURN",
+          "desc": "exec $terminal",
+          "_verb": "exec",
+          "_param": "$terminal",
+          "_mods": "",
+          "_mainKey": "RETURN"
+        },
+        {
+          "keys": "T",
+          "desc": "exec $terminal",
+          "_verb": "exec",
+          "_param": "$terminal",
+          "_mods": "",
+          "_mainKey": "T"
+        },
+        {
+          "keys": "Q",
+          "desc": "killactive",
+          "_verb": "killactive",
+          "_param": "",
+          "_mods": "",
+          "_mainKey": "Q"
+        },
+        {
+          "keys": "F",
+          "desc": "fullscreen",
+          "_verb": "fullscreen",
+          "_param": "",
+          "_mods": "",
+          "_mainKey": "F"
+        },
+        {
+          "keys": "Shift + 65",
+          "desc": "togglefloating",
+          "_verb": "togglefloating",
+          "_param": "",
+          "_mods": "Shift",
+          "_mainKey": "65"
+        },
+        {
+          "keys": "E",
+          "desc": "exec $fileExplorer",
+          "_verb": "exec",
+          "_param": "$fileExplorer",
+          "_mods": "",
+          "_mainKey": "E"
+        },
+        {
+          "keys": "Shift + R",
+          "desc": "exec hyprctl reload && sleep 1 && ~/.config/hypr/scripts/displaylink-hotplug.sh",
+          "_verb": "exec",
+          "_param": "hyprctl reload && sleep 1 && ~/.config/hypr/scripts/displaylink-hotplug.sh",
+          "_mods": "Shift",
+          "_mainKey": "R"
+        },
+        {
+          "keys": "F1",
+          "desc": "exec $browser",
+          "_verb": "exec",
+          "_param": "$browser",
+          "_mods": "",
+          "_mainKey": "F1"
+        },
+        {
+          "keys": "F2",
+          "desc": "exec thunderbird",
+          "_verb": "exec",
+          "_param": "thunderbird",
+          "_mods": "",
+          "_mainKey": "F2"
+        },
+        {
+          "keys": "F4",
+          "desc": "exec $editor",
+          "_verb": "exec",
+          "_param": "$editor",
+          "_mods": "",
+          "_mainKey": "F4"
+        },
+        {
+          "keys": "F5",
+          "desc": "exec github-desktop",
+          "_verb": "exec",
+          "_param": "github-desktop",
+          "_mods": "",
+          "_mainKey": "F5"
+        },
+        {
+          "keys": "F6",
+          "desc": "exec gparted",
+          "_verb": "exec",
+          "_param": "gparted",
+          "_mods": "",
+          "_mainKey": "F6"
+        },
+        {
+          "keys": "F7",
+          "desc": "exec inkscape",
+          "_verb": "exec",
+          "_param": "inkscape",
+          "_mods": "",
+          "_mainKey": "F7"
+        },
+        {
+          "keys": "F8",
+          "desc": "exec blender",
+          "_verb": "exec",
+          "_param": "blender",
+          "_mods": "",
+          "_mainKey": "F8"
+        },
+        {
+          "keys": "F9",
+          "desc": "exec meld",
+          "_verb": "exec",
+          "_param": "meld",
+          "_mods": "",
+          "_mainKey": "F9"
+        },
+        {
+          "keys": "F10",
+          "desc": "exec joplin-desktop",
+          "_verb": "exec",
+          "_param": "joplin-desktop",
+          "_mods": "",
+          "_mainKey": "F10"
+        },
+        {
+          "keys": "F11",
+          "desc": "exec snapper-tools",
+          "_verb": "exec",
+          "_param": "snapper-tools",
+          "_mods": "",
+          "_mainKey": "F11"
+        },
+        {
+          "keys": "F12",
+          "desc": "exec galculator",
+          "_verb": "exec",
+          "_param": "galculator",
+          "_mods": "",
+          "_mainKey": "F12"
+        },
+        {
+          "keys": "B",
+          "desc": "exec hyprshade on sephia",
+          "_verb": "exec",
+          "_param": "hyprshade on sephia",
+          "_mods": "",
+          "_mainKey": "B"
+        },
+        {
+          "keys": "Ctrl + B",
+          "desc": "exec hyprshade off",
+          "_verb": "exec",
+          "_param": "hyprshade off",
+          "_mods": "Ctrl",
+          "_mainKey": "B"
+        },
+        {
+          "keys": "232",
+          "desc": "exec brightnessctl -c backlight set 5%-",
+          "_verb": "exec",
+          "_param": "brightnessctl -c backlight set 5%-",
+          "_mods": "",
+          "_mainKey": "232"
+        },
+        {
+          "keys": "233",
+          "desc": "exec brightnessctl -c backlight set +5%",
+          "_verb": "exec",
+          "_param": "brightnessctl -c backlight set +5%",
+          "_mods": "",
+          "_mainKey": "233"
+        },
+        {
+          "keys": "Shift + C",
+          "desc": "exec killall -9 wpaperd && wpaperd",
+          "_verb": "exec",
+          "_param": "killall -9 wpaperd && wpaperd",
+          "_mods": "Shift",
+          "_mainKey": "C"
+        },
+        {
+          "keys": "Shift + M",
+          "desc": "exec ~/.config/hypr/scripts/toggle_ext_monitors.sh",
+          "_verb": "exec",
+          "_param": "~/.config/hypr/scripts/toggle_ext_monitors.sh",
+          "_mods": "Shift",
+          "_mainKey": "M"
+        },
+        {
+          "keys": "Shift + S",
+          "desc": "exec ~/.config/hypr/scripts/start-workspace-apps.sh",
+          "_verb": "exec",
+          "_param": "~/.config/hypr/scripts/start-workspace-apps.sh",
+          "_mods": "Shift",
+          "_mainKey": "S"
+        },
+        {
+          "keys": "Shift + L",
+          "desc": "exec ~/.config/hypr/scripts/lock-with-monitors.sh",
+          "_verb": "exec",
+          "_param": "~/.config/hypr/scripts/lock-with-monitors.sh",
+          "_mods": "Shift",
+          "_mainKey": "L"
+        },
+        {
+          "keys": "Left Click",
+          "desc": "hy3:focustab mouse",
+          "_verb": "hy3:focustab",
+          "_param": "mouse",
+          "_mods": "",
+          "_mainKey": "MOUSE:272"
+        },
+        {
+          "keys": "S",
+          "desc": "hy3:makegroup opposite, force_ephemeral",
+          "_verb": "hy3:makegroup",
+          "_param": "opposite, force_ephemeral",
+          "_mods": "",
+          "_mainKey": "S"
+        },
+        {
+          "keys": "W",
+          "desc": "hy3:changegroup opposite",
+          "_verb": "hy3:changegroup",
+          "_param": "opposite",
+          "_mods": "",
+          "_mainKey": "W"
+        },
+        {
+          "keys": "X",
+          "desc": "hy3:changegroup toggletab",
+          "_verb": "hy3:changegroup",
+          "_param": "toggletab",
+          "_mods": "",
+          "_mainKey": "X"
+        },
+        {
+          "keys": "LEFT",
+          "desc": "hy3:movefocus l",
+          "_verb": "hy3:movefocus",
+          "_param": "l",
+          "_mods": "",
+          "_mainKey": "LEFT"
+        },
+        {
+          "keys": "RIGHT",
+          "desc": "hy3:movefocus r",
+          "_verb": "hy3:movefocus",
+          "_param": "r",
+          "_mods": "",
+          "_mainKey": "RIGHT"
+        },
+        {
+          "keys": "UP",
+          "desc": "hy3:movefocus u",
+          "_verb": "hy3:movefocus",
+          "_param": "u",
+          "_mods": "",
+          "_mainKey": "UP"
+        },
+        {
+          "keys": "DOWN",
+          "desc": "hy3:movefocus d",
+          "_verb": "hy3:movefocus",
+          "_param": "d",
+          "_mods": "",
+          "_mainKey": "DOWN"
+        },
+        {
+          "keys": "Ctrl + LEFT",
+          "desc": "hy3:movefocus l",
+          "_verb": "hy3:movefocus",
+          "_param": "l",
+          "_mods": "Ctrl",
+          "_mainKey": "LEFT"
+        },
+        {
+          "keys": "Ctrl + RIGHT",
+          "desc": "hy3:movefocus r",
+          "_verb": "hy3:movefocus",
+          "_param": "r",
+          "_mods": "Ctrl",
+          "_mainKey": "RIGHT"
+        },
+        {
+          "keys": "Ctrl + UP",
+          "desc": "hy3:movefocus u",
+          "_verb": "hy3:movefocus",
+          "_param": "u",
+          "_mods": "Ctrl",
+          "_mainKey": "UP"
+        },
+        {
+          "keys": "Ctrl + DOWN",
+          "desc": "hy3:movefocus d",
+          "_verb": "hy3:movefocus",
+          "_param": "d",
+          "_mods": "Ctrl",
+          "_mainKey": "DOWN"
+        },
+        {
+          "keys": "Ctrl + H",
+          "desc": "hy3:movefocus l",
+          "_verb": "hy3:movefocus",
+          "_param": "l",
+          "_mods": "Ctrl",
+          "_mainKey": "H"
+        },
+        {
+          "keys": "Ctrl + L",
+          "desc": "hy3:movefocus r",
+          "_verb": "hy3:movefocus",
+          "_param": "r",
+          "_mods": "Ctrl",
+          "_mainKey": "L"
+        },
+        {
+          "keys": "Ctrl + K",
+          "desc": "hy3:movefocus u",
+          "_verb": "hy3:movefocus",
+          "_param": "u",
+          "_mods": "Ctrl",
+          "_mainKey": "K"
+        },
+        {
+          "keys": "Ctrl + J",
+          "desc": "hy3:movefocus d",
+          "_verb": "hy3:movefocus",
+          "_param": "d",
+          "_mods": "Ctrl",
+          "_mainKey": "J"
+        },
+        {
+          "keys": "Shift + UP",
+          "desc": "hy3:movewindow u",
+          "_verb": "hy3:movewindow",
+          "_param": "u",
+          "_mods": "Shift",
+          "_mainKey": "UP"
+        },
+        {
+          "keys": "Shift + DOWN",
+          "desc": "hy3:movewindow d",
+          "_verb": "hy3:movewindow",
+          "_param": "d",
+          "_mods": "Shift",
+          "_mainKey": "DOWN"
+        },
+        {
+          "keys": "Shift + LEFT",
+          "desc": "hy3:movewindow l",
+          "_verb": "hy3:movewindow",
+          "_param": "l",
+          "_mods": "Shift",
+          "_mainKey": "LEFT"
+        },
+        {
+          "keys": "Shift + RIGHT",
+          "desc": "hy3:movewindow r",
+          "_verb": "hy3:movewindow",
+          "_param": "r",
+          "_mods": "Shift",
+          "_mainKey": "RIGHT"
+        },
+        {
+          "keys": "1-9",
+          "desc": "workspace 1-9",
+          "_verb": "workspace",
+          "_mods": "",
+          "_mainKey": "1-9",
+          "_merged": true
+        },
+        {
+          "keys": "0",
+          "desc": "workspace 10",
+          "_verb": "workspace",
+          "_param": "10",
+          "_mods": "",
+          "_mainKey": "0"
+        },
+        {
+          "keys": "Shift + Alt + 1-9",
+          "desc": "movetoworkspace 1-9",
+          "_verb": "movetoworkspace",
+          "_mods": "Shift+Alt",
+          "_mainKey": "1-9",
+          "_merged": true
+        },
+        {
+          "keys": "Shift + Alt + 0",
+          "desc": "movetoworkspace 10",
+          "_verb": "movetoworkspace",
+          "_param": "10",
+          "_mods": "Shift+Alt",
+          "_mainKey": "0"
+        },
+        {
+          "keys": "Shift + 1-9",
+          "desc": "movetoworkspacesilent 1-9",
+          "_verb": "movetoworkspacesilent",
+          "_mods": "Shift",
+          "_mainKey": "1-9",
+          "_merged": true
+        },
+        {
+          "keys": "Shift + 0",
+          "desc": "movetoworkspacesilent 10",
+          "_verb": "movetoworkspacesilent",
+          "_param": "10",
+          "_mods": "Shift",
+          "_mainKey": "0"
+        },
+        {
+          "keys": "Scroll Down",
+          "desc": "workspace e+1",
+          "_verb": "workspace",
+          "_param": "e+1",
+          "_mods": "",
+          "_mainKey": "MOUSE_DOWN"
+        },
+        {
+          "keys": "Scroll Up",
+          "desc": "workspace e-1",
+          "_verb": "workspace",
+          "_param": "e-1",
+          "_mods": "",
+          "_mainKey": "MOUSE_UP"
+        },
+        {
+          "keys": "Left Click",
+          "desc": "movewindow",
+          "_verb": "movewindow",
+          "_param": "",
+          "_mods": "",
+          "_mainKey": "MOUSE:272"
+        },
+        {
+          "keys": "Right Click",
+          "desc": "resizewindow",
+          "_verb": "resizewindow",
+          "_param": "",
+          "_mods": "",
+          "_mainKey": "MOUSE:273"
+        },
+        {
+          "keys": "Shift + Ctrl + 0",
+          "desc": "exec ~/.config/hypr/scripts/set_nav_mode.sh toggle",
+          "_verb": "exec",
+          "_param": "~/.config/hypr/scripts/set_nav_mode.sh toggle",
+          "_mods": "Shift+Ctrl",
+          "_mainKey": "0"
+        },
+        {
+          "keys": "Shift + Ctrl + 9",
+          "desc": "exec ~/.config/hypr/scripts/set_nav_mode.sh standard",
+          "_verb": "exec",
+          "_param": "~/.config/hypr/scripts/set_nav_mode.sh standard",
+          "_mods": "Shift+Ctrl",
+          "_mainKey": "9"
+        },
+        {
+          "keys": "Ctrl + 0",
+          "desc": "exec ~/.config/hypr/scripts/set_nav_mode.sh status",
+          "_verb": "exec",
+          "_param": "~/.config/hypr/scripts/set_nav_mode.sh status",
+          "_mods": "Ctrl",
+          "_mainKey": "0"
+        },
+        {
+          "keys": "Ctrl + PrtSc",
+          "desc": "exec .config/hypr/scripts/screenshot_window.sh",
+          "_verb": "exec",
+          "_param": ".config/hypr/scripts/screenshot_window.sh",
+          "_mods": "Ctrl",
+          "_mainKey": "PRINT"
+        },
+        {
+          "keys": "Shift + PrtSc",
+          "desc": "exec .config/hypr/scripts/screenshot_display.sh",
+          "_verb": "exec",
+          "_param": ".config/hypr/scripts/screenshot_display.sh",
+          "_mods": "Shift",
+          "_mainKey": "PRINT"
+        },
+        {
+          "keys": "122",
+          "desc": "exec pactl set-sink-volume @DEFAULT_SINK@ -5%",
+          "_verb": "exec",
+          "_param": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+          "_mods": "",
+          "_mainKey": "122"
+        },
+        {
+          "keys": "123",
+          "desc": "exec pactl set-sink-volume @DEFAULT_SINK@ +5%",
+          "_verb": "exec",
+          "_param": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+          "_mods": "",
+          "_mainKey": "123"
+        },
+        {
+          "keys": "121",
+          "desc": "exec pactl set-sink-volume @DEFAULT_SINK@ 0%",
+          "_verb": "exec",
+          "_param": "pactl set-sink-volume @DEFAULT_SINK@ 0%",
+          "_mods": "",
+          "_mainKey": "121"
+        },
+        {
+          "keys": "172",
+          "desc": "exec playerctl play-pause",
+          "_verb": "exec",
+          "_param": "playerctl play-pause",
+          "_mods": "",
+          "_mainKey": "172"
+        },
+        {
+          "keys": "171",
+          "desc": "exec playerctl next",
+          "_verb": "exec",
+          "_param": "playerctl next",
+          "_mods": "",
+          "_mainKey": "171"
+        },
+        {
+          "keys": "173",
+          "desc": "exec playerctl previous",
+          "_verb": "exec",
+          "_param": "playerctl previous",
+          "_mods": "",
+          "_mainKey": "173"
+        },
+        {
+          "keys": "R",
+          "desc": "submap resize",
+          "_verb": "submap",
+          "_param": "resize",
+          "_mods": "",
+          "_mainKey": "R"
+        },
+        {
+          "keys": "RIGHT",
+          "desc": "resizeactive 50 0",
+          "_verb": "resizeactive",
+          "_param": "50 0",
+          "_mods": "",
+          "_mainKey": "RIGHT"
+        },
+        {
+          "keys": "L",
+          "desc": "resizeactive 50 0",
+          "_verb": "resizeactive",
+          "_param": "50 0",
+          "_mods": "",
+          "_mainKey": "L"
+        },
+        {
+          "keys": "LEFT",
+          "desc": "resizeactive -50 0",
+          "_verb": "resizeactive",
+          "_param": "-50 0",
+          "_mods": "",
+          "_mainKey": "LEFT"
+        },
+        {
+          "keys": "H",
+          "desc": "resizeactive -50 0",
+          "_verb": "resizeactive",
+          "_param": "-50 0",
+          "_mods": "",
+          "_mainKey": "H"
+        },
+        {
+          "keys": "UP",
+          "desc": "resizeactive 0 -50",
+          "_verb": "resizeactive",
+          "_param": "0 -50",
+          "_mods": "",
+          "_mainKey": "UP"
+        },
+        {
+          "keys": "K",
+          "desc": "resizeactive 0 -50",
+          "_verb": "resizeactive",
+          "_param": "0 -50",
+          "_mods": "",
+          "_mainKey": "K"
+        },
+        {
+          "keys": "DOWN",
+          "desc": "resizeactive 0 50",
+          "_verb": "resizeactive",
+          "_param": "0 50",
+          "_mods": "",
+          "_mainKey": "DOWN"
+        },
+        {
+          "keys": "J",
+          "desc": "resizeactive 0 50",
+          "_verb": "resizeactive",
+          "_param": "0 50",
+          "_mods": "",
+          "_mainKey": "J"
+        },
+        {
+          "keys": "ESCAPE",
+          "desc": "submap reset",
+          "_verb": "submap",
+          "_param": "reset",
+          "_mods": "",
+          "_mainKey": "ESCAPE"
+        }
+      ]
+    }
+  ],
+  "detectedCompositor": "hyprland",
+  "windowWidth": 1400,
+  "windowHeight": 850,
+  "autoHeight": true,
+  "columnCount": 3,
+  "modKeyVariable": "$mod",
+  "hyprlandConfigPath": "~/.config/hypr/hyprland.conf",
+  "hyprlandLuaConfigPath": "~/.config/hypr/hyprland.lua",
+  "hyprlandParserMode": "auto",
+  "niriConfigPath": "~/.config/niri/config.kdl",
+  "mangoConfigPath": "~/.config/mango/config.conf",
+  "mergeSequentialBinds": true,
+  "showUndescribedBinds": true,
+  "splitLargeWorkspaceCategory": true,
+  "workspaceSplitThreshold": 12,
+  "keyColorAlt": "#FF6B6B",
+  "keyColorXF86": "#4ECDC4",
+  "keyColorPrint": "#95E1D3",
+  "keyColorNumeric": "#A8DADC",
+  "keyColorMouse": "#F38181",
+  "keyColorSuper": "",
+  "keyColorCtrl": "",
+  "keyColorShift": "",
+  "keyColorDefault": "#6C757D",
+  "keyLabelColor": "#FFFFFF",
+  "descriptionTextColor": "#E0E0E0",
+  "keyTextSuper": "",
+  "keyTextCtrl": "",
+  "keyTextShift": "",
+  "keyTextAlt": "",
+  "keyTextXF86": "",
+  "keyTextPrint": "",
+  "keyTextNumeric": "",
+  "keyTextMouse": "",
+  "keyTextDefault": ""
+}

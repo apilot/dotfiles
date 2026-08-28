@@ -7,6 +7,8 @@
 zsh/.zsh/secrets.zsh
 # oh-my-zsh framework installed into stow package dir (managed externally)
 zsh/.oh-my-zsh/
+# Noctalia runtime backups
+noctalia/.config/noctalia/*.bak*
 # Vendored third-party Hyprland theme (separate upstream clone, kept local only)
 hyprland-common/.config/hypr/themes/winter/
 
