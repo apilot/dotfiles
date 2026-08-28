@@ -111,7 +111,7 @@
       "environment": {
         "Z_AI_API_KEY": "{env:Z_AI_API_KEY}",
         "RLM_ROOT_MODEL": "glm-4.7",
-        "RLM_SUB_MODEL": "glm-4.7-flash",
+        "RLM_SUB_MODEL": "glm-5-turbo",
         "RLM_MAX_CONCURRENT_SUBCALLS": "2"
       },
       "enabled": true
@@ -156,21 +156,21 @@
     },
     "Coder Agent": {
       "mode": "subagent",
-      "model": "zai-coding-plan/glm-4.7",
-      "description": "Оптимизация для кода и тестов",
+      "model": "zai-coding-plan/glm-5.3-flash",
+      "description": "Кодинг на GLM-5.3-Flash (multimodal, 1M ctx)",
       "options": {},
       "permission": {}
     },
     "explore": {
       "mode": "subagent",
-      "model": "zai-coding-plan/glm-4.7-flash",
+      "model": "zai-coding-plan/glm-5-turbo",
       "description": "Быстрый поиск и анализ кодовой базы",
       "options": {},
       "permission": {}
     },
     "Documentation": {
       "mode": "subagent",
-      "model": "zai-coding-plan/glm-4.7-flash",
+      "model": "zai-coding-plan/glm-5-turbo",
       "description": "Качественная документация из кода",
       "options": {},
       "permission": {}
@@ -195,14 +195,14 @@
     },
     "Tester": {
       "mode": "subagent",
-      "model": "zai-coding-plan/glm-4.7",
-      "description": "TDD и тестирование",
+      "model": "zai-coding-plan/glm-5.3-flash",
+      "description": "TDD и тестирование (GLM-5.3-Flash)",
       "options": {},
       "permission": {}
     },
     "Codebase Pattern Analyst": {
       "mode": "subagent",
-      "model": "zai-coding-plan/glm-4.7-flash",
+      "model": "zai-coding-plan/glm-5-turbo",
       "description": "Codebase pattern analysis agent",
       "options": {},
       "permission": {}
@@ -237,6 +237,23 @@
           "options": {
             "stream": true,
             "temperature": 0.1,
+            "reasoning_effort": "high"
+          }
+        },
+        "glm-5.3-flash": {
+          "name": "glm-5.3-flash",
+          "attachment": true,
+          "reasoning": true,
+          "temperature": true,
+          "tool_call": true,
+          "cost": {
+            "input": 0.005,
+            "output": 0.005
+          },
+          "options": {
+            "stream": true,
+            "temperature": 1.0,
+            "top_p": 0.95,
             "reasoning_effort": "high"
           }
         },
@@ -310,36 +327,6 @@
           "cost": {
             "input": 0.005,
             "output": 0.005
-          },
-          "options": {
-            "stream": true,
-            "temperature": 0.1
-          }
-        },
-        "glm-4.7-flash": {
-          "name": "glm-4.7-flash",
-          "attachment": true,
-          "reasoning": false,
-          "temperature": true,
-          "tool_call": true,
-          "cost": {
-            "input": 0.002,
-            "output": 0.002
-          },
-          "options": {
-            "stream": true,
-            "temperature": 0.1
-          }
-        },
-        "glm-4.7-flashx": {
-          "name": "glm-4.7-flashx",
-          "attachment": true,
-          "reasoning": false,
-          "temperature": true,
-          "tool_call": true,
-          "cost": {
-            "input": 0.001,
-            "output": 0.001
           },
           "options": {
             "stream": true,
