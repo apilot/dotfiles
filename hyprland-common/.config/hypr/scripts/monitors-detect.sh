@@ -124,8 +124,10 @@ shell_stale() {
 # ── Apply side effects: move workspaces, restart the shell ────────────────────
 move_workspaces() {
     local dp="$1" hdmi="$2" ws
-    for ws in 4 5 6; do hyprctl dispatch moveworkspacetomonitor "$ws $dp"   >/dev/null 2>&1 || true; done
-    for ws in 7 8 9; do hyprctl dispatch moveworkspacetomonitor "$ws $hdmi" >/dev/null 2>&1 || true; done
+    # Hyprland 0.55 + Lua config: moveworkspacetomonitor is now
+    # hl.dsp.workspace.move({workspace=, monitor=}) via hyprctl dispatch.
+    for ws in 4 5 6; do hyprctl dispatch "hl.dsp.workspace.move({workspace=\"$ws\", monitor=\"$dp\"})"   >/dev/null 2>&1 || true; done
+    for ws in 7 8 9; do hyprctl dispatch "hl.dsp.workspace.move({workspace=\"$ws\", monitor=\"$hdmi\"})" >/dev/null 2>&1 || true; done
 }
 
 restart_shell() {
