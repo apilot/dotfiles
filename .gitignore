@@ -5,6 +5,8 @@
 .aider.tags.cache
 !aider/.aider.conf.yml
 zsh/.zsh/secrets.zsh
+# oh-my-zsh framework installed into stow package dir (managed externally)
+zsh/.oh-my-zsh/
 # Vendored third-party Hyprland theme (separate upstream clone, kept local only)
 hyprland-common/.config/hypr/themes/winter/
 

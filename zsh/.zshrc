@@ -208,6 +208,10 @@ alias lg="lazygit"
 alias ee="eza -l"
 alias docker-compose="docker compose"
 
+if [[ -n "$KITTY_WINDOW_ID" ]]; then
+  alias kssh="kitten ssh"
+fi
+
 # DisplayLink (безопасное отключение/подключение монитора)
 alias dl-off='sudo rc-service displaylink stop'
 alias dl-on='sudo rc-service displaylink zap && sudo rc-service displaylink start && hyprctl keyword monitor DVI-I-1,1920x1080@60,0x0,1'
