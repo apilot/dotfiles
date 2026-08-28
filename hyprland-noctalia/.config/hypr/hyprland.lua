@@ -129,7 +129,28 @@ hl.config({
         hy3 = {
             node_collapse_policy = 0,
             autotile = { enable = true },
-            tabs     = { height = 3, padding = 2, from_top = true, render_text = false },
+            -- "картотека": табы как ярлыки на папках (Catppuccin Mocha, Lavender)
+            tabs = {
+                height = 24, padding = 2, from_top = true,
+                radius = 6, border_width = 1,
+                render_text = true, text_center = false,
+                text_font = "Noto Sans", text_height = 11, text_padding = 8,
+                colors = {
+                    -- активный ярлык — «вытащенный» язычок папки
+                    active = "rgba(45475ae8)", active_border = "rgba(cba6f7d0)", active_text = "rgba(cdd6f4ff)",
+                    -- активный таб на нефокусируемом мониторе
+                    active_alt_monitor = "rgba(313244cc)", active_alt_monitor_border = "rgba(585b70aa)", active_alt_monitor_text = "rgba(bac2deff)",
+                    -- фокус внутри группы, когда группа не в фокусе
+                    focused = "rgba(313244d8)", focused_border = "rgba(585b70aa)", focused_text = "rgba(cdd6f4ff)",
+                    -- «утопленные» ярлыки
+                    inactive = "rgba(181825cc)", inactive_border = "rgba(11111baa)", inactive_text = "rgba(a6adc8ff)",
+                    -- срочная папка
+                    urgent = "rgba(f38ba8e6)", urgent_border = "rgba(f38ba8ff)", urgent_text = "rgba(11111bff)",
+                    -- зафиксированный таб
+                    locked = "rgba(b4befa40)", locked_border = "rgba(b4befaaa)", locked_text = "rgba(cdd6f4ff)",
+                },
+                blur = true, opacity = 1.0,
+            },
         },
     },
 })
@@ -426,3 +447,6 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("exec xrdb -load ~/.Xresources")
     hl.exec_cmd("~/.config/hypr/scripts/set_nav_mode.sh standard")
 end)
+
+-- For Noctalia Color templates
+require("noctalia").apply_theme()
