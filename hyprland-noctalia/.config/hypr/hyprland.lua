@@ -421,10 +421,11 @@ end)
 ------------------------------------------------------------------
 hl.on("hyprland.start", function()
     -- Lua has no synchronous `plugin = path` directive (text config only).
-    -- Load hy3 at startup, then reload so `layout=hy3` + plugin.hy3 options
-    -- re-apply with the plugin registered. Sequenced via && to avoid a race.
-    -- (layout=hy3 set during config parse is a no-op while hy3 is absent.)
-    hl.exec_cmd("hyprctl plugin load /usr/lib64/libhy3.so && hyprctl reload")
+    -- hy3 is managed by hyprpm (repo pinned to the running Hyprland release
+    -- via hyprpm.toml commit_pins; built into /var/cache/hyprpm/<user>/).
+    -- reload -n loads all enabled plugins, then config re-applies with them
+    -- registered (layout=hy3 set during parse is a no-op while hy3 is absent).
+    hl.exec_cmd("hyprpm reload -n")
     -- exec (every-reload) items -- idempotent, safe to run once
     hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
     hl.exec_cmd("hyprctl setcursor catppuccin-mocha-dark-cursors 25")
