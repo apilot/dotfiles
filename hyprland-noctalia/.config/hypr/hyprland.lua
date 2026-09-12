@@ -23,7 +23,7 @@ local mainMod      = "SUPER"
 -- detected by ~/.config/hypr/scripts/monitors-detect.sh
 local DP      = "DP-1"
 local DP_RATE = "74.97"
-local HDMI    = "HDMI-A-2"
+local HDMI    = "HDMI-A-1"
 
 local home       = os.getenv("HOME") or "/home/aboyarinov"
 local ICC_IIYAMA      = home .. "/.local/share/icc/PL2493H.icc"        -- factory matrix profile (DP-1)
