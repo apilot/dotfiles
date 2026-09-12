@@ -281,6 +281,9 @@ end
 hl.layer_rule({ ignore_alpha = 0.5, match = { namespace = "noctalia-background-.*$" } })
 hl.layer_rule({ blur = true,       match = { namespace = "noctalia-background-.*$" } })
 hl.layer_rule({ blur_popups = true, match = { namespace = "noctalia-background-.*$" } })
+-- Noctalia launcher (app search) and other panels: blur behind translucent surface
+hl.layer_rule({ ignore_alpha = 0.5, match = { namespace = "noctalia-panel" } })
+hl.layer_rule({ blur = true,       match = { namespace = "noctalia-panel" } })
 
 ------------------------------------------------------------------
 -- keybinds  (keybinds.conf)
