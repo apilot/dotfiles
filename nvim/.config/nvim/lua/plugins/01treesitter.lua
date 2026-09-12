@@ -11,6 +11,7 @@ return {
       "svelte", "graphql", "bash", "lua", "vim", "dockerfile",
       "gitignore", "query", "vimdoc", "c", "ruby",
       "embedded_template", -- ERB (.erb) parser; injects ruby for treesitter highlighting
+      "mermaid", -- parser for mermaid.nvim (.mmd/.mermaid files)
     }
     -- TSInstallSync does not exist in current nvim-treesitter (main branch);
     -- use TSInstall (installs missing parsers, no-op for already-installed).
