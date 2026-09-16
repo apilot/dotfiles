@@ -214,12 +214,21 @@ zinit light zsh-users/zsh-syntax-highlighting
 # -----------------------------------------------------------------------------
 # 11. FZF: системные key-bindings + completion (TURBO — после compinit)
 #     Системные файлы содержат compdef, должны грузиться после compinit
+#     Пути: Gentoo — /usr/share/fzf, Debian/Ubuntu — /usr/share/doc/fzf/examples
+#     Если fzf не установлен — блок просто пропускается (без ошибок zinit)
 # -----------------------------------------------------------------------------
-zinit ice wait lucid id-as"fzf-system-keybindings"
-zinit snippet /usr/share/fzf/key-bindings.zsh
-
-zinit ice wait lucid id-as"fzf-system-completion"
-zinit snippet /usr/share/fzf/completion.zsh
+typeset -a _fzf_dirs=( /usr/share/fzf /usr/share/doc/fzf/examples )
+for _d in $_fzf_dirs; do
+  if [[ -f "$_d/key-bindings.zsh" ]]; then
+    zinit ice wait lucid id-as"fzf-system-keybindings"
+    zinit snippet "$_d/key-bindings.zsh"
+  fi
+  if [[ -f "$_d/completion.zsh" ]]; then
+    zinit ice wait lucid id-as"fzf-system-completion"
+    zinit snippet "$_d/completion.zsh"
+  fi
+done
+unset _fzf_dirs _d
 
 # -----------------------------------------------------------------------------
 # 12. Environment & PATH
