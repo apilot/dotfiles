@@ -1,0 +1,8 @@
+{
+  "providers": {
+    "anthropic": {
+      "baseUrl": "https://api.z.ai/api/anthropic",
+      "apiKey": "$ANTHROPIC_AUTH_TOKEN"
+    }
+  }
+}
