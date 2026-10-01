@@ -11,6 +11,7 @@
 | File | Topic | Priority | Load When |
 |------|-------|----------|-----------|
 | `code-quality.md` | Code quality rules | ⭐⭐⭐⭐⭐ | Writing/reviewing code |
+| `delegation.md` | Delegation rule: delegate everything delegatable with minimal prompts, split big tasks, orchestrator verifies | ⭐⭐⭐⭐⭐ | Before delegating to subagents / orchestrating multi-agent work |
 | `test-coverage.md` | Testing standards | ⭐⭐⭐⭐⭐ | Writing tests |
 | `documentation.md` | Documentation rules | ⭐⭐⭐⭐ | Writing docs |
 | `security-patterns.md` | Security best practices | ⭐⭐⭐⭐ | Security review, patterns |

@@ -15,3 +15,8 @@ opencode-notifier-state.json
 # Secrets
 .env
 .env.*
+
+# Local credentials (copy service.json.example)
+service.json
+# v2 port backups
+*.bak-v2port
