@@ -503,7 +503,7 @@
       }
     }
   },
-  "model": "zai-coding-plan/glm-5.3",
+  "model": "zai-coding-plan/glm-5.3-flash",
   "small_model": "zai-coding-plan/glm-4.5-air",
   "shell": "/bin/zsh",
   "disabled_providers": []
