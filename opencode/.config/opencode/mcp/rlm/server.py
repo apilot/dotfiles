@@ -27,7 +27,7 @@ import glob
 import os
 from typing import Any
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 from rlm import RLM
 from rlm.core.lm_handler import LMHandler
@@ -44,7 +44,7 @@ ANALYZE_MAX_CHARS = int(os.getenv("RLM_ANALYZE_MAX_CHARS", "200000"))
 # reached" even when the quota panel shows plenty of headroom.
 DEFAULT_MAX_CONCURRENT_SUBCALLS = int(os.getenv("RLM_MAX_CONCURRENT_SUBCALLS", "3"))
 
-mcp = FastMCP("rlm")
+mcp = MCPServer("rlm")
 
 
 # RLM constructs LMHandler internally (see rlm/core/rlm.py) WITHOUT passing
