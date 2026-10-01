@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Pi sessions / local state
+.pi/*
+!.pi/settings.json
+*.session.json
+pipeline.state.json
+
+# OpenCode artifacts
+.opencode/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+*.swp
+
+# Secrets
+.env
+.env.*
+
+# Git worktrees воркеров (Phase 3)
+.wt/

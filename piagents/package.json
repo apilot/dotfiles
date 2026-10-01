@@ -1,0 +1,17 @@
+{
+  "name": "pi-dev-pipeline",
+  "version": "0.1.0",
+  "description": "Мультиагентный конвейер разработки на Pi: approval gates, pipeline state machine, worker fleet, model router, code-aware compaction",
+  "keywords": ["pi-package"],
+  "private": true,
+  "pi": {
+    "extensions": [
+      "./extensions/gates/index.ts",
+      "./extensions/pipeline/index.ts",
+      "./extensions/workers/index.ts",
+      "./extensions/router/index.ts",
+      "./extensions/compaction/index.ts"
+    ],
+    "skills": ["./skills"]
+  }
+}

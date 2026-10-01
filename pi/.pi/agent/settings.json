@@ -3,7 +3,7 @@
   "defaultModel": "zai/glm-5.3",
   "defaultProvider": "zai",
   "packages": [
-    "../../tmp/opencode/piagents"
+    "../../dotfiles/piagents"
   ],
   "theme": "dark"
 }
