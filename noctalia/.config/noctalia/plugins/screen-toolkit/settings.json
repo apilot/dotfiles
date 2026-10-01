@@ -1,0 +1,36 @@
+{
+  "colorHistory": [
+    "#E7BDC6",
+    "#E5DAB5",
+    "#BBDED2",
+    "#CDC8E3",
+    "#B3CCE0",
+    "#C1D0E7",
+    "#67727F"
+  ],
+  "paletteColors": "",
+  "installedLangs": [
+    "eng",
+    "rus"
+  ],
+  "transAvailable": false,
+  "selectedOcrLang": "eng",
+  "screenshotPath": "",
+  "videoPath": "",
+  "filenameFormat": "",
+  "detectedRecorder": "wf-recorder",
+  "recordSkipConfirmation": false,
+  "recordCopyToClipboard": false,
+  "gifMaxSeconds": 30,
+  "resultHex": "",
+  "resultRgb": "",
+  "resultHsv": "",
+  "resultHsl": "",
+  "colorCapturePath": "",
+  "colorCacheBust": 0,
+  "ocrResult": "",
+  "ocrCapturePath": "",
+  "qrResult": "",
+  "qrCapturePath": "",
+  "translateResult": ""
+}

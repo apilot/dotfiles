@@ -73,9 +73,8 @@ opt.swapfile = false -- turn off swapfile
 -- Session options (set before auto-session loads)
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
--- Spell checking
-opt.spelllang = "en_us,ru_yo,ru_ru"
-opt.spell = true
+-- Spell checking: moved to lua/config/options.lua (this file is required
+-- BEFORE config.lazy, so LazyVim defaults were overwriting spelllang)
 
 -- LazyVim specific settings
 vim.g.lazyvim_prettier_needs_config = true

@@ -5,10 +5,12 @@
 # that drive monitors straight off a dedicated GPU. Connector names shift between
 # GPUs and ports (DP-0/1, HDMI-A-1/2, …), so instead of hardcoding them we detect the
 # actually-connected outputs from `hyprctl monitors` and write the names into:
-#   1. ~/.config/hypr/conf/monitors-detected.conf   (Hyprland vars: $EDP $DP $HDMI)
-#   2. ~/.config/noctalia/settings.json             (bar/dock/osd/notifications + screenOverrides)
+#   1. ~/.config/hypr/hyprland.lua                   (PRIMARY Lua config — patch local DP/DP_RATE/HDMI)
+#   2. ~/.config/hypr/conf/monitors-detected.conf    (legacy vars for *.conf, kept in sync)
+#   3. ~/.config/noctalia/settings.json              (bar/dock/osd/notifications + screenOverrides)
 # Then reloads Hyprland and restarts the noctalia shell — but only when the names
-# actually changed, so it is cheap to run on every config reload.
+# actually changed, so it is cheap to run on every config reload. Workspaces are
+# re-seated onto their monitors on every run (idempotent) to heal wrong placements.
 #
 # Layout assumed (physical):  [DP-?]   [HDMI-?]   with the laptop (eDP) below center.
 #   $DP   = left external   (was the EVDI / DVI slot)
@@ -25,6 +27,7 @@ set -euo pipefail
 # ── Paths ─────────────────────────────────────────────────────────────────────
 CONF_DIR="$HOME/.config/hypr/conf"
 DETECTED_CONF="$CONF_DIR/monitors-detected.conf"
+LUA_CONF="$HOME/.config/hypr/hyprland.lua"   # PRIMARY config — takes priority over *.conf
 NOCTALIA_CONF="$HOME/.config/noctalia/settings.json"
 SHELL_CMD="/usr/bin/qs -c noctalia-shell"
 
@@ -83,6 +86,32 @@ write_conf() {
 EOF
 }
 
+# ── Lua config (primary): read / patch local DP / DP_RATE / HDMI ─────────────
+# hyprland.lua takes priority over hyprland.conf on Hyprland 0.55+ (Lua config),
+# so detected connector names MUST land there or the compositor keeps stale ones.
+read_lua_var() {
+    local name="$1"
+    [[ -f "$LUA_CONF" ]] || return 0
+    awk -v n="$name" '
+        $0 ~ ("^local " n "[[:space:]]*=") {
+            sub(/^[^=]*=[[:space:]]*"/, "")
+            gsub(/".*$/, "")
+            print
+            exit
+        }
+    ' "$LUA_CONF"
+}
+
+sync_lua_conf() {
+    local dp="$1" dp_rate="$2" hdmi="$3"
+    [[ -f "$LUA_CONF" ]] || { warn "hyprland.lua not found — skipping Lua sync."; return 0; }
+    sed -i \
+        -e "s|^local DP[[:space:]]*=.*|local DP      = \"${dp}\"|"        \
+        -e "s|^local DP_RATE[[:space:]]*=.*|local DP_RATE = \"${dp_rate}\"|" \
+        -e "s|^local HDMI[[:space:]]*=.*|local HDMI    = \"${hdmi}\"|"    \
+        "$LUA_CONF"
+}
+
 # ── Update noctalia settings.json: recursive rename of any monitor name ───────
 # Maps by connector prefix so it touches bar/dock/osd/notifications/screenOverrides
 # in a single pass:  eDP-* → $edp,  HDMI-* → $hdmi,  DVI-*/DP-* → $dp (left slot).
@@ -124,8 +153,10 @@ shell_stale() {
 # ── Apply side effects: move workspaces, restart the shell ────────────────────
 move_workspaces() {
     local dp="$1" hdmi="$2" ws
-    for ws in 4 5 6; do hyprctl dispatch moveworkspacetomonitor "$ws $dp"   >/dev/null 2>&1 || true; done
-    for ws in 7 8 9; do hyprctl dispatch moveworkspacetomonitor "$ws $hdmi" >/dev/null 2>&1 || true; done
+    # Hyprland 0.55 + Lua config: moveworkspacetomonitor is now
+    # hl.dsp.workspace.move({workspace=, monitor=}) via hyprctl dispatch.
+    for ws in 4 5 6; do hyprctl dispatch "hl.dsp.workspace.move({workspace=\"$ws\", monitor=\"$dp\"})"   >/dev/null 2>&1 || true; done
+    for ws in 7 8 9; do hyprctl dispatch "hl.dsp.workspace.move({workspace=\"$ws\", monitor=\"$hdmi\"})" >/dev/null 2>&1 || true; done
 }
 
 restart_shell() {
@@ -177,34 +208,44 @@ main() {
 
     info "Detected:  eDP=$edp   left=$dp@${dp_rate}Hz   HDMI=$hdmi@75Hz"
 
-    local cur_dp cur_hdmi
+    local cur_dp cur_hdmi lua_dp lua_hdmi lua_rate
     cur_dp="$(read_var DP)"
     cur_hdmi="$(read_var HDMI)"
+    lua_dp="$(read_lua_var DP)"
+    lua_hdmi="$(read_lua_var HDMI)"
+    lua_rate="$(read_lua_var DP_RATE)"
 
     local conf_changed="false" shell_needs_update="false"
+    # conf_changed covers BOTH targets: legacy monitors-detected.conf and hyprland.lua
     [[ "$dp" != "$cur_dp" || "$hdmi" != "$cur_hdmi" ]] && conf_changed="true"
+    [[ "$dp" != "$lua_dp" || "$hdmi" != "$lua_hdmi" || "$dp_rate" != "$lua_rate" ]] && conf_changed="true"
     shell_needs_update="$(shell_stale "$dp" "$hdmi" && echo true || echo false)"
 
     if [[ "$conf_changed" == "false" && "$shell_needs_update" == "false" ]]; then
-        info "Names unchanged ($dp / $hdmi) and shell in sync — reloading Hyprland only."
-        [[ "$dry_run" == "false" ]] && { hyprctl reload 2>/dev/null || true; }
+        info "Names unchanged ($dp / $hdmi) and shell in sync — reloading + re-seating workspaces."
+        if [[ "$dry_run" == "false" ]]; then
+            hyprctl reload >/dev/null 2>&1 || warn "hyprctl reload failed."
+            move_workspaces "$dp" "$hdmi"
+        fi
         exit 0
     fi
 
-    info "Changes:  conf=$conf_changed  shell=$shell_needs_update   (DP: ${cur_dp:-<none>}→$dp   HDMI: ${cur_hdmi:-<none>}→$hdmi)"
+    info "Changes:  conf=$conf_changed  shell=$shell_needs_update   (DP: ${cur_dp:-<none>}→$dp   HDMI: ${cur_hdmi:-<none>}→$hdmi   lua: ${lua_dp:-<none>}/${lua_hdmi:-<none>}@${lua_rate:-<none>})"
 
     if [[ "$dry_run" == "true" ]]; then
         warn "Dry-run — no changes made."
         info "[DRY-RUN] write  $DETECTED_CONF  (\$EDP=$edp  \$DP=$dp@\${dp_rate}Hz  \$HDMI=$hdmi)"
+        info "[DRY-RUN] patch  $LUA_CONF  (DP=$dp  DP_RATE=$dp_rate  HDMI=$hdmi)"
         [[ "$shell_needs_update" == "true" ]] && info "[DRY-RUN] update $NOCTALIA_CONF"
         info "[DRY-RUN] hyprctl reload + restart noctalia shell"
         exit 0
     fi
 
     [[ "$conf_changed" == "true" ]] && { write_conf "$edp" "$dp" "$hdmi" "$dp_rate"; info "Written: $DETECTED_CONF"; }
+    [[ "$conf_changed" == "true" ]] && { sync_lua_conf "$dp" "$dp_rate" "$hdmi"; info "Patched: $LUA_CONF"; }
     [[ "$shell_needs_update" == "true" ]] && { update_noctalia "$edp" "$dp" "$hdmi"; info "Updated: $NOCTALIA_CONF"; }
 
-    hyprctl reload 2>/dev/null || true
+    hyprctl reload >/dev/null 2>&1 || warn "hyprctl reload failed."
     info "Hyprland reloaded."
     sleep 1
 

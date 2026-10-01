@@ -3,11 +3,11 @@
 
 ## Overview
 
-Clear decision criteria for when to delegate frontend/UI work to the **frontend-specialist** subagent vs. handling it directly.
+Clear decision criteria for when to delegate frontend/UI work to the **OpenFrontendSpecialist** subagent vs. handling it directly.
 
 ## Quick Reference
 
-**Delegate to frontend-specialist when**:
+**Delegate to OpenFrontendSpecialist when**:
 - UI/UX design work (wireframes, themes, animations)
 - Design system implementation
 - Complex responsive layouts
@@ -24,7 +24,7 @@ Clear decision criteria for when to delegate frontend/UI work to the **frontend-
 
 ## Decision Matrix
 
-### ✅ DELEGATE to Frontend-Specialist
+### ✅ DELEGATE to OpenFrontendSpecialist
 
 | Scenario | Why Delegate | Example |
 |----------|--------------|---------|
@@ -52,7 +52,7 @@ Clear decision criteria for when to delegate frontend/UI work to the **frontend-
 
 ## Delegation Checklist
 
-Before delegating to frontend-specialist, ensure:
+Before delegating to OpenFrontendSpecialist, ensure:
 
 - [ ] **Task is UI/design focused** (not backend, logic, or data)
 - [ ] **Task requires design expertise** (layout, theme, animations)
@@ -66,7 +66,7 @@ Before delegating to frontend-specialist, ensure:
 
 ### Step 1: Discover Context (Optional but Recommended)
 
-If you're unsure what context the frontend-specialist will need:
+If you're unsure what context the OpenFrontendSpecialist will need:
 
 ```javascript
 task(
@@ -85,7 +85,7 @@ Present a plan to the user:
 
 **Task**: Create landing page with hero section, features grid, and CTA
 
-**Approach**: Delegate to frontend-specialist subagent
+**Approach**: Delegate to OpenFrontendSpecialist subagent
 
 **Why**: 
 - Requires design system implementation
@@ -111,7 +111,7 @@ Wait for explicit user approval before delegating.
 
 ```javascript
 task(
-  subagent_type="frontend-specialist",
+  subagent_type="OpenFrontendSpecialist",
   description="Create landing page design",
   prompt="Context to load:
   - .opencode/context/ui/web/design-systems.md
@@ -151,56 +151,56 @@ Create session context file first, then delegate with session path.
 
 **Trigger**: User asks for a new landing page, marketing page, or product page
 
-**Decision**: ✅ Delegate to frontend-specialist
+**Decision**: ✅ Delegate to OpenFrontendSpecialist
 
 **Why**: Requires full design workflow (layout, theme, animations, implementation)
 
 **Example**:
 ```
 User: "Create a landing page for our SaaS product"
-You: [Propose approach] → [Get approval] → [Delegate to frontend-specialist]
+You: [Propose approach] → [Get approval] → [Delegate to OpenFrontendSpecialist]
 ```
 
 ### Pattern 2: Design System Implementation
 
 **Trigger**: User wants to implement or update a design system
 
-**Decision**: ✅ Delegate to frontend-specialist
+**Decision**: ✅ Delegate to OpenFrontendSpecialist
 
 **Why**: Needs ContextScout for standards, ExternalScout for UI library docs
 
 **Example**:
 ```
 User: "Implement our design system using Tailwind and Shadcn"
-You: [Propose approach] → [Get approval] → [Delegate to frontend-specialist]
+You: [Propose approach] → [Get approval] → [Delegate to OpenFrontendSpecialist]
 ```
 
 ### Pattern 3: Component Library Integration
 
 **Trigger**: User wants to integrate a UI component library (Flowbite, Radix, etc.)
 
-**Decision**: ✅ Delegate to frontend-specialist
+**Decision**: ✅ Delegate to OpenFrontendSpecialist
 
 **Why**: Requires ExternalScout for current docs, proper integration patterns
 
 **Example**:
 ```
 User: "Add Flowbite components to our app"
-You: [Propose approach] → [Get approval] → [Delegate to frontend-specialist]
+You: [Propose approach] → [Get approval] → [Delegate to OpenFrontendSpecialist]
 ```
 
 ### Pattern 4: Animation Work
 
 **Trigger**: User wants animations, transitions, or micro-interactions
 
-**Decision**: ✅ Delegate to frontend-specialist
+**Decision**: ✅ Delegate to OpenFrontendSpecialist
 
 **Why**: Requires animation patterns, performance optimization (<400ms)
 
 **Example**:
 ```
 User: "Add smooth animations to the dashboard"
-You: [Propose approach] → [Get approval] → [Delegate to frontend-specialist]
+You: [Propose approach] → [Get approval] → [Delegate to OpenFrontendSpecialist]
 ```
 
 ### Pattern 5: Simple HTML Edit
@@ -236,11 +236,11 @@ You: [Read the CSS, fix the issue directly]
 ## Red Flags (Don't Delegate)
 
 ❌ **User just wants a quick fix** → Handle directly  
-❌ **Task is backend/logic focused** → Wrong subagent (use coder-agent or handle directly)  
+❌ **Task is backend/logic focused** → Wrong subagent (use CoderAgent or handle directly)  
 ❌ **Task is a single line change** → Handle directly  
 ❌ **Task is content update** → Handle directly  
-❌ **Task is testing/validation** → Wrong subagent (use tester)  
-❌ **Task is code review** → Wrong subagent (use reviewer)  
+❌ **Task is testing/validation** → Wrong subagent (use TestEngineer)  
+❌ **Task is code review** → Wrong subagent (use CodeReviewer)  
 
 ---
 
@@ -256,7 +256,7 @@ You: [Read the CSS, fix the issue directly]
 
 ---
 
-## Frontend-Specialist Capabilities
+## OpenFrontendSpecialist Capabilities
 
 **What it does well**:
 - Create complete UI designs from scratch
@@ -278,9 +278,9 @@ You: [Read the CSS, fix the issue directly]
 
 ---
 
-## Context Files Frontend-Specialist Uses
+## Context Files OpenFrontendSpecialist Uses
 
-The frontend-specialist will automatically load these via ContextScout:
+The OpenFrontendSpecialist will automatically load these via ContextScout:
 
 **Design System**:
 - `ui/web/design-systems.md` - Theme templates, color systems
@@ -304,7 +304,7 @@ The frontend-specialist will automatically load these via ContextScout:
 - ✅ **Get approval** - Never delegate without user approval
 - ✅ **Provide context** - List context files the subagent should load
 - ✅ **Set clear requirements** - Specify design system, breakpoints, animations
-- ✅ **Use staged workflow** - Let frontend-specialist follow its process
+- ✅ **Use staged workflow** - Let OpenFrontendSpecialist follow its process
 - ✅ **Trust the specialist** - It knows design patterns and best practices
 
 ### Don'ts ❌
@@ -330,7 +330,7 @@ The frontend-specialist will automatically load these via ContextScout:
 
 **Task**: Create SaaS landing page
 
-**Approach**: Delegate to frontend-specialist subagent
+**Approach**: Delegate to OpenFrontendSpecialist subagent
 
 **Why**:
 - Requires full design workflow (layout, theme, animations)
@@ -348,7 +348,7 @@ The frontend-specialist will automatically load these via ContextScout:
 **After Approval**:
 ```javascript
 task(
-  subagent_type="frontend-specialist",
+  subagent_type="OpenFrontendSpecialist",
   description="Create SaaS landing page",
   prompt="Context to load:
   - .opencode/context/ui/web/design-systems.md
@@ -394,7 +394,7 @@ I'll update the button text directly.
 
 **Task**: Implement design system with Tailwind + Shadcn
 
-**Approach**: Delegate to frontend-specialist subagent
+**Approach**: Delegate to OpenFrontendSpecialist subagent
 
 **Why**:
 - Requires UI library integration (Shadcn)
@@ -412,7 +412,7 @@ I'll update the button text directly.
 **After Approval**:
 ```javascript
 task(
-  subagent_type="frontend-specialist",
+  subagent_type="OpenFrontendSpecialist",
   description="Implement Tailwind + Shadcn design system",
   prompt="Context to load:
   - .opencode/context/ui/web/design-systems.md
@@ -435,7 +435,7 @@ task(
 
 ## Summary
 
-**Delegate to frontend-specialist when**:
+**Delegate to OpenFrontendSpecialist when**:
 - New UI designs from scratch
 - Design system implementation
 - Complex responsive layouts

@@ -74,6 +74,28 @@ return {
                 },
               })
             end,
+            -- DeepSeek (api.deepseek.com) — V3-чат + reasoning-модель
+            deepseek = function()
+              return require("codecompanion.adapters").extend("openai_compatible", {
+                env = {
+                  url = "https://api.deepseek.com",
+                  api_key = "DEEPSEEK_API_KEY",
+                  chat_url = "/chat/completions",
+                },
+                schema = {
+                  model = {
+                    default = "deepseek-chat",
+                    order = 1,
+                    choices = {
+                      "deepseek-chat",    -- V3, дешёвый универсальный
+                      "deepseek-reasoner", -- R1, reasoning (медленнее, для сложного)
+                    },
+                  },
+                  temperature = { default = 0.1 },
+                  max_tokens = { default = 4096 },
+                },
+              })
+            end,
           },
         },
         -- NOTE: `strategies` was renamed to `interactions` (the old `agent`

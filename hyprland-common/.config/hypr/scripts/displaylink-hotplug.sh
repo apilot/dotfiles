@@ -146,7 +146,7 @@ main() {
             sleep 1
             # Move workspaces to the detected monitor
             for ws in 4 5 6; do
-                hyprctl dispatch moveworkspacetomonitor "${ws} ${detected}" 2>/dev/null || true
+                hyprctl dispatch "hl.dsp.workspace.move({workspace=\"${ws}\", monitor=\"${detected}\"})" 2>/dev/null || true
             done
         fi
         exit 0
@@ -172,7 +172,7 @@ main() {
 
     # Move workspaces to the detected monitor
     for ws in 4 5 6; do
-        hyprctl dispatch moveworkspacetomonitor "${ws} ${detected}" 2>/dev/null || true
+        hyprctl dispatch "hl.dsp.workspace.move({workspace=\"${ws}\", monitor=\"${detected}\"})" 2>/dev/null || true
     done
 
     notify-send "DisplayLink Hotplug" "Monitor activated on ${detected}" 2>/dev/null || true

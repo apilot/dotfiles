@@ -29,19 +29,13 @@ send_notification() {
 
 # Clear all navigation-related bindings
 clear_nav_bindings() {
-    # Focus bindings
-    hyprctl keyword unbind SUPER,H 2>/dev/null || true
-    hyprctl keyword unbind SUPER,J 2>/dev/null || true
-    hyprctl keyword unbind SUPER,K 2>/dev/null || true
-    hyprctl keyword unbind SUPER,L 2>/dev/null || true
-    hyprctl keyword unbind SUPER,semicolon 2>/dev/null || true
-
-    # Window move bindings
-    hyprctl keyword unbind SUPER SHIFT,H 2>/dev/null || true
-    hyprctl keyword unbind SUPER SHIFT,J 2>/dev/null || true
-    hyprctl keyword unbind SUPER SHIFT,K 2>/dev/null || true
-    hyprctl keyword unbind SUPER SHIFT,L 2>/dev/null || true
-    hyprctl keyword unbind SUPER SHIFT,semicolon 2>/dev/null || true
+    # Hyprland 0.55 + Lua config: 'hyprctl keyword unbind' is rejected; use
+    # hl.unbind via hyprctl eval. (Note: nav_bindings_*.conf are currently absent,
+    # so this feature is dormant -- the unbind keys aren't bound in hyprland.lua.)
+    for key in H J K L semicolon; do
+        hyprctl eval "hl.unbind(\"SUPER + $key\")"        >/dev/null 2>&1 || true
+        hyprctl eval "hl.unbind(\"SUPER + SHIFT + $key\")" >/dev/null 2>&1 || true
+    done
 }
 
 # Apply bindings from config file
