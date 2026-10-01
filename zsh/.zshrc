@@ -405,3 +405,7 @@ bindkey -M vicmd '^[h' fzf-history-query   # Alt+H в vi normal mode
 
 # Local llama.cpp Qwen2.5-Coder server (qwen-up / qwen-down / qwen-status / qwen-log)
 source "$HOME/.zsh/functions/llama-qwen.zsh"
+
+nas-git-new() {
+  ssh -p 9222 apilot@192.168.1.88 "git init --bare --initial-branch=main /Volume1/git/${1}.git"
+}
