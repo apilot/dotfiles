@@ -153,7 +153,7 @@
     },
     "Task Manager": {
       "mode": "subagent",
-      "model": "zai-coding-plan/glm-4.7",
+      "model": "zai-coding-plan/glm-5.3-flash",
       "description": "SOTA для планирования сложных задач",
       "options": {},
       "permission": {}
@@ -174,8 +174,8 @@
     },
     "Documentation": {
       "mode": "subagent",
-      "model": "zai-coding-plan/glm-5-turbo",
-      "description": "Качественная документация из кода",
+      "model": "zai-coding-plan/glm-5.3-flash",
+      "description": "Качественная документация из кода (GLM-5.3-Flash: vision для скриншотов в доках)",
       "options": {},
       "permission": {}
     },
@@ -201,7 +201,9 @@
       "mode": "subagent",
       "model": "zai-coding-plan/glm-5.3-flash",
       "description": "TDD и тестирование (GLM-5.3-Flash)",
-      "options": {},
+      "options": {
+        "reasoning_effort": "max"
+      },
       "permission": {}
     },
     "Codebase Pattern Analyst": {
