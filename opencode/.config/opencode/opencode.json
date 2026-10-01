@@ -118,7 +118,7 @@
         "RLM_SUB_MODEL": "glm-5-turbo",
         "RLM_MAX_CONCURRENT_SUBCALLS": "2"
       },
-      "enabled": true
+      "enabled": false
     }
   },
   "agent": {
