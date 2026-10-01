@@ -274,7 +274,7 @@ This command delegates to an analysis agent to perform the work:
 
 ```javascript
 task(
-  subagent_type="PatternAnalyst",
+  subagent_type="Codebase Pattern Analyst",
   description="Analyze context dependencies",
   prompt=`
     Analyze context file usage across all agents in this repository.

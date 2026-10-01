@@ -13,7 +13,7 @@
 
 **Error**:
 ```
-Unknown agent type: ContextScout is not a valid agent type
+Unknown agent type: task-manager is not a valid agent type
 ```
 
 **Root Cause**: The `subagent_type` parameter in the task tool must match the registered agent type in the OpenCode CLI, not the file path.
@@ -27,25 +27,27 @@ Unknown agent type: ContextScout is not a valid agent type
 Based on the OpenCode CLI registration, use these exact strings for `subagent_type`:
 
 **Core Subagents**:
-- `"Task Manager"` - Task breakdown and planning
-- `"Documentation"` - Documentation generation
+- `"TaskManager"` - Task breakdown and planning
+- `"DocWriter"` - Documentation generation
 - `"ContextScout"` - Context file discovery
 
 **Code Subagents**:
-- `"Coder Agent"` - Code implementation
+- `"CoderAgent"` - Code implementation
 - `"TestEngineer"` - Test authoring
-- `"Reviewer"` - Code review
-- `"Build Agent"` - Build validation
+- `"CodeReviewer"` - Code review
+- `"BuildAgent"` - Build validation
 
 **System Builder Subagents**:
-- `"Domain Analyzer"` - Domain analysis
-- `"Agent Generator"` - Agent generation
-- `"Context Organizer"` - Context organization
-- `"Workflow Designer"` - Workflow design
-- `"Command Creator"` - Command creation
+- `"DomainAnalyzer"` - Domain analysis
+- `"AgentGenerator"` - Agent generation
+- `"ContextOrganizer"` - Context organization
+- `"WorkflowDesigner"` - Workflow design
+- `"CommandCreator"` - Command creation
 
 **Utility Subagents**:
 - `"Image Specialist"` - Image generation/editing
+
+Note: inline variants with spaces also exist in `opencode.json` (`"Task Manager"`, `"Coder Agent"`, `"Documentation"`, `"Reviewer"`, `"Tester"`, `"Build Agent"`, `"DeepSeek Reviewer"`, `"Codebase Pattern Analyst"`), but prefer the canonical file-based names above.
 
 ---
 
@@ -55,7 +57,7 @@ Based on the OpenCode CLI registration, use these exact strings for `subagent_ty
 
 ```javascript
 task(
-  subagent_type="Task Manager",
+  subagent_type="TaskManager",
   description="Break down feature into subtasks",
   prompt="Detailed instructions..."
 )
@@ -64,9 +66,9 @@ task(
 ### ❌ Incorrect Formats
 
 ```javascript
-// ❌ Using file path
+// ❌ Using directory path
 task(
-  subagent_type="TaskManager",
+  subagent_type="subagents/core/task-manager",
   ...
 )
 
@@ -96,19 +98,25 @@ cat registry.json | jq -r '.components.subagents[] | "\(.name)"'
 
 **Output**:
 ```
-Task Manager
+TaskManager
 Image Specialist
-Reviewer
+CodeReviewer
 TestEngineer
-Documentation Writer
-Coder Agent
-Build Agent
-Domain Analyzer
-Agent Generator
-Context Organizer
-Workflow Designer
-Command Creator
+DocWriter
+CoderAgent
+BuildAgent
+OpenFrontendSpecialist
+OpenDevopsSpecialist
+DomainAnalyzer
+AgentGenerator
+ContextOrganizer
+WorkflowDesigner
+CommandCreator
 ContextScout
+ExternalScout
+Context Retriever
+Simple Responder
+ContextManager
 ```
 
 ### Method 2: Check OpenCode CLI
@@ -125,7 +133,7 @@ Look at the `name` field in the subagent's frontmatter:
 ```yaml
 ---
 id: task-manager
-name: Task Manager  # ← Use this for subagent_type
+name: TaskManager  # ← Use this for subagent_type
 type: subagent
 ---
 ```
@@ -134,11 +142,11 @@ type: subagent
 
 ## Common Subagent Invocations
 
-### Task Manager
+### TaskManager
 
 ```javascript
 task(
-  subagent_type="Task Manager",
+  subagent_type="TaskManager",
   description="Break down complex feature",
   prompt="Break down the following feature into atomic subtasks:
           
@@ -152,11 +160,11 @@ task(
 )
 ```
 
-### Documentation
+### DocWriter
 
 ```javascript
 task(
-  subagent_type="Documentation",
+  subagent_type="DocWriter",
   description="Update documentation for feature",
   prompt="Update documentation for {feature}:
           
@@ -189,11 +197,11 @@ task(
 )
 ```
 
-### Reviewer
+### CodeReviewer
 
 ```javascript
 task(
-  subagent_type="Reviewer",
+  subagent_type="CodeReviewer",
   description="Review implementation",
   prompt="Review the following implementation:
           
@@ -208,11 +216,11 @@ task(
 )
 ```
 
-### Coder Agent
+### CoderAgent
 
 ```javascript
 task(
-  subagent_type="Coder Agent",
+  subagent_type="CoderAgent",
   description="Implement subtask",
   prompt="Implement the following subtask:
           
@@ -231,16 +239,16 @@ task(
 
 ## ContextScout Special Case
 
-**Status**: ⚠️ May not be registered in OpenCode CLI yet
+**Status**: ✅ Registered in OpenCode CLI (present in registry.json)
 
-The `ContextScout` subagent exists in the repository but may not be registered in the OpenCode CLI's available agent types.
+The `ContextScout` subagent is registered in the OpenCode CLI and is invoked directly by name.
 
-### Workaround
+### Alternative
 
-Until ContextScout is properly registered, use direct file operations instead:
+For lightweight lookups where a full subagent call is overkill, use direct file operations:
 
 ```javascript
-// ❌ This may fail
+// ✅ Via subagent
 task(
   subagent_type="ContextScout",
   description="Find context files",
@@ -264,7 +272,7 @@ read(filePath=".opencode/context/openagents-repo/core-concepts/registry.md")
 
 ### Agents That Need Fixing
 
-1. **repo-manager.md** - Uses `ContextScout`
+1. **repo-manager.md** - Uses `ContextScout` (valid name - no fix needed)
 2. **opencoder.md** - Check if uses incorrect format
 
 ### Fix Process
@@ -277,8 +285,8 @@ read(filePath=".opencode/context/openagents-repo/core-concepts/registry.md")
 2. **Replace with correct format**:
    ```bash
    # Example: Fix task-manager invocation
-   # Old: subagent_type="TaskManager"
-   # New: subagent_type="Task Manager"
+   # Old: subagent_type="task-manager"
+   # New: subagent_type="TaskManager"
    ```
 
 3. **Test the fix**:
@@ -296,18 +304,25 @@ read(filePath=".opencode/context/openagents-repo/core-concepts/registry.md")
 ```javascript
 // Pseudo-code for validation
 available_types = [
-  "Task Manager",
-  "Documentation",
-  "TestEngineer",
-  "Reviewer",
-  "Coder Agent",
-  "Build Agent",
+  "TaskManager",
   "Image Specialist",
-  "Domain Analyzer",
-  "Agent Generator",
-  "Context Organizer",
-  "Workflow Designer",
-  "Command Creator"
+  "CodeReviewer",
+  "TestEngineer",
+  "DocWriter",
+  "CoderAgent",
+  "BuildAgent",
+  "OpenFrontendSpecialist",
+  "OpenDevopsSpecialist",
+  "DomainAnalyzer",
+  "AgentGenerator",
+  "ContextOrganizer",
+  "WorkflowDesigner",
+  "CommandCreator",
+  "ContextScout",
+  "ExternalScout",
+  "Context Retriever",
+  "Simple Responder",
+  "ContextManager"
 ]
 
 if subagent_type not in available_types:
