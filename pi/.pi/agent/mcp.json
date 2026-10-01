@@ -1,0 +1,82 @@
+{
+  "mcpServers": {
+    "context7": {
+      "description": "Актуальная документация библиотек и фреймворков (resolve-library-id, get-library-docs)",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+      }
+    },
+    "zai-mcp-server": {
+      "description": "Z.AI Vision MCP: анализ изображений и видео, OCR",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@z_ai/mcp-server@latest"
+      ],
+      "env": {
+        "Z_AI_API_KEY": "${Z_AI_API_KEY}",
+        "Z_AI_MODE": "ZAI"
+      }
+    },
+    "web-search-prime": {
+      "description": "Z.AI веб-поиск",
+      "url": "https://api.z.ai/api/mcp/web_search_prime/mcp",
+      "headers": {
+        "Authorization": "Bearer ${Z_AI_API_KEY}"
+      }
+    },
+    "web-reader": {
+      "description": "Z.AI чтение веб-страниц",
+      "url": "https://api.z.ai/api/mcp/web_reader/mcp",
+      "headers": {
+        "Authorization": "Bearer ${Z_AI_API_KEY}"
+      }
+    },
+    "zread": {
+      "description": "Z.AI чтение и обзор GitHub-репозиториев",
+      "url": "https://api.z.ai/api/mcp/zread/mcp",
+      "headers": {
+        "Authorization": "Bearer ${Z_AI_API_KEY}"
+      }
+    },
+    "ripgrep": {
+      "description": "Поиск по файлам через ripgrep",
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-ripgrep@latest"
+      ]
+    },
+    "hotwire-club": {
+      "description": "Hotwire Club MCP",
+      "command": "hwc-mcp",
+      "args": []
+    },
+    "excalidraw": {
+      "description": "Excalidraw canvas MCP",
+      "command": "node",
+      "args": [
+        "/home/aboyarinov/.config/opencode/mcp/mcp_excalidraw/dist/index.js"
+      ],
+      "env": {
+        "EXPRESS_SERVER_URL": "http://localhost:3333",
+        "ENABLE_CANVAS_SYNC": "true"
+      },
+      "enabled": false
+    },
+    "rlm": {
+      "description": "RLM: параллельные подвызовы LLM (root/sub модели)",
+      "command": "/home/aboyarinov/.config/opencode/mcp/rlm/.venv/bin/python",
+      "args": [
+        "/home/aboyarinov/.config/opencode/mcp/rlm/server.py"
+      ],
+      "env": {
+        "Z_AI_API_KEY": "${Z_AI_API_KEY}",
+        "RLM_ROOT_MODEL": "glm-4.7",
+        "RLM_SUB_MODEL": "glm-5-turbo",
+        "RLM_MAX_CONCURRENT_SUBCALLS": "2"
+      }
+    }
+  }
+}
