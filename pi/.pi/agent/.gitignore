@@ -5,3 +5,6 @@ sessions/
 bin/
 install/
 *.bak-*
+
+# pi mcp auth tokens — never commit
+mcp-auth.json

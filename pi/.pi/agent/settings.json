@@ -1,6 +1,6 @@
 {
   "lastChangelogVersion": "0.99.2",
-  "defaultModel": "zai/glm-5.3",
+  "defaultModel": "glm-5.3",
   "defaultProvider": "zai",
   "packages": [
     "../../dotfiles/piagents"
