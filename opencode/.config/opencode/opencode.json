@@ -5,7 +5,7 @@
     "@tarquinen/opencode-dcp@latest",
     "@mohak34/opencode-notifier@latest",
     "opencode-pty",
-    "/home/dev/opencode-idea-inbox"
+    "opencode-idea-inbox@latest"
   ],
   "default_agent": "core/opencoder",
   "autoupdate": true,

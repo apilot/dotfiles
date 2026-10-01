@@ -332,7 +332,7 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 # -----------------------------------------------------------------------------
 export PATH="$HOME/.opencode/bin:$PATH"
 export OPENCODE_TIMEOUT=7200
-alias opencode='opencode --agent OpenCoder'
+# alias opencode='opencode --agent OpenCoder'
 
 # -----------------------------------------------------------------------------
 # 20. pnpm
