@@ -18,6 +18,12 @@
         "ui/web/react-patterns"
       ]
     },
+    "design-reviewer": {
+      "description": "Design & UI review by screenshots/URL with severity verdicts (glm-5.3-flash native vision)",
+      "commonSubagents": [],
+      "commonTools": ["zai-mcp-server"],
+      "commonContext": []
+    },
     "devops-specialist": {
       "description": "Expert in CI/CD, infrastructure as code, and deployment automation",
       "commonSubagents": [
