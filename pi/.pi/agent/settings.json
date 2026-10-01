@@ -1,0 +1,9 @@
+{
+  "lastChangelogVersion": "0.99.1",
+  "defaultModel": "zai/glm-5.3",
+  "defaultProvider": "zai",
+  "packages": [
+    "../../tmp/opencode/piagents"
+  ],
+  "theme": "dark"
+}

@@ -1,0 +1,7 @@
+# Runtime state & secrets (recreated by pi itself)
+auth.json
+models-store.json
+sessions/
+bin/
+install/
+*.bak-*
