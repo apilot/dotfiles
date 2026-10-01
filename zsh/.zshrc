@@ -341,7 +341,10 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 # -----------------------------------------------------------------------------
 export PATH="$HOME/.opencode/bin:$PATH"
 export OPENCODE_TIMEOUT=7200
-alias opencode='opencode --agent OpenCoder'
+# v2.0: у корневой команды TUI больше нет флага --agent (остался только у сабкоманд
+# `run` и `mini`). Дефолтный агент задаётся в ~/.config/opencode/opencode.json →
+# "default_agent": "OpenCoder" — alias не нужен, с ним запуск падает.
+# alias opencode='opencode --agent OpenCoder'
 
 # -----------------------------------------------------------------------------
 # 20. pnpm
@@ -414,3 +417,5 @@ bindkey -M vicmd '^[h' fzf-history-query   # Alt+H в vi normal mode
 
 # Local llama.cpp Qwen2.5-Coder server (qwen-up / qwen-down / qwen-status / qwen-log)
 source "$HOME/.zsh/functions/llama-qwen.zsh"
+
+. "$HOME/.cargo/env"

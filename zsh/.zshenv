@@ -12,3 +12,4 @@ export LV2_PATH=/usr/lib64/lv2
 export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
 
 # . "$HOME/.cargo/env"
+[ -f ~/.zsh/secrets.zsh ] && source ~/.zsh/secrets.zsh
