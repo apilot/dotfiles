@@ -12,8 +12,10 @@
 # 'hyprctl eval "...lua..."'.
 
 # Runtime helpers (Lua API via hyprctl eval / dispatch).
+# NOTE: mon_enable must pass disabled=false explicitly -- in Hyprland 0.55 Lua API
+# a disabled monitor is NOT re-enabled by mode/position alone (verified live).
 mon_disable()       { hyprctl eval "hl.monitor({output=\"$1\", disabled=true})" >/dev/null 2>&1 || true; }
-mon_enable()        { hyprctl eval "hl.monitor({output=\"$1\", mode=\"$2\", position=\"$3\", scale=$4})" >/dev/null 2>&1 || true; }
+mon_enable()        { hyprctl eval "hl.monitor({output=\"$1\", mode=\"$2\", position=\"$3\", scale=$4, disabled=false})" >/dev/null 2>&1 || true; }
 ws_rule()           { hyprctl eval "hl.workspace_rule({workspace=\"$1\", monitor=\"$2\"})" >/dev/null 2>&1 || true; }
 ws_move_to_monitor(){ hyprctl dispatch "hl.dsp.workspace.move({workspace=\"$1\", monitor=\"$2\"})" >/dev/null 2>&1 || true; }
 

@@ -19,8 +19,10 @@ DP="$(read_var DP)";       DP="${DP:-DP-1}"
 DP_RATE="$(read_var DP_RATE)"; DP_RATE="${DP_RATE:-60}"
 HDMI="$(read_var HDMI)";   HDMI="${HDMI:-HDMI-A-2}"
 
+# NOTE: mon_enable must pass disabled=false explicitly -- in Hyprland 0.55 Lua API
+# a disabled monitor is NOT re-enabled by mode/position alone (verified live).
 mon_disable() { hyprctl eval "hl.monitor({output=\"$1\", disabled=true})" >/dev/null 2>&1 || true; }
-mon_enable()  { hyprctl eval "hl.monitor({output=\"$1\", mode=\"$2\", position=\"$3\", scale=$4})" >/dev/null 2>&1 || true; }
+mon_enable()  { hyprctl eval "hl.monitor({output=\"$1\", mode=\"$2\", position=\"$3\", scale=$4, disabled=false})" >/dev/null 2>&1 || true; }
 
 # Disable externals before locking
 mon_disable "$DP"

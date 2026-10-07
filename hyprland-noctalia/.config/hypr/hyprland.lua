@@ -53,7 +53,7 @@ hl.workspace_rule({ workspace = "9", monitor = HDMI })
 hl.env("XCURSOR_THEME", "catppuccin-mocha-dark-cursors")
 hl.env("HYPRCURSOR_THEME", "catppuccin-mocha-dark-cursors")
 hl.env("HYPRCURSOR_SIZE", "25")
-hl.env("LIBVA_DRIVER_NAME", "iHD")
+hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("NVD_BACKEND", "direct")
 -- AQ_DRM_DEVICES intentionally unset: must see all cards incl. EVDI (DisplayLink).
@@ -214,6 +214,12 @@ for _, c in ipairs({
     hl.window_rule({ float = true, match = { class = c } })
 end
 hl.window_rule({ float = true, match = { class = "quickshell" } })
+
+-- EXPERIMENT (Studio One popup bug): float + фиксированный размер при map,
+-- чтобы первый configure = финальный размер (меню ломаются при ресайзе),
+-- и чтобы контент влезал (натуральные 1000x723 приложению мало).
+hl.window_rule({ float = true, size = "1870 994", center = true, match = { class = "^com.presonus.studioapp7$" } })  -- Studio One 7
+hl.window_rule({ float = true, size = "1870 994", center = true, match = { class = "^com.fender.studioapp8$" } })    -- Studio One 8
 
 -- special float rules
 hl.window_rule({ no_anim = true, match = { title = "^(REAPER)$" } })
@@ -421,11 +427,12 @@ end)
 ------------------------------------------------------------------
 hl.on("hyprland.start", function()
     -- Lua has no synchronous `plugin = path` directive (text config only).
-    -- hy3 is managed by hyprpm (repo pinned to the running Hyprland release
-    -- via hyprpm.toml commit_pins; built into /var/cache/hyprpm/<user>/).
-    -- reload -n loads all enabled plugins, then config re-applies with them
-    -- registered (layout=hy3 set during parse is a no-op while hy3 is absent).
-    hl.exec_cmd("hyprpm reload -n")
+    -- hy3 is built manually against the system Hyprland headers and installed
+    -- to /usr/lib64/libhy3.so (rebuild recipe: Obsidian "hy3 пересборка под
+    -- Hyprland"). Load is idempotent; the reload re-evals the config so the
+    -- guarded hy3 binds register (hl.plugin.hy3 exists only once loaded).
+    -- NOTE: single sh -c so reload strictly follows the load (IPC race safety).
+    hl.exec_cmd("sh -c 'hyprctl plugin list | grep -q hy3 || hyprctl plugin load /usr/lib64/libhy3.so; sleep 0.3; hyprctl reload'")
     -- exec (every-reload) items -- idempotent, safe to run once
     hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
     hl.exec_cmd("hyprctl setcursor catppuccin-mocha-dark-cursors 25")

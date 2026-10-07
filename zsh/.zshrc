@@ -303,6 +303,11 @@ alias dl-on='sudo rc-service displaylink zap && sudo rc-service displaylink star
 alias hdmi-off='hyprctl keyword monitor HDMI-A-1,disable'
 alias hdmi-on='hyprctl keyword monitor HDMI-A-1,1920x1080@75,1920x0,1'
 
+# RTX 3060: vfio (ВМ win11) <-> nvidia (хост/LLM). См. ~/tmp/opencode/3060_to_virt/
+alias gpu-host='sudo vfio-toggle-3060 to-nvidia'
+alias gpu-vm='sudo vfio-toggle-3060 to-vfio'
+alias gpu-status='vfio-toggle-3060 status'
+
 # Rails-алиасы (rs/rc/rg/rk/rdm/...) добавляет плагин OMZP::rails через zinit.
 # Для bundle exec используй: be rails s (alias be='bundle exec' от OMZP::bundler).
 

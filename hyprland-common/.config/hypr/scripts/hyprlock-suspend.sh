@@ -10,10 +10,12 @@
 
 # Current external outputs (must match hyprland.lua / monitors-detect.sh).
 DP="DP-1";       DP_MODE="1920x1080@74.97"; DP_POS="0x0"
-HDMI="HDMI-A-2"; HDMI_MODE="1920x1080@75";  HDMI_POS="1920x0"
+HDMI="HDMI-A-1"; HDMI_MODE="1920x1080@75";  HDMI_POS="1920x0"
 
+# NOTE: mon_enable must pass disabled=false explicitly -- in Hyprland 0.55 Lua API
+# a disabled monitor is NOT re-enabled by mode/position alone (verified live).
 mon_disable() { hyprctl eval "hl.monitor({output=\"$1\", disabled=true})" >/dev/null 2>&1 || true; }
-mon_enable()  { hyprctl eval "hl.monitor({output=\"$1\", mode=\"$2\", position=\"$3\", scale=1})" >/dev/null 2>&1 || true; }
+mon_enable()  { hyprctl eval "hl.monitor({output=\"$1\", mode=\"$2\", position=\"$3\", scale=1, disabled=false})" >/dev/null 2>&1 || true; }
 
 case "$1" in
 pre)
