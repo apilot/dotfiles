@@ -46,6 +46,7 @@ hl.workspace_rule({ workspace = "6", monitor = DP })
 hl.workspace_rule({ workspace = "7", monitor = HDMI })
 hl.workspace_rule({ workspace = "8", monitor = HDMI })
 hl.workspace_rule({ workspace = "9", monitor = HDMI })
+hl.workspace_rule({ workspace = "11", monitor = HDMI })   -- Studio One DAW workspace
 
 ------------------------------------------------------------------
 -- environment  (env.conf)
@@ -219,7 +220,7 @@ hl.window_rule({ float = true, match = { class = "quickshell" } })
 -- чтобы первый configure = финальный размер (меню ломаются при ресайзе),
 -- и чтобы контент влезал (натуральные 1000x723 приложению мало).
 hl.window_rule({ float = true, size = "1870 994", center = true, match = { class = "^com.presonus.studioapp7$" } })  -- Studio One 7
-hl.window_rule({ float = true, size = "1870 994", center = true, match = { class = "^com.fender.studioapp8$" } })    -- Studio One 8
+hl.window_rule({ workspace = "11 silent", fullscreen = true, match = { class = "^com.fender.studioapp8$" } })    -- Studio One 8: тихо на ws 11, фуллскрин (бар скрыт)
 
 -- special float rules
 hl.window_rule({ no_anim = true, match = { title = "^(REAPER)$" } })
