@@ -325,6 +325,7 @@ hl.bind(mainMod .. " + SHIFT + R",     hl.dsp.exec_cmd("~/.config/hypr/scripts/m
 -- function-key apps
 hl.bind(mainMod .. " + F1",  hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + F2",  hl.dsp.exec_cmd("thunderbird"))
+hl.bind(mainMod .. " + F5",  hl.dsp.exec_cmd("flatpak run com.fender.studioapp8")) -- Studio One Pro 8 (DAW)
 hl.bind(mainMod .. " + F4",  hl.dsp.exec_cmd(editor))
 hl.bind(mainMod .. " + F6",  hl.dsp.exec_cmd("gparted"))
 hl.bind(mainMod .. " + F9",  hl.dsp.exec_cmd("meld"))
