@@ -292,6 +292,10 @@ hl.layer_rule({ blur_popups = true, match = { namespace = "noctalia-background-.
 hl.layer_rule({ ignore_alpha = 0.5, match = { namespace = "noctalia-panel" } })
 hl.layer_rule({ blur = true,       match = { namespace = "noctalia-panel" } })
 
+-- panorama overlay: карточки - полупрозрачная вуаль над размытым фоном
+-- (референс omarchy-panorama). Без blur вуаль выглядит как чистое стекло.
+hl.layer_rule({ blur = true, ignore_alpha = 0.2, match = { namespace = "panorama" } })
+
 ------------------------------------------------------------------
 -- keybinds  (keybinds.conf)
 ------------------------------------------------------------------
@@ -313,6 +317,16 @@ hl.bind("Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | swappy -f -'))
 -- clipboard / window switcher
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("/usr/bin/noctalia msg panel-toggle clipboard"))
 hl.bind("ALT + Tab",       hl.dsp.exec_cmd("/usr/bin/noctalia msg panel-toggle launcher windows"))
+
+-- panorama overlay (SUPER+Tab): открытие только - при открытом оверлее
+-- клавиатура в exclusive-захвате, закрытие Esc / клик мимо. Команда в
+-- скрипте: dispatch-аргументы Lua-провайдер сплайсит, пайпы/кавычки
+-- прямо в бинде ломаются (кворк movecursor).
+hl.bind(mainMod .. " + Tab", hl.dsp.exec_cmd("/home/aboyarinov/.config/hypr/scripts/panorama-toggle.sh"))
+
+-- panorama STAND toggle (SUPER+CTRL+Tab): временный бинд на время приёмки MG —
+-- тогглит оверлей СТЕНДА (nested Hyprland на ws2), хостовый не трогает.
+hl.bind(mainMod .. " + CTRL + Tab", hl.dsp.exec_cmd("/mnt/docs/develop/panorama-noctalia/panorama-noctalia-plugin/daemon/tools/stand/stand-toggle.sh"))
 
 -- app launches / window ops
 hl.bind(mainMod .. " + Return",        hl.dsp.exec_cmd(terminal))
