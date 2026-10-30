@@ -295,26 +295,26 @@ hl.layer_rule({ blur = true,       match = { namespace = "noctalia-panel" } })
 local hy3 = hl.plugin.hy3
 
 -- noctalia v5 shortcuts (native IPC; was v4 `qs -c noctalia-shell ipc call ...`)
-hl.bind(mainMod .. " + D",        hl.dsp.exec_cmd("/usr/bin/noctalia msg panel-toggle launcher"))
-hl.bind(mainMod .. " + CTRL + D",  hl.dsp.exec_cmd("/usr/bin/noctalia msg settings-toggle"))
-hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("/usr/bin/noctalia msg panel-toggle session"))
-hl.bind(mainMod .. " + N",        hl.dsp.exec_cmd("/usr/bin/noctalia msg panel-toggle control-center"))
-hl.bind(mainMod .. " + ALT + L",   hl.dsp.exec_cmd("/usr/bin/noctalia msg session lock"))
-hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("/usr/bin/noctalia msg notification-clear-history"))
+hl.bind(mainMod .. " + code:40",  hl.dsp.exec_cmd("/usr/bin/noctalia msg panel-toggle launcher"))
+hl.bind(mainMod .. " + CTRL + code:40", hl.dsp.exec_cmd("/usr/bin/noctalia msg settings-toggle"))
+hl.bind(mainMod .. " + SHIFT + code:26", hl.dsp.exec_cmd("/usr/bin/noctalia msg panel-toggle session"))
+hl.bind(mainMod .. " + code:57",  hl.dsp.exec_cmd("/usr/bin/noctalia msg panel-toggle control-center"))
+hl.bind(mainMod .. " + ALT + code:46", hl.dsp.exec_cmd("/usr/bin/noctalia msg session lock"))
+hl.bind(mainMod .. " + SHIFT + code:54", hl.dsp.exec_cmd("/usr/bin/noctalia msg notification-clear-history"))
 hl.bind("Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | swappy -f -'))
 
 -- clipboard / window switcher
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("/usr/bin/noctalia msg panel-toggle clipboard"))
+hl.bind(mainMod .. " + code:55", hl.dsp.exec_cmd("/usr/bin/noctalia msg panel-toggle clipboard"))
 hl.bind("ALT + Tab",       hl.dsp.exec_cmd("/usr/bin/noctalia msg panel-toggle launcher windows"))
 
 -- app launches / window ops
 hl.bind(mainMod .. " + Return",        hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + T",             hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + Q",             hl.dsp.window.close())
-hl.bind(mainMod .. " + F",             hl.dsp.window.fullscreen())
+hl.bind(mainMod .. " + code:28",       hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + code:24",       hl.dsp.window.close())
+hl.bind(mainMod .. " + code:41",       hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + SHIFT + space", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + E",             hl.dsp.exec_cmd(fileExplorer))
-hl.bind(mainMod .. " + SHIFT + R",     hl.dsp.exec_cmd("~/.config/hypr/scripts/monitors-detect.sh"))
+hl.bind(mainMod .. " + code:26",       hl.dsp.exec_cmd(fileExplorer))
+hl.bind(mainMod .. " + SHIFT + code:27", hl.dsp.exec_cmd("~/.config/hypr/scripts/monitors-detect.sh"))
 
 -- function-key apps
 hl.bind(mainMod .. " + F1",  hl.dsp.exec_cmd(browser))
@@ -325,25 +325,25 @@ hl.bind(mainMod .. " + F9",  hl.dsp.exec_cmd("meld"))
 hl.bind(mainMod .. " + F12", hl.dsp.exec_cmd("galculator"))
 
 -- blue light filter
-hl.bind(mainMod .. " + B",        hl.dsp.exec_cmd("hyprshade on sephia"))
-hl.bind(mainMod .. " + CTRL + B",  hl.dsp.exec_cmd("hyprshade off"))
+hl.bind(mainMod .. " + code:56",  hl.dsp.exec_cmd("hyprshade on sephia"))
+hl.bind(mainMod .. " + CTRL + code:56", hl.dsp.exec_cmd("hyprshade off"))
 
 -- brightness
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -c backlight set 5%-"))
 hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("brightnessctl -c backlight set +5%"))
 
 -- scripts
-hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle_ext_monitors.sh"))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("~/.config/hypr/scripts/start-workspace-apps.sh"))
-hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("~/.config/hypr/scripts/lock-with-monitors.sh"))
+hl.bind(mainMod .. " + SHIFT + code:58", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle_ext_monitors.sh"))
+hl.bind(mainMod .. " + SHIFT + code:39", hl.dsp.exec_cmd("~/.config/hypr/scripts/start-workspace-apps.sh"))
+hl.bind(mainMod .. " + SHIFT + code:46", hl.dsp.exec_cmd("~/.config/hypr/scripts/lock-with-monitors.sh"))
 
 -- hy3 binds (guarded -- register once the plugin is loaded on the post-start reload)
 if hy3 then
     -- NOTE: hy3:focustab "mouse" (click-to-focus hovered tab) has no direct Lua
     -- equivalent -- hl.plugin.hy3.focus_tab requires direction|index. Dropped for now.
-    hl.bind(mainMod .. " + S", hy3.make_group("opposite", { ephemeral = "force" }))
-    hl.bind(mainMod .. " + W", hy3.change_group("opposite"))
-    hl.bind(mainMod .. " + X", hy3.change_group("toggletab"))
+    hl.bind(mainMod .. " + code:39", hy3.make_group("opposite", { ephemeral = "force" }))
+    hl.bind(mainMod .. " + code:25", hy3.change_group("opposite"))
+    hl.bind(mainMod .. " + code:53", hy3.change_group("toggletab"))
 
     -- move focus (arrows / ctrl+arrows / ctrl+hjkl)
     for _, kp in ipairs({
@@ -352,7 +352,7 @@ if hy3 then
         hl.bind(mainMod .. " + " .. kp[1],        hy3.move_focus(kp[2]))
         hl.bind(mainMod .. " + CTRL + " .. kp[1], hy3.move_focus(kp[2]))
     end
-    for _, kp in ipairs({ { "h", "l" }, { "l", "r" }, { "k", "u" }, { "j", "d" } }) do
+    for _, kp in ipairs({ { "code:43", "l" }, { "code:46", "r" }, { "code:45", "u" }, { "code:44", "d" } }) do
         hl.bind(mainMod .. " + CTRL + " .. kp[1], hy3.move_focus(kp[2]))
     end
 
@@ -364,16 +364,16 @@ if hy3 then
 end
 
 -- workspaces
-for i = 1, 9 do hl.bind(mainMod .. " + " .. i, hl.dsp.focus({ workspace = tostring(i) })) end
-hl.bind(mainMod .. " + 0", hl.dsp.focus({ workspace = "10" }))
+for i = 1, 9 do hl.bind(mainMod .. " + code:" .. (i + 9), hl.dsp.focus({ workspace = tostring(i) })) end
+hl.bind(mainMod .. " + code:19", hl.dsp.focus({ workspace = "10" }))
 
 -- move to workspace (follow = focus the target workspace)
-for i = 1, 9 do hl.bind("ALT + SHIFT + " .. i, hl.dsp.window.move({ workspace = tostring(i), follow = true })) end
-hl.bind("ALT + SHIFT + 0", hl.dsp.window.move({ workspace = "10", follow = true }))
+for i = 1, 9 do hl.bind("ALT + SHIFT + code:" .. (i + 9), hl.dsp.window.move({ workspace = tostring(i), follow = true })) end
+hl.bind("ALT + SHIFT + code:19", hl.dsp.window.move({ workspace = "10", follow = true }))
 
 -- move active window silently (no focus change)
-for i = 1, 9 do hl.bind(mainMod .. " + SHIFT + " .. i, hl.dsp.window.move({ workspace = tostring(i), follow = false })) end
-hl.bind(mainMod .. " + SHIFT + 0", hl.dsp.window.move({ workspace = "10", follow = false }))
+for i = 1, 9 do hl.bind(mainMod .. " + SHIFT + code:" .. (i + 9), hl.dsp.window.move({ workspace = tostring(i), follow = false })) end
+hl.bind(mainMod .. " + SHIFT + code:19", hl.dsp.window.move({ workspace = "10", follow = false }))
 
 -- scroll workspaces
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
@@ -384,9 +384,9 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- navigation mode
-hl.bind(mainMod .. " + CTRL + SHIFT + 0", hl.dsp.exec_cmd("~/.config/hypr/scripts/set_nav_mode.sh toggle"))
-hl.bind(mainMod .. " + CTRL + SHIFT + 9", hl.dsp.exec_cmd("~/.config/hypr/scripts/set_nav_mode.sh standard"))
-hl.bind(mainMod .. " + CTRL + 0",         hl.dsp.exec_cmd("~/.config/hypr/scripts/set_nav_mode.sh status"))
+hl.bind(mainMod .. " + CTRL + SHIFT + code:19", hl.dsp.exec_cmd("~/.config/hypr/scripts/set_nav_mode.sh toggle"))
+hl.bind(mainMod .. " + CTRL + SHIFT + code:18", hl.dsp.exec_cmd("~/.config/hypr/scripts/set_nav_mode.sh standard"))
+hl.bind(mainMod .. " + CTRL + code:19",   hl.dsp.exec_cmd("~/.config/hypr/scripts/set_nav_mode.sh status"))
 
 -- screenshots (fallback)
 hl.bind("CTRL + Print",  hl.dsp.exec_cmd(".config/hypr/scripts/screenshot_window.sh"))
@@ -403,16 +403,16 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"))
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"))
 
 -- resize submap
-hl.bind(mainMod .. " + R", hl.dsp.submap("resize"))
+hl.bind(mainMod .. " + code:27", hl.dsp.submap("resize"))
 hl.define_submap("resize", function()
     hl.bind("right", hl.dsp.window.resize({ x =  50, y =   0, relative = true }), { ["repeat"] = true })
-    hl.bind("L",     hl.dsp.window.resize({ x =  50, y =   0, relative = true }), { ["repeat"] = true })
+    hl.bind("code:46", hl.dsp.window.resize({ x =  50, y =   0, relative = true }), { ["repeat"] = true })
     hl.bind("left",  hl.dsp.window.resize({ x = -50, y =   0, relative = true }), { ["repeat"] = true })
-    hl.bind("H",     hl.dsp.window.resize({ x = -50, y =   0, relative = true }), { ["repeat"] = true })
+    hl.bind("code:43", hl.dsp.window.resize({ x = -50, y =   0, relative = true }), { ["repeat"] = true })
     hl.bind("up",    hl.dsp.window.resize({ x =   0, y = -50, relative = true }), { ["repeat"] = true })
-    hl.bind("K",     hl.dsp.window.resize({ x =   0, y = -50, relative = true }), { ["repeat"] = true })
+    hl.bind("code:45", hl.dsp.window.resize({ x =   0, y = -50, relative = true }), { ["repeat"] = true })
     hl.bind("down",  hl.dsp.window.resize({ x =   0, y =  50, relative = true }), { ["repeat"] = true })
-    hl.bind("J",     hl.dsp.window.resize({ x =   0, y =  50, relative = true }), { ["repeat"] = true })
+    hl.bind("code:44", hl.dsp.window.resize({ x =   0, y =  50, relative = true }), { ["repeat"] = true })
     hl.bind("escape", hl.dsp.submap("reset"))
 end)
 
