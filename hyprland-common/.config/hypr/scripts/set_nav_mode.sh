@@ -29,12 +29,23 @@ send_notification() {
 
 # Clear all navigation-related bindings
 clear_nav_bindings() {
-    # Hyprland 0.55 + Lua config: 'hyprctl keyword unbind' is rejected; use
-    # hl.unbind via hyprctl eval. (Note: nav_bindings_*.conf are currently absent,
-    # so this feature is dormant -- the unbind keys aren't bound in hyprland.lua.)
-    for key in H J K L semicolon; do
-        hyprctl eval "hl.unbind(\"SUPER + $key\")"        >/dev/null 2>&1 || true
-        hyprctl eval "hl.unbind(\"SUPER + SHIFT + $key\")" >/dev/null 2>&1 || true
+    # Binds created by apply_bindings() (hyprctl keyword bind) carry no
+    # displayKey, and hl.unbind() matches by displayKey only -- it cannot
+    # remove them. Primary path: 'hyprctl keyword unbind MODS, KEYCODE'
+    # (bare number parses as an X keycode; works in hyprlang sessions --
+    # hyprlands/caelestia, the variants that actually run this feature).
+    # hl.unbind eval calls stay as a fallback for the Lua-config session
+    # (noctalia: feature is dormant there -- nav_bindings_*.conf absent,
+    # keys not bound in hyprland.lua). Keysym forms cover pre-conversion
+    # (old keysym) binds still registered in a not-yet-reloaded session.
+    for pair in H:43 J:44 K:45 L:46 semicolon:47; do
+        local ksym="${pair%%:*}" kc="${pair##*:}"
+        hyprctl keyword unbind "SUPER, $kc"       >/dev/null 2>&1 || true
+        hyprctl keyword unbind "SUPER SHIFT, $kc" >/dev/null 2>&1 || true
+        hyprctl eval "hl.unbind(\"SUPER + $ksym\")"              >/dev/null 2>&1 || true
+        hyprctl eval "hl.unbind(\"SUPER + SHIFT + $ksym\")"      >/dev/null 2>&1 || true
+        hyprctl eval "hl.unbind(\"SUPER + code:$kc\")"           >/dev/null 2>&1 || true
+        hyprctl eval "hl.unbind(\"SUPER + SHIFT + code:$kc\")"   >/dev/null 2>&1 || true
     done
 }
 
