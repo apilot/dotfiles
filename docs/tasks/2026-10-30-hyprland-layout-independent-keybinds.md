@@ -1,8 +1,8 @@
 # Хоткеи, независимые от раскладки (X keycode)
 
 - **Дата**: 2026-10-30
-- **Статус**: in-progress
-- **Ветка**: gentoo (другие ветки — hypr_text/master/ubuntu — отдельным проходом, cherry-pick оркестратором)
+- **Статус**: review
+- **Ветка**: gentoo (cherry-pick применён на hypr_text/master/ubuntu; легаси-файлы конвертированы)
 
 ## Проблема
 
