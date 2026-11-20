@@ -1,7 +1,7 @@
 # herdr + herdr-app: пакеты GNU stow
 
 - **Дата**: 2026-11-20
-- **Статус**: done (коммит на ветке gentoo; на другие машинные ветки — cherry-pick/merge отдельно)
+- **Статус**: done (gentoo `87852fdc` → cherry-pick на master `4d5ed94a`, ubuntu `9c881d35`)
 
 ## Кроссплатформенность
 
