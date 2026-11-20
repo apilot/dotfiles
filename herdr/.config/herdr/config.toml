@@ -1,0 +1,9 @@
+onboarding = false
+[ui]
+tab_bar_position = "bottom"
+[ui.toast]
+delivery = "herdr"
+
+[theme]
+name = "catppuccin"
+auto_switch = false
